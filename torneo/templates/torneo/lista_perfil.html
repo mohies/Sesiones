@@ -1,0 +1,60 @@
+{% extends 'torneo/estructura/base.html' %}
+
+{% block title %}Lista de Perfiles de Jugador{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="text-center mb-4">Lista de Perfiles de Jugador</h1>
+
+    {% block busqueda %}
+        {% if texto_busqueda %}
+            <h2 class="display-5">Resultados de la búsqueda: "{{ texto_busqueda }}"</h2>
+        {% endif %}
+    {% endblock %}
+
+    <div class="container mt-4">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            {% for perfil in perfiles_mostrar %}
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">{{ perfil.usuario.nombre }}</h5>  <!-- Accediendo al nombre del usuario -->
+                            <h6 class="mt-3">Puntos:</h6>
+                            <ul class="list-group list-group-flush flex-grow-1">
+                                <li class="list-group-item">
+                                    {{ perfil.puntos }}
+                                </li>
+                            </ul>
+                            <h6 class="mt-3">Nivel:</h6>
+                            <ul class="list-group list-group-flush flex-grow-1">
+                                <li class="list-group-item">
+                                    {{ perfil.nivel }}
+                                </li>
+                            </ul>
+                            <h6 class="mt-3">Ranking:</h6>
+                            <ul class="list-group list-group-flush flex-grow-1">
+                                <li class="list-group-item">
+                                    {{ perfil.ranking }}
+                                </li>
+                            </ul>
+                            <div class="mt-auto">
+                                <!-- Botón para editar -->
+                                <a href="{% url 'editar_perfil' perfil.id %}" class="btn btn-outline-secondary">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                                <!-- Botón para eliminar -->
+                                <form action="{% url 'eliminar_perfil' perfil.id %}" method="post" class="d-inline">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-outline-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este perfil?');">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

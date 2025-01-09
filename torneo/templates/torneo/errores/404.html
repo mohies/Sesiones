@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block title %}Página no encontrada{% endblock %}
+
+{% block content %}
+    <h1>Error 404</h1>
+    <p>Lo sentimos, la página que buscas no se encuentra disponible.</p>
+    <p><a href="{% url 'index' %}">Volver a la página principal</a></p>
+{% endblock %}

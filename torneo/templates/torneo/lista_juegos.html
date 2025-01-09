@@ -1,0 +1,38 @@
+{% extends 'torneo/estructura/base.html' %}
+
+{% block title %}Lista de Juegos{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="text-center mb-4">Lista de Juegos</h1>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for juego in juegos %}
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">{{ juego.nombre }}</h5>
+                        <p class="card-text">
+                            <strong>Género:</strong> {{ juego.genero }}<br>
+                            <strong>Consola:</strong> {{ juego.id_consola.nombre }}<br>
+                            <strong>Descripción:</strong> {{ juego.descripcion }}<br>
+                        </p>
+                        <div class="mt-auto">
+                            <!-- Botón para editar -->
+                            <a href="{% url 'juego_editar' juego.id %}" class="btn btn-outline-secondary">
+                                <i class="bi bi-pencil"></i> Editar
+                            </a>
+                            <!-- Formulario para eliminar -->
+                            <form action="{% url 'juego_eliminar' juego.id %}" method="post" class="d-inline">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-outline-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este juego?');">
+                                    <i class="bi bi-trash"></i> Eliminar
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

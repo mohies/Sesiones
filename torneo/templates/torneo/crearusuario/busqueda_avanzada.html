@@ -1,0 +1,32 @@
+{% extends "torneo/estructura/base.html" %}
+
+{% block content %}
+{% load django_bootstrap5 %}
+
+<form action="{% url 'buscar_usuario' %}" method="GET">
+
+    {% csrf_token %}
+
+    <!-- Campo de texto para búsqueda -->
+    <div class="mb-4">
+        {% bootstrap_field formulario.textoBusqueda show_label=True %}
+    </div>
+
+    <!-- Campo de fecha de registro desde -->
+    <div class="mb-4">
+        {% bootstrap_field formulario.fecha_registro_desde show_label=True %}
+    </div>
+
+    <!-- Campo de fecha de registro hasta -->
+    <div class="mb-4">
+        {% bootstrap_field formulario.fecha_registro_hasta show_label=True %}
+    </div>
+
+    <!-- Botón de búsqueda -->
+    <div class="text-center">
+        {% bootstrap_button "Buscar Usuarios" button_type="submit" button_class="btn-primary" %}
+    </div>
+
+</form>
+
+{% endblock %}

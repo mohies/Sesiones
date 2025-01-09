@@ -1,0 +1,40 @@
+{% extends 'torneo/estructura/base.html' %}
+
+{% block title %}Lista de Perfiles de Jugadores{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="text-center mb-4">Lista de Perfiles de Jugadores</h1>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for perfil in perfiles %}
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">{{ perfil.usuario.nombre }}</h5>
+                        <p class="card-text">
+                            <strong>Correo electrónico:</strong> {{ perfil.usuario.correo }}<br>
+                            <strong>Puntos:</strong> {{ perfil.puntos }}<br>
+                            <strong>Nivel:</strong> {{ perfil.nivel }}<br>
+                            <strong>Ranking:</strong> {{ perfil.ranking }}<br>
+                            <strong>Avatar:</strong> <img src="{{ perfil.avatar }}" alt="Avatar" class="img-fluid" style="width: 50px; height: 50px;"><br>
+                        </p>
+                        <div class="mt-auto">
+                
+                            <a href="{% url 'editar_perfil' perfil.id %}" class="btn btn-outline-secondary">
+                                <i class="bi bi-pencil"></i> Editar
+                            </a>
+                           
+                            <form action="{% url 'eliminar_perfil' perfil.id %}" method="post" class="d-inline">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-outline-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este perfil?');">
+                                    <i class="bi bi-trash"></i> Eliminar
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

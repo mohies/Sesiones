@@ -1,0 +1,39 @@
+{% extends 'torneo/estructura/base.html' %}
+
+{% block title %}Lista de Participantes{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="text-center mb-4">Lista de Participantes</h1>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for participante in participantes %}
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">{{ participante.usuario.nombre }}</h5>
+                        <p class="card-text">
+                            <strong>Puntos obtenidos:</strong> {{ participante.puntos_obtenidos }}<br>
+                            <strong>Posición final:</strong> {{ participante.posicion_final }}<br>
+                            <strong>Fecha de inscripción:</strong> {{ participante.fecha_inscripcion|date:"d/m/Y" }}<br>
+                            <strong>Tiempo jugado:</strong> {{ participante.tiempo_jugado }} horas
+                        </p>
+                        <div class="mt-auto">
+                            <!-- Botón para editar -->
+                            <a href="{% url 'participante_editar' participante.id %}" class="btn btn-outline-secondary">
+                                <i class="bi bi-pencil"></i> Editar
+                            </a>
+                            <!-- Formulario para eliminar -->
+                            <form action="{% url 'participante_eliminar' participante.id %}" method="post" class="d-inline">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-outline-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este participante?');">
+                                    <i class="bi bi-trash"></i> Eliminar
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

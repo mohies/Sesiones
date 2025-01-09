@@ -1,0 +1,53 @@
+{% extends 'torneo/estructura/base.html' %}
+
+{% block title %}Torneo{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="text-center mb-4">Lista de Torneos</h1>
+
+    {% block busqueda %}
+        {% if texto_busqueda %}
+            <h2 class="display-5">Resultados de la búsqueda: "{{ texto_busqueda }}"</h2>
+        {% endif %}
+    {% endblock %}
+
+
+    <div class="container mt-4">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            {% for torneo in torneos_mostrar %}
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">{{ torneo.nombre }}</h5>
+                            <p class="card-text">{{ torneo.descripcion }}</p>
+                            <h6 class="mt-3">Participantes:</h6>
+                            <ul class="list-group list-group-flush flex-grow-1">
+                                {% for torneo_participante in torneo.participantes.all %}
+                                    <li class="list-group-item">
+                                        {{ torneo_participante.participante.usuario.nombre }} -
+                                        Puntos: {{ torneo_participante.puntos_obtenidos }} -
+                                        Posición: {{ torneo_participante.posicion_final }}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            <div class="mt-auto">
+                                <!-- Botón para actualizar -->
+                                <a href="{% url 'torneo_editar' torneo.id %}" class="btn btn-outline-secondary">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                                <!-- Botón para eliminar -->
+                              
+                                    <button type="submit" class="btn btn-outline-danger">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+{% endblock %}

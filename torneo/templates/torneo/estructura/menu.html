@@ -1,0 +1,108 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
+    <a class="navbar-brand" href="{% url 'index' %}">Mi Aplicación</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <!-- Enlace a Inicio -->
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'index' %}">Inicio</a>
+            </li>
+
+            <!-- Dropdown de Torneos -->
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="dropdownTorneos" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Torneos
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="dropdownTorneos">
+                    <li><a class="dropdown-item" href="{% url 'crear_torneo' %}">Crear Torneo</a></li>
+                    <li><a class="dropdown-item" href="{% url 'buscar_torneo' %}">Búsqueda Avanzada</a></li>
+                    <li><a class="dropdown-item" href="{% url 'lista_torneo' %}">Lista de Torneos</a></li>
+                </ul>
+                
+            </li>
+
+
+             <!-- Dropdown de Equipos -->
+             <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="dropdownFormularios" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Equipos
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="dropdownFormularios">
+                    <li><a class="dropdown-item" href="{% url 'crear_equipo' %}">Crear Equipo</a></li>
+                    <li><a class="dropdown-item" href="{% url 'buscar_equipo' %}">Búsqueda Avanzada</a></li>
+                    <li><a class="dropdown-item" href="{% url 'lista_equipos' %}">Lista de Equipos</a></li>
+                </ul>
+            </li>
+
+
+             <!-- Dropdown de Participantes -->
+             <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="dropdownFormularios" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Participantes
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="dropdownFormularios">
+                    <li><a class="dropdown-item" href="{% url 'crear_participante' %}">Crear Participante</a></li>
+                    <li><a class="dropdown-item" href="{% url 'buscar_participante' %}">Buscar Participante</a></li>
+                    <li><a class="dropdown-item" href="{% url 'lista_participantes' %}">Lista Participantes</a></li>
+                </ul>
+            </li>
+
+            <!-- Dropdown de Usuarios -->
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="dropdownFormularios" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Usuarios
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="dropdownFormularios">
+                    <li><a class="dropdown-item" href="{% url 'crear_usuario' %}">Crear Usuario</a></li>
+                    <li><a class="dropdown-item" href="{% url 'buscar_usuario' %}">Buscar Usuario</a></li>
+                    <li><a class="dropdown-item" href="{% url 'lista_usuarios' %}">Lista Usuarios</a></li>
+                    
+                </ul>
+            </li>
+
+           
+
+               <!-- Dropdown de Juegos -->
+               <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="dropdownFormularios" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Juegos
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="dropdownFormularios">
+                    <li><a class="dropdown-item" href="{% url 'crear_juego' %}">Crear Juego</a></li>
+                    <li><a class="dropdown-item" href="{% url 'buscar_juego' %}">Buscar Juego</a></li>
+                    <li><a class="dropdown-item" href="{% url 'lista_juegos' %}">Lista juegos</a></li>
+                </ul>
+            </li>
+
+
+             <!-- Dropdown de Perfil -->
+             <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="dropdownFormularios" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Perfil De Jugador
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="dropdownFormularios">
+                    <li><a class="dropdown-item" href="{% url 'crear_perfil_de_jugador' %}">Crear Perfil Jugador</a></li>
+                    <li><a class="dropdown-item" href="{% url 'buscar_perfil' %}">Buscar Perfil Jugador</a></li>
+                    <li><a class="dropdown-item" href="{% url 'lista_perfiles' %}">Lista Perfiles</a></li>
+                </ul>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="btn btn-outline-warning" href="{% url 'registro' %}">Crear Perfil Jugador</a>
+            </li>
+            
+
+            
+            
+
+        </ul>
+
+        <!-- Barra de búsqueda -->
+        <form action="{% url 'buscar_torneo' %}" class="d-flex mt-3" role="search" method="GET">
+            <input name="textoBusqueda" class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
+            <button class="btn btn-light btn-outline-dark" type="submit">Buscar</button>
+        </form>
+    </div>
+</nav>
