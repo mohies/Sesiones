@@ -775,6 +775,22 @@ class RegistroForm(UserCreationForm):
     class Meta:
         model = UsuarioLogin  # Usamos UsuarioLogin para la autenticación de usuarios
         fields = ('username', 'email', 'password1', 'password2', 'rol')  # Campos del formulario
+        
+        
+        
+class TorneoFormGenericoRequest(forms.Form):
+    # Definimos un campo Select para seleccionar un torneo
+    torneos_disponibles = Torneo.objects.all()
+    torneo = forms.ModelChoiceField(
+        queryset=torneos_disponibles,
+        widget=forms.Select,
+        required=True,
+        empty_label="Seleccionar un torneo"
+    )
+
+    # Otros campos que puedes necesitar
+    nombre = forms.CharField(max_length=100, required=True)
+    descripcion = forms.CharField(widget=forms.Textarea, required=True)
 
 
 

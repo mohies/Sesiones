@@ -34,6 +34,14 @@ urlpatterns = [
     path('perfil/editar/<int:perfil_id>/', views.perfil_editar, name='editar_perfil'),
     path('perfil/eliminar/<int:perfil_id>/', views.perfil_eliminar, name='eliminar_perfil'),
     path('registro/', views.registrar_usuario, name='registro'),
+    path('crear/', views.torneo_crear_generico_con_request, name='torneo_crear'),
+    path('editar/<int:torneo_id>/', views.torneo_editar_generico_con_request, name='torneo_editar'),
+    path('eliminar/<int:torneo_id>/', views.torneo_eliminar, name='torneo_eliminar'),
+    path('ver/<int:torneo_id>/', views.torneo_ver, name='torneo_ver'),
+
+
+
+
 
 
 

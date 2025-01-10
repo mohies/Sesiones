@@ -8,6 +8,7 @@ from django.shortcuts import render, redirect
 from .forms import RegistroForm
 from .models import UsuarioLogin, Organizador, Jugador
 from django.contrib.auth.models import Group
+from django.contrib.auth.decorators import login_required, permission_required
 
 
 def index(request):
@@ -847,6 +848,94 @@ def registrar_usuario(request):
         formulario = RegistroForm()  # Creamos una instancia del formulario vacío
     
     return render(request, 'torneo/registration/signup.html', {'formulario': formulario})  # Renderizamos la página de registro
+
+
+@permission_required('torneo.add_torneo')
+@login_required
+def torneo_crear_generico_con_request(request):
+    if request.method == 'POST':
+        # Pasamos el 'request' al formulario para realizar acciones personalizadas si es necesario
+        formulario = TorneoFormGenericoRequest(request.POST, request=request)
+        if formulario.is_valid():
+            try:
+                # Creamos el torneo con los datos del formulario
+                torneo = Torneo.objects.create(
+                    nombre=formulario.cleaned_data.get('nombre'),
+                    descripcion=formulario.cleaned_data.get('descripcion'),
+                    organizador=request.user,  # Asociamos el torneo al usuario logueado
+                )
+                torneo.save()
+                messages.success(request, "Torneo registrado correctamente.")
+                return redirect("torneo_lista")  # Redirigimos a la lista de torneos
+            except Exception as error:
+                print(error)
+                messages.error(request, "Hubo un error al registrar el torneo.")
+    else:
+        # Si no es un POST, pasamos un formulario vacío
+        formulario = TorneoFormGenericoRequest(None, request=request)
+
+    return render(request, 'torneo/create/create_generico.html', {'formulario': formulario})
+
+
+@permission_required('torneo.change_torneo')
+@login_required
+def torneo_editar_generico_con_request(request, torneo_id):
+    try:
+        torneo = Torneo.objects.get(id=torneo_id)
+    except Torneo.DoesNotExist:
+        messages.error(request, "El torneo no existe.")
+        return redirect("torneo_lista")
+
+    if request.method == 'POST':
+        formulario = TorneoFormGenericoRequest(request.POST, instance=torneo, request=request)
+        if formulario.is_valid():
+            try:
+                formulario.save()
+                messages.success(request, "Torneo actualizado correctamente.")
+                return redirect("torneo_lista")
+            except Exception as error:
+                print(error)
+                messages.error(request, "Hubo un error al actualizar el torneo.")
+    else:
+        formulario = TorneoFormGenericoRequest(instance=torneo, request=request)
+
+    return render(request, 'torneo/create/edit_generico.html', {'formulario': formulario, 'torneo': torneo})
+
+
+@permission_required('torneo.delete_torneo')
+@login_required
+def torneo_eliminar(request, torneo_id):
+    try:
+        torneo = Torneo.objects.get(id=torneo_id)
+    except Torneo.DoesNotExist:
+        messages.error(request, "El torneo no existe.")
+        return redirect("torneo_lista")
+
+    if request.method == 'POST':
+        try:
+            torneo.delete()
+            messages.success(request, "Torneo eliminado correctamente.")
+            return redirect("torneo_lista")
+        except Exception as error:
+            print(error)
+            messages.error(request, "Hubo un error al eliminar el torneo.")
+    
+    return render(request, 'torneo/create/eliminar.html', {'torneo': torneo})
+
+
+
+@permission_required('torneo.view_torneo')
+@login_required
+def torneo_ver(request, torneo_id):
+    try:
+        torneo = Torneo.objects.get(id=torneo_id)
+    except Torneo.DoesNotExist:
+        messages.error(request, "El torneo no existe.")
+        return redirect("torneo_lista")
+
+    return render(request, 'torneo/create/ver.html', {'torneo': torneo})
+
+
 
 
 
