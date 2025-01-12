@@ -1,0 +1,33 @@
+{% extends 'torneo/estructura/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Detalles del Torneo</h1>
+    
+    {% if user.is_authenticated %}
+        <div class="card">
+            <div class="card-header">
+                <h2>{{ torneo.nombre }}</h2>
+            </div>
+            <div class="card-body">
+                <p><strong>Fecha:</strong> {{ torneo.fecha }}</p>
+                <p><strong>Duración:</strong> {{ torneo.duracion }}</p>
+                <p><strong>Descripción:</strong> {{ torneo.descripcion }}</p>
+                <p><strong>Participantes:</strong></p>
+                <ul>
+                    {% for participante in torneo.participantes.all %}
+                        <li>{{ participante.nombre }}</li>
+                    {% empty %}
+                        <li>No hay participantes inscritos.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <a href="{% url 'lista_torneo' %}" class="btn btn-secondary mt-3">Volver a la lista</a>
+    {% else %}
+        <div class="alert alert-warning" role="alert">
+            Debes iniciar sesión para acceder a esta página.
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

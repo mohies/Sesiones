@@ -16,88 +16,35 @@
                     Torneos
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="dropdownTorneos">
-                    <li><a class="dropdown-item" href="{% url 'crear_torneo' %}">Crear Torneo</a></li>
+                    <li><a class="dropdown-item" href="{% url 'torneo_crear' %}">Crear Torneo</a></li>
                     <li><a class="dropdown-item" href="{% url 'buscar_torneo' %}">Búsqueda Avanzada</a></li>
                     <li><a class="dropdown-item" href="{% url 'lista_torneo' %}">Lista de Torneos</a></li>
-                </ul>
-                
-            </li>
-
-
-             <!-- Dropdown de Equipos -->
-             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="dropdownFormularios" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Equipos
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="dropdownFormularios">
-                    <li><a class="dropdown-item" href="{% url 'crear_equipo' %}">Crear Equipo</a></li>
-                    <li><a class="dropdown-item" href="{% url 'buscar_equipo' %}">Búsqueda Avanzada</a></li>
-                    <li><a class="dropdown-item" href="{% url 'lista_equipos' %}">Lista de Equipos</a></li>
-                </ul>
-            </li>
-
-
-             <!-- Dropdown de Participantes -->
-             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="dropdownFormularios" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Participantes
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="dropdownFormularios">
-                    <li><a class="dropdown-item" href="{% url 'crear_participante' %}">Crear Participante</a></li>
-                    <li><a class="dropdown-item" href="{% url 'buscar_participante' %}">Buscar Participante</a></li>
-                    <li><a class="dropdown-item" href="{% url 'lista_participantes' %}">Lista Participantes</a></li>
-                </ul>
-            </li>
-
-            <!-- Dropdown de Usuarios -->
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="dropdownFormularios" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Usuarios
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="dropdownFormularios">
-                    <li><a class="dropdown-item" href="{% url 'crear_usuario' %}">Crear Usuario</a></li>
-                    <li><a class="dropdown-item" href="{% url 'buscar_usuario' %}">Buscar Usuario</a></li>
-                    <li><a class="dropdown-item" href="{% url 'lista_usuarios' %}">Lista Usuarios</a></li>
-                    
-                </ul>
-            </li>
-
-           
-
-               <!-- Dropdown de Juegos -->
-               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="dropdownFormularios" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Juegos
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="dropdownFormularios">
-                    <li><a class="dropdown-item" href="{% url 'crear_juego' %}">Crear Juego</a></li>
-                    <li><a class="dropdown-item" href="{% url 'buscar_juego' %}">Buscar Juego</a></li>
-                    <li><a class="dropdown-item" href="{% url 'lista_juegos' %}">Lista juegos</a></li>
-                </ul>
-            </li>
-
-
-             <!-- Dropdown de Perfil -->
-             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="dropdownFormularios" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Perfil De Jugador
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="dropdownFormularios">
-                    <li><a class="dropdown-item" href="{% url 'crear_perfil_de_jugador' %}">Crear Perfil Jugador</a></li>
-                    <li><a class="dropdown-item" href="{% url 'buscar_perfil' %}">Buscar Perfil Jugador</a></li>
-                    <li><a class="dropdown-item" href="{% url 'lista_perfiles' %}">Lista Perfiles</a></li>
                 </ul>
             </li>
 
             <li class="nav-item dropdown">
                 <a class="btn btn-outline-warning" href="{% url 'registro' %}">Crear Perfil Jugador</a>
             </li>
-            
-
-            
-            
-
+         
         </ul>
+
+        <!-- Información del usuario en sesión -->
+        {% if user.is_authenticated %}
+        <span class="navbar-text text-light">
+            <div>
+                <p>Bienvenido, {{ nombre_usuario }} | Estado: {{ estado_usuario }} | Última conexión: {{ ultima_conexion }} | Fecha de inicio: {{ fecha_inicio }} | Preferencias: {{ preferencias_usuario.idioma }}</p>
+            </div>
+        </span>
+
+        <!-- Formulario para cerrar sesión (solo si está autenticado) -->
+        <form action="{% url 'logout' %}" method="post" class="d-flex ms-3">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Cerrar sesión</button>
+        </form>
+        {% else %}
+        <!-- Enlace de iniciar sesión (solo si no está autenticado) -->
+        <a class="btn btn-outline-success" href="{% url 'login' %}">Iniciar sesión</a>
+        {% endif %}
 
         <!-- Barra de búsqueda -->
         <form action="{% url 'buscar_torneo' %}" class="d-flex mt-3" role="search" method="GET">

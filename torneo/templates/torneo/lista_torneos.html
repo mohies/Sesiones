@@ -1,7 +1,7 @@
 {% extends 'torneo/estructura/base.html' %}
 
 {% block title %}Lista de Torneos{% endblock %}
-{% load bootstrap_icons %} <!-- Cargar la librería bootstrap_icons -->
+
 {% block content %}
 <div class="container mt-4">
     <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -15,26 +15,35 @@
                         <ul class="list-group list-group-flush flex-grow-1">
                             {% for torneo_participante in torneo.participantes.all %}
                                 <li class="list-group-item">
-                                    {{ torneo_participante.participante.usuario.nombre }} -
-                                    Puntos: {{ torneo_participante.puntos_obtenidos }} -
+                                    {{ torneo_participante.participante.usuario.nombre }} - 
+                                    Puntos: {{ torneo_participante.puntos_obtenidos }} - 
                                     Posición: {{ torneo_participante.posicion_final }}
                                 </li>
                             {% endfor %}
                         </ul>
-                        <div class="mt-auto">
-                            <!-- Botón para editar -->
-                            
-                            <!-- Formulario para eliminar -->
-                            <form action="{% url 'torneo_eliminar' torneo.id %}" method="post"> 
-                                <a href="{% url 'torneo_editar' torneo.id %}" class="btn btn-outline-secondary">
+
+                        <div class="mt-auto d-flex justify-content-between align-items-center">
+                            <!-- Botón para ver detalles -->
+                            <a href="{% url 'torneo_ver' torneo.id %}" class="btn btn-primary">
+                                Ver detalles
+                            </a>
+
+                            <!-- Mostrar el botón de editar solo si el usuario tiene permisos -->
+                            {% if puede_editar %}
+                                <a href="{% url 'torneo_editarr' torneo.id %}" class="btn btn-outline-secondary">
                                     <i class="bi bi-pencil"></i>
                                 </a>
-    
-                                {% csrf_token %}
-                                <button type="submit" class="btn btn-outline-danger" onclick="return eliminar();">
-                                    <i class="bi bi-trash"></i>
-                                </button>
-                            </form>
+                            {% endif %}
+
+                            <!-- Mostrar el formulario para eliminar solo si el usuario tiene permisos -->
+                            {% if puede_eliminar %}
+                                <form action="{% url 'torneo_eliminar' torneo.id %}" method="post" style="display:inline;">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-outline-danger" onclick="return eliminar();">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </form>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
