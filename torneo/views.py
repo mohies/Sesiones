@@ -161,37 +161,41 @@ def torneo_buscar_avanzado(request):
     return render(request, 'torneo/creartorneo/busqueda_avanzada.html', {"formulario": formulario})
 
 
-
 def registrar_usuario(request):
     if request.method == 'POST':
-        formulario = RegistroForm(request.POST)
-        if formulario.is_valid():
-            user = formulario.save()  # Guardamos el usuario creado
-            
-            rol = int(formulario.cleaned_data.get('rol'))  # Obtenemos el rol elegido
-            
-            # Asignamos el rol y lo añadimos al grupo correspondiente
-            if rol == UsuarioLogin.ADMINISTRADOR:
-                grupo = Group.objects.get(name='Administradores') 
-                grupo.user_set.add(user)
-            elif rol == UsuarioLogin.JUGADOR:
-                grupo = Group.objects.get(name='Jugadores') 
-                grupo.user_set.add(user)
-                jugador = Jugador.objects.create(usuario=user, puntos=0)
+        form = RegistroForm(request.POST)
+        jugador_form = RegistroJugadorForm(request.POST) if 'rol' in request.POST and request.POST['rol'] == '2' else None
+        organizador_form = RegistroOrganizadorForm(request.POST) if 'rol' in request.POST and request.POST['rol'] == '3' else None
+
+        if form.is_valid():
+            # Guardamos el usuario
+            user = form.save()
+
+            # Si es Jugador, también guardamos la información adicional de Jugador
+            if jugador_form and jugador_form.is_valid():
+                jugador = jugador_form.save(commit=False)
+                jugador.usuario = user
                 jugador.save()
-            elif rol == UsuarioLogin.ORGANIZADOR:
-                grupo = Group.objects.get(name='Organizadores') 
-                grupo.user_set.add(user)
-                organizador = Organizador.objects.create(usuario=user, eventos_creados=0)
+
+            # Si es Organizador, también guardamos la información adicional de Organizador
+            if organizador_form and organizador_form.is_valid():
+                organizador = organizador_form.save(commit=False)
+                organizador.usuario = user
                 organizador.save()
 
-            login(request, user)  # Hacemos login al usuario recién registrado
-            return redirect('index')  # Redirigimos a la página principal (o cualquier vista que desees)
-    else:
-        formulario = RegistroForm()  # Creamos una instancia del formulario vacío
-    
-    return render(request, 'torneo/registration/signup.html', {'formulario': formulario})  # Renderizamos la página de registro
+            login(request, user)  # Iniciar sesión después del registro
+            return redirect('index')  # Redirigir a la página principal o alguna otra
 
+    else:
+        form = RegistroForm()
+        jugador_form = RegistroJugadorForm()
+        organizador_form = RegistroOrganizadorForm()
+
+    return render(request, 'torneo/registration/signup.html', {
+        'formulario': form,
+        'jugador_form': jugador_form,
+        'organizador_form': organizador_form
+    })
 
 @permission_required('torneo.add_torneo')
 @login_required
