@@ -3,7 +3,7 @@
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
+    <div class="collapse navbar-collapse d-flex align-items-center" id="navbarNav">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <!-- Enlace a Inicio -->
             <li class="nav-item">
@@ -22,32 +22,55 @@
                 </ul>
             </li>
 
-            <li class="nav-item dropdown">
+            <!-- Botón de registro (solo para usuarios no autenticados) -->
+            {% if not user.is_authenticated %}
+            <li class="nav-item">
                 <a class="btn btn-outline-warning" href="{% url 'registro' %}">Registrarse</a>
             </li>
-         
+            {% endif %}
         </ul>
 
         <!-- Información del usuario en sesión -->
         {% if user.is_authenticated %}
-        <span class="navbar-text text-light">
-            <div>
-                <p>Bienvenido, {{ nombre_usuario }} | Estado: {{ estado_usuario }} | Última conexión: {{ ultima_conexion }} | Fecha de inicio: {{ fecha_inicio }} | Preferencias: {{ preferencias_usuario.idioma }}</p>
-            </div>
-        </span>
-
-        <!-- Formulario para cerrar sesión (solo si está autenticado) -->
-        <form action="{% url 'logout' %}" method="post" class="d-flex ms-3">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-danger">Cerrar sesión</button>
-        </form>
+        <div class="dropdown me-3">
+            <button class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownUsuario" data-bs-toggle="dropdown" aria-expanded="false">
+                Bienvenido, {{ user.username }}
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownUsuario">
+                <li><a class="dropdown-item" href="#">Usuario: {{ user.username }}</a></li>
+                <li><a class="dropdown-item" href="#">Email: {{ user.email }}</a></li>
+                <li><a class="dropdown-item" href="#">Fecha de inicio: {{ user.date_joined|date:"d M Y" }}</a></li>
+                <li>
+                    <a class="dropdown-item" href="#">
+                        Rol: 
+                        {% if user.rol == 1 %}
+                            Administrador
+                        {% elif user.rol == 2 %}
+                            Jugador
+                        {% elif user.rol == 3 %}
+                            Organizador
+                        {% else %}
+                            Desconocido
+                        {% endif %}
+                    </a>
+                </li>
+                <li><hr class="dropdown-divider"></li>
+                <!-- Formulario para cerrar sesión -->
+                <li>
+                    <form action="{% url 'logout' %}" method="post" class="px-3 py-2">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger btn-sm">Cerrar sesión</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
         {% else %}
         <!-- Enlace de iniciar sesión (solo si no está autenticado) -->
-        <a class="btn btn-outline-success" href="{% url 'login' %}">Iniciar sesión</a>
+        <a class="btn btn-outline-success me-3" href="{% url 'login' %}">Iniciar sesión</a>
         {% endif %}
 
         <!-- Barra de búsqueda -->
-        <form action="{% url 'buscar_torneo' %}" class="d-flex mt-3" role="search" method="GET">
+        <form action="{% url 'buscar_torneo' %}" class="d-flex align-items-center" role="search" method="GET">
             <input name="textoBusqueda" class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
             <button class="btn btn-light btn-outline-dark" type="submit">Buscar</button>
         </form>

@@ -14,43 +14,13 @@ from datetime import datetime
 
 
 def index(request):
-    # Verificar si la fecha de inicio está en la sesión, si no, agregarla
-    if "fecha_inicio" not in request.session:
+    if(not "fecha_inicio" in request.session):
         request.session["fecha_inicio"] = datetime.now().strftime('%d/%m/%Y %H:%M')
-
-    # Verificar si el nombre de usuario está en la sesión, si no, agregarlo
-    if "nombre_usuario" not in request.session:
-        request.session["nombre_usuario"] = request.user.username if request.user.is_authenticated else "Invitado"
-
-    # Verificar si el estado del usuario está en la sesión, si no, agregarlo
-    if "estado_usuario" not in request.session:
-        request.session["estado_usuario"] = 'activo'  # Asignamos un valor por defecto como 'activo'
-
-    # Verificar si las preferencias del usuario están en la sesión, si no, agregarlo
-    if "preferencias_usuario" not in request.session:
-        request.session["preferencias_usuario"] = {"idioma": "es", "notificaciones": True}  # Ejemplo de preferencias
-
-    # Verificar si la última conexión está en la sesión, si no, agregarla
-    if "ultima_conexion" not in request.session:
-        request.session["ultima_conexion"] = datetime.now().strftime('%d/%m/%Y %H:%M')
-
-    # Pasar los datos al template
-    return render(request, 'index.html', {
-        "fecha_inicio": request.session.get("fecha_inicio"),
-        "nombre_usuario": request.user.username,  # Añadir el nombre del usuario autenticado
-        "estado_usuario": request.session.get("estado_usuario"),
-        "preferencias_usuario": request.session.get("preferencias_usuario"),
-        "ultima_conexion": request.session.get("ultima_conexion"),
-    })
+    return render(request, 'index.html')
 
 def borrar_session(request):
-    # Borrar todas las variables de la sesión
-    session_keys = ['fecha_inicio', 'nombre_usuario', 'estado_usuario', 'preferencias_usuario', 'ultima_conexion']
-    for key in session_keys:
-        if key in request.session:
-            del request.session[key]
-
-    return render(request, 'index.html')  # Redirigir o renderizar la misma vista
+    del request.session['fecha_inicio']
+    return render(request, 'index.html')
 
 
 def lista_torneo(request):
@@ -66,9 +36,6 @@ def lista_torneo(request):
     }
 
     return render(request, 'torneo/lista_torneos.html', context)
-
-
-
 
 
 def crear_torneo(request):
@@ -90,29 +57,7 @@ def crear_torneo(request):
     return render(request, 'torneo/creartorneo/crear_torneo.html', {'formulario': formulario}) 
 
 
-"""
-def buscar_torneo(request):
-    formulario = BusquedaTorneoForm(request.GET)
 
-    if formulario.is_valid():
-        texto = formulario.cleaned_data.get('textoBusqueda')
-        torneos = Torneo.objects.all()
-        torneos = torneos.filter(
-            Q(nombre__icontains=texto) | Q(descripcion__icontains=texto)
-        ).all()
-
-        mensaje_busqueda = f"Se buscaron torneos que contienen en su nombre o contenido la palabra: {texto}"
-
-        return render(request, 'torneo/formulario/buscar_torneo.html', {
-            "torneos_mostrar": torneos,
-            "texto_busqueda": mensaje_busqueda
-        })
-    
-    # Si no se envió una búsqueda o la validación no fue correcta, redirigimos
-    if "HTTP_REFERER" in request.META:
-        return redirect(request.META["HTTP_REFERER"])
-    else:
-        return redirect('index')"""
     
     
 def torneo_buscar_avanzado(request):
@@ -128,7 +73,6 @@ def torneo_buscar_avanzado(request):
             textoBusqueda = formulario.cleaned_data.get('textoBusqueda')
             fechaDesde = formulario.cleaned_data.get('fecha_desde')
             fechaHasta = formulario.cleaned_data.get('fecha_hasta')
-            duracionMinima = formulario.cleaned_data.get('duracion_minima')
             
             
             # Por cada filtro comprobamos si tiene un valor y lo añadimos a la QuerySet
@@ -163,36 +107,52 @@ def torneo_buscar_avanzado(request):
 
 def registrar_usuario(request):
     if request.method == 'POST':
-        form = RegistroForm(request.POST)
+        # Formularios básicos y adicionales
+        formulario = RegistroForm(request.POST)
         jugador_form = RegistroJugadorForm(request.POST) if 'rol' in request.POST and request.POST['rol'] == '2' else None
         organizador_form = RegistroOrganizadorForm(request.POST) if 'rol' in request.POST and request.POST['rol'] == '3' else None
 
-        if form.is_valid():
-            # Guardamos el usuario
-            user = form.save()
+        if formulario.is_valid():
+            # Guardar el usuario
+            user = formulario.save()
 
-            # Si es Jugador, también guardamos la información adicional de Jugador
-            if jugador_form and jugador_form.is_valid():
-                jugador = jugador_form.save(commit=False)
-                jugador.usuario = user
-                jugador.save()
+            # Obtener el rol seleccionado
+            rol = int(formulario.cleaned_data.get('rol'))
 
-            # Si es Organizador, también guardamos la información adicional de Organizador
-            if organizador_form and organizador_form.is_valid():
-                organizador = organizador_form.save(commit=False)
-                organizador.usuario = user
-                organizador.save()
+            # Asignar el rol a través del campo 'rol' y agregarlo al grupo correspondiente
+            if rol == UsuarioLogin.JUGADOR:
+                # Guardamos los datos adicionales del Jugador
+                if jugador_form and jugador_form.is_valid():
+                    jugador = jugador_form.save(commit=False)
+                    jugador.usuario = user
+                    jugador.save()
+                    # Añadir el usuario al grupo 'Jugadores'
+                    grupo = Group.objects.get(name='Jugadores')
+                    grupo.user_set.add(user)
+                
+            elif rol == UsuarioLogin.ORGANIZADOR:
+                # Guardamos los datos adicionales del Organizador
+                if organizador_form and organizador_form.is_valid():
+                    organizador = organizador_form.save(commit=False)
+                    organizador.usuario = user
+                    organizador.save()
+                    # Añadir el usuario al grupo 'Organizadores'
+                    grupo = Group.objects.get(name='Organizadores')
+                    grupo.user_set.add(user)
 
-            login(request, user)  # Iniciar sesión después del registro
-            return redirect('index')  # Redirigir a la página principal o alguna otra
+            # Si el rol no es Administrador, el login se realiza después del registro
+            login(request, user)
+            return redirect('index')  # Redirigir a la página principal o cualquier otra vista que desees
 
     else:
-        form = RegistroForm()
+        # Crear instancias vacías de los formularios
+        formulario = RegistroForm()
         jugador_form = RegistroJugadorForm()
         organizador_form = RegistroOrganizadorForm()
 
+    # Renderizamos el formulario de registro, pasando los formularios contextuales
     return render(request, 'torneo/registration/signup.html', {
-        'formulario': form,
+        'formulario': formulario,
         'jugador_form': jugador_form,
         'organizador_form': organizador_form
     })
@@ -262,14 +222,6 @@ def torneo_ver(request, torneo_id):
         return redirect("lista_torneo")
 
     return render(request, 'torneo/create/ver.html', {'torneo': torneo})
-
-
-
-
-
-
-
-
 
 
 
