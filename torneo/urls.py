@@ -19,6 +19,7 @@ urlpatterns = [
     
     # Ruta para logout
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('torneo/jugador/', views.torneo_jugador, name='torneo_jugador'),
 
 
 

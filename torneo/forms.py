@@ -200,6 +200,17 @@ class RegistroOrganizadorForm(forms.ModelForm):
         model = Organizador
         fields = ['eventos_creados']
 
+
+class TorneoJugadorForm(forms.Form):
+    # Definimos un campo Select para seleccionar un torneo relacionado con el jugador
+    torneos_disponibles = Torneo.objects.all()
+    torneo = forms.ModelChoiceField(
+        queryset=torneos_disponibles,
+        widget=forms.Select,
+        required=True,
+        empty_label="Seleccione un torneo"
+    )
+
         
 
 

@@ -1,0 +1,13 @@
+{% extends 'torneo/estructura/base.html' %}
+
+{% block content %}
+<h2>Inscripción en Torneo</h2>
+<p>Selecciona el torneo al que deseas inscribirte.</p>
+
+<form action="{% url 'torneo_jugador' %}" method="post">
+    {% load django_bootstrap5 %}
+    {% csrf_token %}
+    {% bootstrap_form formulario %}
+    {% bootstrap_button "Inscribirme" button_type="submit" button_class="btn-primary" %}
+</form>
+{% endblock %}

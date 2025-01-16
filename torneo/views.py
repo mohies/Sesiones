@@ -105,6 +105,29 @@ def torneo_buscar_avanzado(request):
     return render(request, 'torneo/creartorneo/busqueda_avanzada.html', {"formulario": formulario})
 
 
+@login_required
+def torneo_jugador(request):
+    if request.method == 'POST':
+        formulario = TorneoJugadorForm(request.POST)
+        if formulario.is_valid():
+            torneo_seleccionado = formulario.cleaned_data['torneo']
+            jugador = Jugador.objects.get(usuario=request.user)  # Obtén el jugador desde el usuario logueado
+
+            # Verifica si el jugador ya está inscrito en el torneo
+            if jugador not in torneo_seleccionado.jugadores.all():
+                torneo_seleccionado.jugadores.add(jugador)  # Añade al jugador al torneo
+                messages.success(request, f"Te has inscrito en el torneo: {torneo_seleccionado.nombre}")
+            else:
+                messages.warning(request, "Ya estás inscrito en este torneo.")
+
+            return redirect('index')
+    else:
+        formulario = TorneoJugadorForm()
+
+    return render(request, 'torneo/torneo_jugador.html', {'formulario': formulario})
+
+
+
 def registrar_usuario(request):
     if request.method == 'POST':
         # Formularios básicos y adicionales
@@ -220,8 +243,22 @@ def torneo_ver(request, torneo_id):
     except Torneo.DoesNotExist:
         messages.error(request, "El torneo no existe.")
         return redirect("lista_torneo")
+    
+    # Obtener los participantes y los jugadores del torneo
+    participantes = torneo.participantes.all()
+    jugadores = torneo.jugadores.all()
 
-    return render(request, 'torneo/create/ver.html', {'torneo': torneo})
+    # Pasar los datos a la plantilla
+    return render(request, 'torneo/create/ver.html', {
+        'torneo': torneo,
+        'participantes': participantes,
+        'jugadores': jugadores,
+    })
+
+
+
+
+
 
 
 

@@ -22,6 +22,13 @@
                 </ul>
             </li>
 
+            <!-- Opción de Inscripción (Solo si el usuario está autenticado como jugador) -->
+            {% if user.is_authenticated and user.rol == 2 %}
+            <li class="nav-item">
+                <a class="btn btn-outline-primary" href="{% url 'torneo_jugador' %}">Inscribirse a un Torneo</a>
+            </li>
+            {% endif %}
+
             <!-- Botón de registro (solo para usuarios no autenticados) -->
             {% if not user.is_authenticated %}
             <li class="nav-item">

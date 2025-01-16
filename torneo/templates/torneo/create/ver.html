@@ -10,17 +10,30 @@
                 <h2>{{ torneo.nombre }}</h2>
             </div>
             <div class="card-body">
-                <p><strong>Fecha:</strong> {{ torneo.fecha }}</p>
+                <p><strong>Fecha:</strong> {{ torneo.fecha_inicio }}</p>
                 <p><strong>Duración:</strong> {{ torneo.duracion }}</p>
                 <p><strong>Descripción:</strong> {{ torneo.descripcion }}</p>
+
+                <!-- Mostrar Participantes -->
                 <p><strong>Participantes:</strong></p>
                 <ul>
-                    {% for participante in torneo.participantes.all %}
-                        <li>{{ participante.nombre }}</li>
+                    {% for participante in participantes %}
+                        <li>{{ participante.usuario.nombre }} - {{ participante.puntos_obtenidos }} puntos</li>
                     {% empty %}
                         <li>No hay participantes inscritos.</li>
                     {% endfor %}
                 </ul>
+
+                <!-- Mostrar Jugadores -->
+                <p><strong>Jugadores:</strong></p>
+                <ul>
+                    {% for jugador in jugadores %}
+                        <li>{{ jugador.usuario.username }} - {{ jugador.puntos }} puntos</li>
+                    {% empty %}
+                        <li>No hay jugadores en este torneo.</li>
+                    {% endfor %}
+                </ul>
+
             </div>
         </div>
         <a href="{% url 'lista_torneo' %}" class="btn btn-secondary mt-3">Volver a la lista</a>
