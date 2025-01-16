@@ -3,3 +3,4 @@ mynewvenv/
 __pycache__
 db.sqlite3
 .vscode/
+.env
