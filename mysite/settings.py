@@ -31,9 +31,8 @@ SECRET_KEY =  env("SECRET_KEY")
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ['127.0.0.1','0.0.0.0']
+DEBUG = env("DEBUG") #porque lo del archivo es string y hay que poner en vacio el DEBUG
+ALLOWED_HOSTS = [env("ALLOWED_HOSTS")]
 INTERNAL_IPS = ["127.0.0.1"]
 
 
@@ -143,3 +142,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'torneo.UsuarioLogin'
 LOGIN_REDIRECT_URL = 'index'
 LOGOUT_REDIRECT_URL = 'index'
+
+STATIC_ROOT = BASE_DIR / 'static'
