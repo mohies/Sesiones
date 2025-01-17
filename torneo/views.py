@@ -24,11 +24,28 @@ def borrar_session(request):
 
 
 def lista_torneo(request):
-    torneos = Torneo.objects.prefetch_related('participantes__usuario').all()
-    
+    # Prefetch para optimizar la carga de los jugadores
+    torneos = Torneo.objects.prefetch_related('jugadores').all()
+
+    # Si el usuario es un jugador, solo mostramos los torneos en los que está inscrito
+    if request.user.groups.filter(name='Jugadores').exists():
+        try:
+            # Asegúrate de obtener el objeto 'Jugador' desde el usuario
+            jugador = Jugador.objects.get(usuario=request.user)
+            # Filtra los torneos en los que el jugador está inscrito
+            torneos = torneos.filter(jugadores=jugador)
+        except Jugador.DoesNotExist:
+            # Si no existe un perfil de jugador para el usuario (por alguna razón)
+            torneos = Torneo.objects.none()  # No muestra torneos si el jugador no tiene perfil
+
+    # Si el usuario es un administrador o organizador, no aplicamos el filtro
+    # (por defecto, la variable 'torneos' ya contiene todos los torneos)
+
+    # Verificar permisos para editar y eliminar
     puede_editar = request.user.has_perm('torneo.change_torneo') if request.user.is_authenticated else False
     puede_eliminar = request.user.has_perm('torneo.delete_torneo') if request.user.is_authenticated else False
 
+    # Pasar los datos al contexto de la plantilla
     context = {
         'torneos': torneos,
         'puede_editar': puede_editar,
@@ -64,44 +81,45 @@ def torneo_buscar_avanzado(request):
     if len(request.GET) > 0:
         formulario = BusquedaAvanzadaTorneoForm(request.GET)
         if formulario.is_valid():
-            
             mensaje_busqueda = "Se ha buscado por los siguientes valores:\n"
-            
             QStorneos = Torneo.objects.prefetch_related("participantes")
-            
+
             # Obtenemos los filtros del formulario
             textoBusqueda = formulario.cleaned_data.get('textoBusqueda')
             fechaDesde = formulario.cleaned_data.get('fecha_desde')
             fechaHasta = formulario.cleaned_data.get('fecha_hasta')
-            
-            
+
+            # Si el usuario es un jugador, filtramos los torneos en los que está inscrito
+            if request.user.groups.filter(name='Jugadores').exists():
+                jugador = Jugador.objects.get(usuario=request.user)  # Obtén el jugador desde el usuario logueado
+                
+                # Filtra los torneos donde el jugador está inscrito como tal
+                QStorneos = QStorneos.filter(jugadores=jugador)  # Filtra por los torneos del jugador
+
             # Por cada filtro comprobamos si tiene un valor y lo añadimos a la QuerySet
             if textoBusqueda != "":
-                QStorneos = QStorneos.filter(Q(nombre__icontains=textoBusqueda) | Q(descripcion__icontains=textoBusqueda) |Q(categoria__contains=textoBusqueda))
+                QStorneos = QStorneos.filter(Q(nombre__icontains=textoBusqueda) | Q(descripcion__icontains=textoBusqueda) | Q(categoria__contains=textoBusqueda))
                 mensaje_busqueda += f" Nombre o contenido que contengan la palabra '{textoBusqueda}'\n"
-            
-            
+
             # Comprobamos las fechas
             if fechaDesde:
                 mensaje_busqueda += f" Fecha desde: {fechaDesde.strftime('%d-%m-%Y')}\n"
                 QStorneos = QStorneos.filter(fecha_inicio__gte=fechaDesde)
-            
+
             if fechaHasta:
                 mensaje_busqueda += f" Fecha hasta: {fechaHasta.strftime('%d-%m-%Y')}\n"
                 QStorneos = QStorneos.filter(fecha_inicio__lte=fechaHasta)
-            
 
-            
             # Ejecutamos la consulta
             torneos = QStorneos.all()
-    
+
             return render(request, 'torneo/creartorneo/buscar_torneo.html', {
                 "torneos_mostrar": torneos,
                 "texto_busqueda": mensaje_busqueda
             })
     else:
         formulario = BusquedaAvanzadaTorneoForm(None)
-    
+
     return render(request, 'torneo/creartorneo/busqueda_avanzada.html', {"formulario": formulario})
 
 

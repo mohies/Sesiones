@@ -1,6 +1,6 @@
 {% extends 'torneo/estructura/base.html' %}
 
-{% block title %}Torneo{% endblock %}
+{% block title %}Lista de Torneos{% endblock %}
 
 {% block content %}
 <div class="container mt-4">
@@ -11,7 +11,6 @@
             <h2 class="display-5">Resultados de la búsqueda: "{{ texto_busqueda }}"</h2>
         {% endif %}
     {% endblock %}
-
 
     <div class="container mt-4">
         <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -31,16 +30,28 @@
                                     </li>
                                 {% endfor %}
                             </ul>
-                            <div class="mt-auto">
-                                <!-- Botón para actualizar -->
-                                <a href="{% url 'torneo_editar' torneo.id %}" class="btn btn-outline-secondary">
-                                    <i class="bi bi-pencil"></i>
+                            <div class="mt-auto d-flex justify-content-between align-items-center">
+                                <!-- Botón para ver detalles -->
+                                <a href="{% url 'torneo_ver' torneo.id %}" class="btn btn-primary">
+                                    Ver detalles
                                 </a>
-                                <!-- Botón para eliminar -->
-                              
-                                    <button type="submit" class="btn btn-outline-danger">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
+
+                                <!-- Mostrar el botón de editar solo si el usuario tiene permisos -->
+                                {% if puede_editar %}
+                                    <a href="{% url 'torneo_editarr' torneo.id %}" class="btn btn-outline-secondary">
+                                        <i class="bi bi-pencil"></i> Editar
+                                    </a>
+                                {% endif %}
+
+                                <!-- Mostrar el formulario para eliminar solo si el usuario tiene permisos -->
+                                {% if puede_eliminar %}
+                                    <form action="{% url 'torneo_eliminar' torneo.id %}" method="post" style="display:inline;">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-outline-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este torneo?');">
+                                            <i class="bi bi-trash"></i> Eliminar
+                                        </button>
+                                    </form>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -48,6 +59,5 @@
             {% endfor %}
         </div>
     </div>
-
-
+</div>
 {% endblock %}

@@ -31,7 +31,7 @@ SECRET_KEY =  env("SECRET_KEY")
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env("DEBUG") #porque lo del archivo es string y hay que poner en vacio el DEBUG
+DEBUG = True #porque lo del archivo es string y hay que poner en vacio el DEBUG
 ALLOWED_HOSTS = [env("ALLOWED_HOSTS")]
 INTERNAL_IPS = ["127.0.0.1"]
 
