@@ -35,13 +35,6 @@ class TorneoForm(forms.ModelForm):
         help_text="Selecciona la categoría del torneo (por ejemplo, 'Acción', 'Deportes', etc.)"
     )
     
-    participantes = forms.ModelMultipleChoiceField(
-        queryset=Participante.objects.all(),
-        required=True,
-        widget=forms.CheckboxSelectMultiple(),
-        help_text="Selecciona los participantes del torneo"
-    )
-    
     duracion = forms.ChoiceField(
         label="Duración del Torneo",
         choices=DURACIONES,
@@ -54,7 +47,7 @@ class TorneoForm(forms.ModelForm):
     
     class Meta:
         model = Torneo  # Asociamos el formulario al modelo Torneo
-        fields = ['nombre', 'descripcion', 'fecha_inicio', 'categoria', 'participantes', 'duracion']# Campos que se mostrarán en el formulario
+        fields = ['nombre', 'descripcion', 'fecha_inicio', 'categoria', 'duracion']# Campos que se mostrarán en el formulario
         widgets = {
 
             'fecha_inicio': forms.DateInput(format="%Y-%m-%d",attrs={'type': 'date', 'class': 'form-control'})
@@ -71,7 +64,6 @@ class TorneoForm(forms.ModelForm):
         descripcion = self.cleaned_data.get('descripcion')
         fecha_inicio = self.cleaned_data.get('fecha_inicio')
         categoria = self.cleaned_data.get('categoria')
-        participantes = self.cleaned_data.get('participantes')
         duracion = self.cleaned_data.get('duracion')
         
             # Asegurarnos de que duracion esté en formato timedelta
@@ -102,10 +94,6 @@ class TorneoForm(forms.ModelForm):
                     self.add_error('duracion', 'Duración no válida para la categoría "Acción".')
 
                 return self.cleaned_data
-
-
-        if participantes and len(participantes) < 2:
-            self.add_error('participantes', 'Debe seleccionar al menos dos participantes.')
 
         return self.cleaned_data
 

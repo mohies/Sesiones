@@ -75,26 +75,6 @@
         </div>
         
 
-        <!-- Campo Participantes -->
-        <div class="mb-3">
-            <label for="{{ formulario.participantes.id_for_label }}" class="form-label">
-                {{ formulario.participantes.label }}
-            </label>
-            <div class="form-check {% if formulario.participantes.errors %} is-invalid{% elif formulario.is_bound %} is-valid{% endif %}">
-                {{ formulario.participantes }}
-            </div>
-            <div class="invalid-feedback">
-                {% for error in formulario.participantes.errors %}
-                    <p>{{ error }}</p>
-                {% endfor %}
-                {% if formulario.participantes.value %}
-                    <p>Debe seleccionar al menos dos participantes.</p>
-                {% endif %}
-            </div>
-            <div class="form-text">
-                {{ formulario.participantes.help_text }}
-            </div>
-        </div>
         
         
         

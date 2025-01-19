@@ -11,13 +11,13 @@
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title">{{ torneo.nombre }}</h5>
                         <p class="card-text">{{ torneo.descripcion }}</p>
-                        <h6 class="mt-3">Participantes:</h6>
+                        <h6 class="mt-3">Jugadores:</h6>
                         <ul class="list-group list-group-flush flex-grow-1">
-                            {% for torneo_participante in torneo.participantes.all %}
+                            {% for torneo_jugador in torneo.jugadores.all %}
                                 <li class="list-group-item">
-                                    {{ torneo_participante.participante.usuario.nombre }} - 
-                                    Puntos: {{ torneo_participante.puntos_obtenidos }} - 
-                                    Posición: {{ torneo_participante.posicion_final }}
+                                    {{ torneo_jugador.usuario.username }} - 
+                                    Puntos: {{ torneo_jugador.puntos }} - 
+                                    Equipo: {{ torneo_jugador.equipo }}
                                 </li>
                             {% endfor %}
                         </ul>
@@ -28,15 +28,15 @@
                                 Ver detalles
                             </a>
 
-                            <!-- Mostrar el botón de editar solo si el usuario tiene permisos -->
-                            {% if puede_editar %}
+                            <!-- Mostrar el botón de editar solo si el usuario tiene permiso -->
+                            {% if perms.torneo.change_torneo %}
                                 <a href="{% url 'torneo_editarr' torneo.id %}" class="btn btn-outline-secondary">
                                     <i class="bi bi-pencil"></i>
                                 </a>
                             {% endif %}
 
-                            <!-- Mostrar el formulario para eliminar solo si el usuario tiene permisos -->
-                            {% if puede_eliminar %}
+                            <!-- Mostrar el formulario para eliminar solo si el usuario tiene permiso -->
+                            {% if perms.torneo.delete_torneo %}
                                 <form action="{% url 'torneo_eliminar' torneo.id %}" method="post" style="display:inline;">
                                     {% csrf_token %}
                                     <button type="submit" class="btn btn-outline-danger" onclick="return eliminar();">

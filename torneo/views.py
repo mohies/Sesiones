@@ -38,18 +38,8 @@ def lista_torneo(request):
             # Si no existe un perfil de jugador para el usuario (por alguna razón)
             torneos = Torneo.objects.none()  # No muestra torneos si el jugador no tiene perfil
 
-    # Si el usuario es un administrador o organizador, no aplicamos el filtro
-    # (por defecto, la variable 'torneos' ya contiene todos los torneos)
-
-    # Verificar permisos para editar y eliminar
-    puede_editar = request.user.has_perm('torneo.change_torneo') if request.user.is_authenticated else False
-    puede_eliminar = request.user.has_perm('torneo.delete_torneo') if request.user.is_authenticated else False
-
-    # Pasar los datos al contexto de la plantilla
     context = {
         'torneos': torneos,
-        'puede_editar': puede_editar,
-        'puede_eliminar': puede_eliminar,
     }
 
     return render(request, 'torneo/lista_torneos.html', context)
@@ -67,7 +57,7 @@ def crear_torneo(request):
             try:
                 # Guarda el libro en la base de datos
                 formulario.save()
-                return redirect("index")
+                return redirect("lista_torneo")
             except Exception as error:
                 print(error)
     
@@ -206,9 +196,11 @@ def torneo_crear(request):
         if formulario.is_valid():
             try:
                 formulario.save()
-                return redirect("torneo_lista_usuario", usuario_id=request.user.id)
+                # Redirigir a la lista de torneos sin pasar usuario_id
+                return redirect("lista_torneo")
             except Exception as error:
                 print(error)
+                messages.error(request, "Hubo un error al crear el torneo.")
     else:
         formulario = TorneoForm(initial={"organizador": request.user})
     return render(request, 'torneo/create/crear.html', {'formulario': formulario})
@@ -221,7 +213,7 @@ def torneo_editarr(request, torneo_id):
         torneo = Torneo.objects.get(id=torneo_id)
     except Torneo.DoesNotExist:
         messages.error(request, "El torneo no existe.")
-        return redirect("torneo_lista_usuario", usuario_id=request.user.id)
+        return redirect("lista_torneo")
 
     if request.method == 'POST':
         formulario = TorneoForm(request.POST, instance=torneo)
@@ -229,7 +221,7 @@ def torneo_editarr(request, torneo_id):
             try:
                 formulario.save()
                 messages.success(request, "Torneo actualizado correctamente.")
-                return redirect("torneo_lista_usuario", usuario_id=request.user.id)
+                return redirect("lista_torneo")  # Adjusted to match URL name
             except Exception as error:
                 print(error)
                 messages.error(request, "Hubo un error al actualizar el torneo.")
@@ -272,12 +264,6 @@ def torneo_ver(request, torneo_id):
         'participantes': participantes,
         'jugadores': jugadores,
     })
-
-
-
-
-
-
 
 
 #Distintos errores de las paginas web

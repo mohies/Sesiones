@@ -12,7 +12,8 @@
                 <a class="nav-link" href="{% url 'index' %}">Inicio</a>
             </li>
 
-            <!-- Dropdown de Torneos -->
+            <!-- Dropdown de Torneos solo visible si el usuario está autenticado -->
+            {% if user.is_authenticated %}
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="dropdownTorneos" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Torneos
@@ -26,6 +27,7 @@
                     <li><a class="dropdown-item" href="{% url 'lista_torneo' %}">Lista de Torneos</a></li>
                 </ul>
             </li>
+            {% endif %}
 
             <!-- Opción de Inscripción (Solo si el usuario está autenticado como jugador) -->
             {% if user.is_authenticated and user.rol == 2 %}

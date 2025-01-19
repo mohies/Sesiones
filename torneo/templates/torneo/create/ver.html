@@ -14,15 +14,7 @@
                 <p><strong>Duración:</strong> {{ torneo.duracion }}</p>
                 <p><strong>Descripción:</strong> {{ torneo.descripcion }}</p>
 
-                <!-- Mostrar Participantes -->
-                <p><strong>Participantes:</strong></p>
-                <ul>
-                    {% for participante in participantes %}
-                        <li>{{ participante.usuario.nombre }} - {{ participante.puntos_obtenidos }} puntos</li>
-                    {% empty %}
-                        <li>No hay participantes inscritos.</li>
-                    {% endfor %}
-                </ul>
+
 
                 <!-- Mostrar Jugadores -->
                 <p><strong>Jugadores:</strong></p>
