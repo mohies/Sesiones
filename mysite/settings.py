@@ -144,3 +144,4 @@ LOGIN_REDIRECT_URL = 'index'
 LOGOUT_REDIRECT_URL = 'index'
 
 STATIC_ROOT = BASE_DIR / 'static'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

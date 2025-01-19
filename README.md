@@ -1,67 +1,49 @@
-# Proyecto de Aplicación Web de Torneos de Videojuegos
+# Documentación del Proyecto
 
-## Validaciones Implementadas
+## Tipos de Usuarios
 
-### 1. TorneoForm
-- **nombre**: Verifica que no exista otro torneo con el mismo nombre en la base de datos. Si ya existe, muestra un error.
-- **descripcion**: Valida que tenga al menos 20 caracteres.
-- **fecha_inicio**: No puede ser una fecha anterior al día actual.
-- **categoria**: Si la categoría es "Acción", la duración del torneo no puede superar las 3 horas.
-- **participantes**: Deben seleccionarse al menos 2 participantes.
+En la aplicación existen tres tipos de usuarios: **Administrador**, **Jugador** y **Organizador**. Cada uno tiene permisos y funcionalidades diferenciadas dentro de la plataforma.
 
-### 2. BusquedaTorneoForm
-- **textoBusqueda**: Valida que el texto de búsqueda tenga al menos 3 caracteres.
+### 1. **Administrador**
+   El administrador tiene acceso completo a todas las funcionalidades de la aplicación, tales como:
+   - **Crear**, **editar** y **eliminar** torneos.
+   - **Ver** todos los torneos y la información de los jugadores.
+   - **Gestionar** los usuarios (jugadores y organizadores).
+   - Acceso a **funcionalidades administrativas** del sistema.
+   
+   **Nota:** Los administradores no tienen un rol asignado en el modelo de usuario ya que están predefinidos por el sistema de autenticación de Django.
 
-### 3. BusquedaAvanzadaTorneoForm
-- **Campos**: Valida que al menos uno de los campos esté completo.
-- **fecha_desde y fecha_hasta**: Valida que la fecha "hasta" no sea anterior a la fecha "desde".
-- **duracion_minima**: Debe ser un tiempo válido y mayor que cero.
+### 2. **Jugador**
+   Los jugadores tienen permisos más limitados. Las funcionalidades a las que pueden acceder son:
+   - **Ver los torneos** en los que están inscritos.
+   - **Inscribirse** en torneos disponibles.
+   - **Visualizar su perfil** y estadísticas de participación.
+   - Participar en torneos y ver clasificaciones.
+   
+   **Restricciones:**
+   - Los jugadores no pueden crear ni eliminar torneos.
+   - Los jugadores solo pueden ver torneos a los que están inscritos.
 
-### 4. EquipoForm
-- **nombre**: Verifica que no exista otro equipo con el mismo nombre en la base de datos.
-- **logotipo**: Si se proporciona, debe ser una URL válida.
-- **fecha_ingreso**: No puede ser una fecha futura ni menor al día actual.
-- **puntos_contribuidos**: Debe ser un valor positivo.
+### 3. **Organizador**
+   Los organizadores son responsables de crear y gestionar torneos. Pueden acceder a las siguientes funcionalidades:
+   - **Crear** torneos nuevos.
+   - **Editar** los torneos que han creado.
+   - **Eliminar** torneos (si es necesario).
+   - **Ver** los torneos que han creado y su información relacionada (participantes, jugadores, etc.).
+   
+   **Restricciones:**
+   - Los organizadores no pueden ver ni modificar los torneos de otros organizadores ni jugadores.
+   - Los organizadores no pueden eliminar ni gestionar usuarios.
 
-### 5. BusquedaAvanzadaEquipoForm
-- **Campos**: Valida que al menos uno de los campos esté completo.
-- **fecha_ingreso_desde y fecha_ingreso_hasta**: Valida que la fecha "hasta" no sea anterior a la fecha "desde".
-- **puntos_minimos y puntos_maximos**: Los puntos mínimos no pueden ser mayores que los máximos.
+---
 
-### 6. ParticipanteForm
-- **usuario**: Verifica que el usuario no esté registrado como participante.
-- **puntos_obtenidos**: Debe ser un valor positivo.
-- **posicion_final**: Debe ser un número positivo.
-- **tiempo_jugado**: No puede ser negativo.
-- **equipos**: Debe seleccionarse al menos un equipo.
+## Acceso a Funcionalidades
 
-### 7. BusquedaAvanzadaParticipanteForm
-- **Campos**: Valida que al menos uno de los campos esté completo.
-- **fecha_inscripcion_desde y fecha_inscripcion_hasta**: Valida que la fecha "hasta" no sea anterior a la fecha "desde".
-- **puntos_minimos y puntos_maximos**: Los puntos mínimos no pueden ser mayores que los máximos.
-- **tiempo_jugado_minimo y tiempo_jugado_maximo**: El tiempo jugado mínimo no puede ser mayor que el máximo.
+Cada tipo de usuario tiene diferentes permisos según su rol y el tipo de operación. El sistema controla el acceso de los usuarios a las vistas mediante los decoradores `@login_required`, `@permission_required`, y `@user_passes_test`. Además, las vistas están configuradas para mostrar diferentes opciones de acuerdo al grupo al que pertenece el usuario.
 
-### 8. UsuarioForm
-- **correo**: Verifica que no exista otro usuario con el mismo correo en la base de datos.
-- **nombre**: Verifica que no exista otro usuario con el mismo nombre.
-- **clave_de_acceso**: Debe tener al menos 8 caracteres.
+### Control de Acceso:
+- **Jugadores** pueden acceder únicamente a las vistas relacionadas con su participación en torneos.
+- **Organizadores** tienen acceso a la creación y edición de torneos.
+- **Administradores** tienen acceso completo a todas las vistas y funcionalidades.
 
-### 9. BusquedaUsuarioForm
-- **Campos**: Valida que al menos uno de los campos esté completo.
-- **fecha_registro_desde y fecha_registro_hasta**: Valida que la fecha "hasta" no sea anterior a la fecha "desde".
-
-### 10. JuegoForm
-- **nombre**: Verifica que no exista otro juego con el mismo nombre en la base de datos.
-
-### 11. BusquedaJuegoForm
-- **Campos**: Valida que al menos tres de los campos estén completos.
-
-### 12. PerfilDeJugadorForm
-- **usuario**: Verifica que no exista otro perfil de jugador asociado al mismo usuario.
-- **puntos, nivel y ranking**: Deben ser valores positivos.
-- **avatar**: Si se proporciona, debe ser una URL válida.
-
-### 13. BusquedaAvanzadaPerfilJugadorForm
-- **Campos**: Valida que al menos uno de los campos esté completo.
-- **textoBusqueda**: Si se proporciona, debe tener al menos 3 caracteres.
-- **puntos_minimos y nivel_minimo**: Deben ser valores positivos.
+---
