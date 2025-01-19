@@ -4,6 +4,17 @@
 <h2>Inscripción en Torneo</h2>
 <p>Selecciona el torneo al que deseas inscribirte.</p>
 
+<!-- Mostrar mensajes de éxito o advertencia -->
+{% if messages %}
+    <div class="alert alert-dismissible fade show" role="alert">
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+
 <form action="{% url 'torneo_jugador' %}" method="post">
     {% load django_bootstrap5 %}
     {% csrf_token %}

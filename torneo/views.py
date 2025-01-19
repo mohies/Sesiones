@@ -128,7 +128,7 @@ def torneo_jugador(request):
             else:
                 messages.warning(request, "Ya estás inscrito en este torneo.")
 
-            return redirect('index')
+           
     else:
         formulario = TorneoJugadorForm()
 

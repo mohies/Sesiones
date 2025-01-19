@@ -3,11 +3,11 @@
     "model": "admin.logentry",
     "pk": 1,
     "fields": {
-        "action_time": "2024-10-31T19:56:21.200",
-        "user": 1,
-        "content_type": 11,
-        "object_id": "16",
-        "object_repr": "Pepe",
+        "action_time": "2025-01-10T19:13:09.778",
+        "user": 2,
+        "content_type": 3,
+        "object_id": "1",
+        "object_repr": "jugadores",
         "action_flag": 1,
         "change_message": "[{\"added\": {}}]"
     }
@@ -16,13 +16,221 @@
     "model": "admin.logentry",
     "pk": 2,
     "fields": {
-        "action_time": "2024-10-31T19:57:24.699",
-        "user": 1,
-        "content_type": 11,
-        "object_id": "17",
-        "object_repr": "Israel",
+        "action_time": "2025-01-10T23:50:36.876",
+        "user": 2,
+        "content_type": 3,
+        "object_id": "2",
+        "object_repr": "Jugadores",
         "action_flag": 1,
         "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 3,
+    "fields": {
+        "action_time": "2025-01-10T23:52:44.921",
+        "user": 2,
+        "content_type": 3,
+        "object_id": "2",
+        "object_repr": "Jugadores",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Permissions\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 4,
+    "fields": {
+        "action_time": "2025-01-11T00:06:05.755",
+        "user": 2,
+        "content_type": 3,
+        "object_id": "2",
+        "object_repr": "Jugadores",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Permissions\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 5,
+    "fields": {
+        "action_time": "2025-01-11T00:15:11.284",
+        "user": 2,
+        "content_type": 3,
+        "object_id": "3",
+        "object_repr": "Organizadores",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 6,
+    "fields": {
+        "action_time": "2025-01-11T00:23:03.536",
+        "user": 2,
+        "content_type": 3,
+        "object_id": "2",
+        "object_repr": "Jugadores",
+        "action_flag": 2,
+        "change_message": "[]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 7,
+    "fields": {
+        "action_time": "2025-01-11T19:51:23.968",
+        "user": 2,
+        "content_type": 9,
+        "object_id": "1",
+        "object_repr": "Lol",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 8,
+    "fields": {
+        "action_time": "2025-01-11T20:15:47.893",
+        "user": 2,
+        "content_type": 9,
+        "object_id": "2",
+        "object_repr": "dssdasdasda",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 9,
+    "fields": {
+        "action_time": "2025-01-11T20:16:45.104",
+        "user": 2,
+        "content_type": 9,
+        "object_id": "3",
+        "object_repr": "dsadsdsa",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 10,
+    "fields": {
+        "action_time": "2025-01-11T20:18:24.719",
+        "user": 2,
+        "content_type": 9,
+        "object_id": "4",
+        "object_repr": "sddsdsa",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 11,
+    "fields": {
+        "action_time": "2025-01-11T20:19:35.858",
+        "user": 2,
+        "content_type": 9,
+        "object_id": "5",
+        "object_repr": "dadsdsa",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 12,
+    "fields": {
+        "action_time": "2025-01-11T20:19:55.367",
+        "user": 2,
+        "content_type": 9,
+        "object_id": "6",
+        "object_repr": "sdadsadsa",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 13,
+    "fields": {
+        "action_time": "2025-01-11T20:32:56.313",
+        "user": 2,
+        "content_type": 3,
+        "object_id": "3",
+        "object_repr": "Organizadores",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Permissions\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 14,
+    "fields": {
+        "action_time": "2025-01-18T14:23:26.438",
+        "user": 2,
+        "content_type": 3,
+        "object_id": "2",
+        "object_repr": "Jugadores",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Permissions\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 15,
+    "fields": {
+        "action_time": "2025-01-18T14:23:30.983",
+        "user": 2,
+        "content_type": 3,
+        "object_id": "1",
+        "object_repr": "jugadores",
+        "action_flag": 3,
+        "change_message": ""
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 16,
+    "fields": {
+        "action_time": "2025-01-18T14:49:16.602",
+        "user": 2,
+        "content_type": 3,
+        "object_id": "2",
+        "object_repr": "Jugadores",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Permissions\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 17,
+    "fields": {
+        "action_time": "2025-01-19T21:31:59.534",
+        "user": 2,
+        "content_type": 3,
+        "object_id": "4",
+        "object_repr": "Administradores",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 18,
+    "fields": {
+        "action_time": "2025-01-19T21:33:10.538",
+        "user": 10,
+        "content_type": 11,
+        "object_id": "2",
+        "object_repr": "admin",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"Rol\"]}}]"
     }
 },
 {
@@ -137,558 +345,864 @@
     "model": "auth.permission",
     "pk": 13,
     "fields": {
-        "name": "Can add user",
+        "name": "Can add content type",
         "content_type": 4,
-        "codename": "add_user"
+        "codename": "add_contenttype"
     }
 },
 {
     "model": "auth.permission",
     "pk": 14,
     "fields": {
-        "name": "Can change user",
+        "name": "Can change content type",
         "content_type": 4,
-        "codename": "change_user"
+        "codename": "change_contenttype"
     }
 },
 {
     "model": "auth.permission",
     "pk": 15,
     "fields": {
-        "name": "Can delete user",
+        "name": "Can delete content type",
         "content_type": 4,
-        "codename": "delete_user"
+        "codename": "delete_contenttype"
     }
 },
 {
     "model": "auth.permission",
     "pk": 16,
     "fields": {
-        "name": "Can view user",
+        "name": "Can view content type",
         "content_type": 4,
-        "codename": "view_user"
+        "codename": "view_contenttype"
     }
 },
 {
     "model": "auth.permission",
     "pk": 17,
     "fields": {
-        "name": "Can add content type",
+        "name": "Can add session",
         "content_type": 5,
-        "codename": "add_contenttype"
+        "codename": "add_session"
     }
 },
 {
     "model": "auth.permission",
     "pk": 18,
     "fields": {
-        "name": "Can change content type",
+        "name": "Can change session",
         "content_type": 5,
-        "codename": "change_contenttype"
+        "codename": "change_session"
     }
 },
 {
     "model": "auth.permission",
     "pk": 19,
     "fields": {
-        "name": "Can delete content type",
+        "name": "Can delete session",
         "content_type": 5,
-        "codename": "delete_contenttype"
+        "codename": "delete_session"
     }
 },
 {
     "model": "auth.permission",
     "pk": 20,
     "fields": {
-        "name": "Can view content type",
+        "name": "Can view session",
         "content_type": 5,
-        "codename": "view_contenttype"
+        "codename": "view_session"
     }
 },
 {
     "model": "auth.permission",
     "pk": 21,
     "fields": {
-        "name": "Can add session",
+        "name": "Can add consola",
         "content_type": 6,
-        "codename": "add_session"
+        "codename": "add_consola"
     }
 },
 {
     "model": "auth.permission",
     "pk": 22,
     "fields": {
-        "name": "Can change session",
+        "name": "Can change consola",
         "content_type": 6,
-        "codename": "change_session"
+        "codename": "change_consola"
     }
 },
 {
     "model": "auth.permission",
     "pk": 23,
     "fields": {
-        "name": "Can delete session",
+        "name": "Can delete consola",
         "content_type": 6,
-        "codename": "delete_session"
+        "codename": "delete_consola"
     }
 },
 {
     "model": "auth.permission",
     "pk": 24,
     "fields": {
-        "name": "Can view session",
+        "name": "Can view consola",
         "content_type": 6,
-        "codename": "view_session"
+        "codename": "view_consola"
     }
 },
 {
     "model": "auth.permission",
     "pk": 25,
     "fields": {
-        "name": "Can add consola",
+        "name": "Can add equipo",
         "content_type": 7,
-        "codename": "add_consola"
+        "codename": "add_equipo"
     }
 },
 {
     "model": "auth.permission",
     "pk": 26,
     "fields": {
-        "name": "Can change consola",
+        "name": "Can change equipo",
         "content_type": 7,
-        "codename": "change_consola"
+        "codename": "change_equipo"
     }
 },
 {
     "model": "auth.permission",
     "pk": 27,
     "fields": {
-        "name": "Can delete consola",
+        "name": "Can delete equipo",
         "content_type": 7,
-        "codename": "delete_consola"
+        "codename": "delete_equipo"
     }
 },
 {
     "model": "auth.permission",
     "pk": 28,
     "fields": {
-        "name": "Can view consola",
+        "name": "Can view equipo",
         "content_type": 7,
-        "codename": "view_consola"
+        "codename": "view_equipo"
     }
 },
 {
     "model": "auth.permission",
     "pk": 29,
     "fields": {
-        "name": "Can add equipo",
+        "name": "Can add participante",
         "content_type": 8,
-        "codename": "add_equipo"
+        "codename": "add_participante"
     }
 },
 {
     "model": "auth.permission",
     "pk": 30,
     "fields": {
-        "name": "Can change equipo",
+        "name": "Can change participante",
         "content_type": 8,
-        "codename": "change_equipo"
+        "codename": "change_participante"
     }
 },
 {
     "model": "auth.permission",
     "pk": 31,
     "fields": {
-        "name": "Can delete equipo",
+        "name": "Can delete participante",
         "content_type": 8,
-        "codename": "delete_equipo"
+        "codename": "delete_participante"
     }
 },
 {
     "model": "auth.permission",
     "pk": 32,
     "fields": {
-        "name": "Can view equipo",
+        "name": "Can view participante",
         "content_type": 8,
-        "codename": "view_equipo"
+        "codename": "view_participante"
     }
 },
 {
     "model": "auth.permission",
     "pk": 33,
     "fields": {
-        "name": "Can add participante",
+        "name": "Can add torneo",
         "content_type": 9,
-        "codename": "add_participante"
+        "codename": "add_torneo"
     }
 },
 {
     "model": "auth.permission",
     "pk": 34,
     "fields": {
-        "name": "Can change participante",
+        "name": "Can change torneo",
         "content_type": 9,
-        "codename": "change_participante"
+        "codename": "change_torneo"
     }
 },
 {
     "model": "auth.permission",
     "pk": 35,
     "fields": {
-        "name": "Can delete participante",
+        "name": "Can delete torneo",
         "content_type": 9,
-        "codename": "delete_participante"
+        "codename": "delete_torneo"
     }
 },
 {
     "model": "auth.permission",
     "pk": 36,
     "fields": {
-        "name": "Can view participante",
+        "name": "Can view torneo",
         "content_type": 9,
-        "codename": "view_participante"
+        "codename": "view_torneo"
     }
 },
 {
     "model": "auth.permission",
     "pk": 37,
     "fields": {
-        "name": "Can add torneo",
+        "name": "Can add usuario",
         "content_type": 10,
-        "codename": "add_torneo"
+        "codename": "add_usuario"
     }
 },
 {
     "model": "auth.permission",
     "pk": 38,
     "fields": {
-        "name": "Can change torneo",
+        "name": "Can change usuario",
         "content_type": 10,
-        "codename": "change_torneo"
+        "codename": "change_usuario"
     }
 },
 {
     "model": "auth.permission",
     "pk": 39,
     "fields": {
-        "name": "Can delete torneo",
+        "name": "Can delete usuario",
         "content_type": 10,
-        "codename": "delete_torneo"
+        "codename": "delete_usuario"
     }
 },
 {
     "model": "auth.permission",
     "pk": 40,
     "fields": {
-        "name": "Can view torneo",
+        "name": "Can view usuario",
         "content_type": 10,
-        "codename": "view_torneo"
+        "codename": "view_usuario"
     }
 },
 {
     "model": "auth.permission",
     "pk": 41,
     "fields": {
-        "name": "Can add usuario",
+        "name": "Can add user",
         "content_type": 11,
-        "codename": "add_usuario"
+        "codename": "add_usuariologin"
     }
 },
 {
     "model": "auth.permission",
     "pk": 42,
     "fields": {
-        "name": "Can change usuario",
+        "name": "Can change user",
         "content_type": 11,
-        "codename": "change_usuario"
+        "codename": "change_usuariologin"
     }
 },
 {
     "model": "auth.permission",
     "pk": 43,
     "fields": {
-        "name": "Can delete usuario",
+        "name": "Can delete user",
         "content_type": 11,
-        "codename": "delete_usuario"
+        "codename": "delete_usuariologin"
     }
 },
 {
     "model": "auth.permission",
     "pk": 44,
     "fields": {
-        "name": "Can view usuario",
+        "name": "Can view user",
         "content_type": 11,
-        "codename": "view_usuario"
+        "codename": "view_usuariologin"
     }
 },
 {
     "model": "auth.permission",
     "pk": 45,
     "fields": {
-        "name": "Can add participante equipo",
+        "name": "Can add jugador",
         "content_type": 12,
-        "codename": "add_participanteequipo"
+        "codename": "add_jugador"
     }
 },
 {
     "model": "auth.permission",
     "pk": 46,
     "fields": {
-        "name": "Can change participante equipo",
+        "name": "Can change jugador",
         "content_type": 12,
-        "codename": "change_participanteequipo"
+        "codename": "change_jugador"
     }
 },
 {
     "model": "auth.permission",
     "pk": 47,
     "fields": {
-        "name": "Can delete participante equipo",
+        "name": "Can delete jugador",
         "content_type": 12,
-        "codename": "delete_participanteequipo"
+        "codename": "delete_jugador"
     }
 },
 {
     "model": "auth.permission",
     "pk": 48,
     "fields": {
-        "name": "Can view participante equipo",
+        "name": "Can view jugador",
         "content_type": 12,
-        "codename": "view_participanteequipo"
+        "codename": "view_jugador"
     }
 },
 {
     "model": "auth.permission",
     "pk": 49,
     "fields": {
-        "name": "Can add juego",
+        "name": "Can add organizador",
         "content_type": 13,
-        "codename": "add_juego"
+        "codename": "add_organizador"
     }
 },
 {
     "model": "auth.permission",
     "pk": 50,
     "fields": {
-        "name": "Can change juego",
+        "name": "Can change organizador",
         "content_type": 13,
-        "codename": "change_juego"
+        "codename": "change_organizador"
     }
 },
 {
     "model": "auth.permission",
     "pk": 51,
     "fields": {
-        "name": "Can delete juego",
+        "name": "Can delete organizador",
         "content_type": 13,
-        "codename": "delete_juego"
+        "codename": "delete_organizador"
     }
 },
 {
     "model": "auth.permission",
     "pk": 52,
     "fields": {
-        "name": "Can view juego",
+        "name": "Can view organizador",
         "content_type": 13,
-        "codename": "view_juego"
+        "codename": "view_organizador"
     }
 },
 {
     "model": "auth.permission",
     "pk": 53,
     "fields": {
-        "name": "Can add torneo juego",
+        "name": "Can add participante equipo",
         "content_type": 14,
-        "codename": "add_torneojuego"
+        "codename": "add_participanteequipo"
     }
 },
 {
     "model": "auth.permission",
     "pk": 54,
     "fields": {
-        "name": "Can change torneo juego",
+        "name": "Can change participante equipo",
         "content_type": 14,
-        "codename": "change_torneojuego"
+        "codename": "change_participanteequipo"
     }
 },
 {
     "model": "auth.permission",
     "pk": 55,
     "fields": {
-        "name": "Can delete torneo juego",
+        "name": "Can delete participante equipo",
         "content_type": 14,
-        "codename": "delete_torneojuego"
+        "codename": "delete_participanteequipo"
     }
 },
 {
     "model": "auth.permission",
     "pk": 56,
     "fields": {
-        "name": "Can view torneo juego",
+        "name": "Can view participante equipo",
         "content_type": 14,
-        "codename": "view_torneojuego"
+        "codename": "view_participanteequipo"
     }
 },
 {
     "model": "auth.permission",
     "pk": 57,
     "fields": {
-        "name": "Can add torneo participante",
+        "name": "Can add juego",
         "content_type": 15,
-        "codename": "add_torneoparticipante"
+        "codename": "add_juego"
     }
 },
 {
     "model": "auth.permission",
     "pk": 58,
     "fields": {
-        "name": "Can change torneo participante",
+        "name": "Can change juego",
         "content_type": 15,
-        "codename": "change_torneoparticipante"
+        "codename": "change_juego"
     }
 },
 {
     "model": "auth.permission",
     "pk": 59,
     "fields": {
-        "name": "Can delete torneo participante",
+        "name": "Can delete juego",
         "content_type": 15,
-        "codename": "delete_torneoparticipante"
+        "codename": "delete_juego"
     }
 },
 {
     "model": "auth.permission",
     "pk": 60,
     "fields": {
-        "name": "Can view torneo participante",
+        "name": "Can view juego",
         "content_type": 15,
-        "codename": "view_torneoparticipante"
+        "codename": "view_juego"
     }
 },
 {
     "model": "auth.permission",
     "pk": 61,
     "fields": {
-        "name": "Can add perfil de jugador",
+        "name": "Can add torneo juego",
         "content_type": 16,
-        "codename": "add_perfildejugador"
+        "codename": "add_torneojuego"
     }
 },
 {
     "model": "auth.permission",
     "pk": 62,
     "fields": {
-        "name": "Can change perfil de jugador",
+        "name": "Can change torneo juego",
         "content_type": 16,
-        "codename": "change_perfildejugador"
+        "codename": "change_torneojuego"
     }
 },
 {
     "model": "auth.permission",
     "pk": 63,
     "fields": {
-        "name": "Can delete perfil de jugador",
+        "name": "Can delete torneo juego",
         "content_type": 16,
-        "codename": "delete_perfildejugador"
+        "codename": "delete_torneojuego"
     }
 },
 {
     "model": "auth.permission",
     "pk": 64,
     "fields": {
-        "name": "Can view perfil de jugador",
+        "name": "Can view torneo juego",
         "content_type": 16,
-        "codename": "view_perfildejugador"
+        "codename": "view_torneojuego"
     }
 },
 {
     "model": "auth.permission",
     "pk": 65,
     "fields": {
-        "name": "Can add espectador",
+        "name": "Can add torneo jugador",
         "content_type": 17,
-        "codename": "add_espectador"
+        "codename": "add_torneojugador"
     }
 },
 {
     "model": "auth.permission",
     "pk": 66,
     "fields": {
-        "name": "Can change espectador",
+        "name": "Can change torneo jugador",
         "content_type": 17,
-        "codename": "change_espectador"
+        "codename": "change_torneojugador"
     }
 },
 {
     "model": "auth.permission",
     "pk": 67,
     "fields": {
-        "name": "Can delete espectador",
+        "name": "Can delete torneo jugador",
         "content_type": 17,
-        "codename": "delete_espectador"
+        "codename": "delete_torneojugador"
     }
 },
 {
     "model": "auth.permission",
     "pk": 68,
     "fields": {
-        "name": "Can view espectador",
+        "name": "Can view torneo jugador",
         "content_type": 17,
-        "codename": "view_espectador"
+        "codename": "view_torneojugador"
     }
 },
 {
     "model": "auth.permission",
     "pk": 69,
     "fields": {
-        "name": "Can add clasificacion",
+        "name": "Can add torneo participante",
         "content_type": 18,
-        "codename": "add_clasificacion"
+        "codename": "add_torneoparticipante"
     }
 },
 {
     "model": "auth.permission",
     "pk": 70,
     "fields": {
-        "name": "Can change clasificacion",
+        "name": "Can change torneo participante",
         "content_type": 18,
-        "codename": "change_clasificacion"
+        "codename": "change_torneoparticipante"
     }
 },
 {
     "model": "auth.permission",
     "pk": 71,
     "fields": {
-        "name": "Can delete clasificacion",
+        "name": "Can delete torneo participante",
         "content_type": 18,
-        "codename": "delete_clasificacion"
+        "codename": "delete_torneoparticipante"
     }
 },
 {
     "model": "auth.permission",
     "pk": 72,
     "fields": {
-        "name": "Can view clasificacion",
+        "name": "Can view torneo participante",
         "content_type": 18,
+        "codename": "view_torneoparticipante"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 73,
+    "fields": {
+        "name": "Can add perfil de jugador",
+        "content_type": 19,
+        "codename": "add_perfildejugador"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 74,
+    "fields": {
+        "name": "Can change perfil de jugador",
+        "content_type": 19,
+        "codename": "change_perfildejugador"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 75,
+    "fields": {
+        "name": "Can delete perfil de jugador",
+        "content_type": 19,
+        "codename": "delete_perfildejugador"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 76,
+    "fields": {
+        "name": "Can view perfil de jugador",
+        "content_type": 19,
+        "codename": "view_perfildejugador"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 77,
+    "fields": {
+        "name": "Can add espectador",
+        "content_type": 20,
+        "codename": "add_espectador"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 78,
+    "fields": {
+        "name": "Can change espectador",
+        "content_type": 20,
+        "codename": "change_espectador"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 79,
+    "fields": {
+        "name": "Can delete espectador",
+        "content_type": 20,
+        "codename": "delete_espectador"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 80,
+    "fields": {
+        "name": "Can view espectador",
+        "content_type": 20,
+        "codename": "view_espectador"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 81,
+    "fields": {
+        "name": "Can add clasificacion",
+        "content_type": 21,
+        "codename": "add_clasificacion"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 82,
+    "fields": {
+        "name": "Can change clasificacion",
+        "content_type": 21,
+        "codename": "change_clasificacion"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 83,
+    "fields": {
+        "name": "Can delete clasificacion",
+        "content_type": 21,
+        "codename": "delete_clasificacion"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 84,
+    "fields": {
+        "name": "Can view clasificacion",
+        "content_type": 21,
         "codename": "view_clasificacion"
     }
 },
 {
-    "model": "auth.user",
-    "pk": 1,
+    "model": "auth.group",
+    "pk": 2,
     "fields": {
-        "password": "pbkdf2_sha256$870000$5qkPGZ2DdXWg0ozb5o2k32$1mngGvlJz+FeeytEj63zfkCwp41fVnszlzBOiCyjb5A=",
-        "last_login": "2024-10-31T19:55:32.382",
-        "is_superuser": true,
-        "username": "admin",
-        "first_name": "",
-        "last_name": "",
-        "email": "admin@dsadsa.com",
-        "is_staff": true,
-        "is_active": true,
-        "date_joined": "2024-10-31T19:55:15.821",
-        "groups": [],
-        "user_permissions": []
+        "name": "Jugadores",
+        "permissions": [
+            4,
+            12,
+            8,
+            16,
+            20,
+            84,
+            24,
+            28,
+            80,
+            60,
+            48,
+            52,
+            32,
+            56,
+            76,
+            36,
+            64,
+            68,
+            72,
+            40,
+            44
+        ]
+    }
+},
+{
+    "model": "auth.group",
+    "pk": 3,
+    "fields": {
+        "name": "Organizadores",
+        "permissions": [
+            1,
+            2,
+            3,
+            4,
+            9,
+            10,
+            11,
+            12,
+            5,
+            6,
+            7,
+            8,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            81,
+            82,
+            83,
+            84,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            77,
+            78,
+            79,
+            80,
+            57,
+            58,
+            59,
+            60,
+            45,
+            46,
+            47,
+            48,
+            49,
+            50,
+            51,
+            52,
+            29,
+            30,
+            31,
+            32,
+            53,
+            54,
+            55,
+            56,
+            73,
+            74,
+            75,
+            76,
+            33,
+            34,
+            35,
+            36,
+            61,
+            62,
+            63,
+            64,
+            65,
+            66,
+            67,
+            68,
+            69,
+            70,
+            71,
+            72,
+            37,
+            38,
+            39,
+            40,
+            41,
+            42,
+            43,
+            44
+        ]
+    }
+},
+{
+    "model": "auth.group",
+    "pk": 4,
+    "fields": {
+        "name": "Administradores",
+        "permissions": [
+            1,
+            2,
+            3,
+            4,
+            9,
+            10,
+            11,
+            12,
+            5,
+            6,
+            7,
+            8,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            81,
+            82,
+            83,
+            84,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            77,
+            78,
+            79,
+            80,
+            57,
+            58,
+            59,
+            60,
+            45,
+            46,
+            47,
+            48,
+            49,
+            50,
+            51,
+            52,
+            29,
+            30,
+            31,
+            32,
+            53,
+            54,
+            55,
+            56,
+            73,
+            74,
+            75,
+            76,
+            33,
+            34,
+            35,
+            36,
+            61,
+            62,
+            63,
+            64,
+            65,
+            66,
+            67,
+            68,
+            69,
+            70,
+            71,
+            72,
+            37,
+            38,
+            39,
+            40,
+            41,
+            42,
+            43,
+            44
+        ]
     }
 },
 {
@@ -719,21 +1233,13 @@
     "model": "contenttypes.contenttype",
     "pk": 4,
     "fields": {
-        "app_label": "auth",
-        "model": "user"
-    }
-},
-{
-    "model": "contenttypes.contenttype",
-    "pk": 5,
-    "fields": {
         "app_label": "contenttypes",
         "model": "contenttype"
     }
 },
 {
     "model": "contenttypes.contenttype",
-    "pk": 6,
+    "pk": 5,
     "fields": {
         "app_label": "sessions",
         "model": "session"
@@ -741,7 +1247,7 @@
 },
 {
     "model": "contenttypes.contenttype",
-    "pk": 7,
+    "pk": 6,
     "fields": {
         "app_label": "torneo",
         "model": "consola"
@@ -749,7 +1255,7 @@
 },
 {
     "model": "contenttypes.contenttype",
-    "pk": 8,
+    "pk": 7,
     "fields": {
         "app_label": "torneo",
         "model": "equipo"
@@ -757,7 +1263,7 @@
 },
 {
     "model": "contenttypes.contenttype",
-    "pk": 9,
+    "pk": 8,
     "fields": {
         "app_label": "torneo",
         "model": "participante"
@@ -765,7 +1271,7 @@
 },
 {
     "model": "contenttypes.contenttype",
-    "pk": 10,
+    "pk": 9,
     "fields": {
         "app_label": "torneo",
         "model": "torneo"
@@ -773,7 +1279,7 @@
 },
 {
     "model": "contenttypes.contenttype",
-    "pk": 11,
+    "pk": 10,
     "fields": {
         "app_label": "torneo",
         "model": "usuario"
@@ -781,7 +1287,31 @@
 },
 {
     "model": "contenttypes.contenttype",
+    "pk": 11,
+    "fields": {
+        "app_label": "torneo",
+        "model": "usuariologin"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
     "pk": 12,
+    "fields": {
+        "app_label": "torneo",
+        "model": "jugador"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 13,
+    "fields": {
+        "app_label": "torneo",
+        "model": "organizador"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 14,
     "fields": {
         "app_label": "torneo",
         "model": "participanteequipo"
@@ -789,7 +1319,7 @@
 },
 {
     "model": "contenttypes.contenttype",
-    "pk": 13,
+    "pk": 15,
     "fields": {
         "app_label": "torneo",
         "model": "juego"
@@ -797,7 +1327,7 @@
 },
 {
     "model": "contenttypes.contenttype",
-    "pk": 14,
+    "pk": 16,
     "fields": {
         "app_label": "torneo",
         "model": "torneojuego"
@@ -805,7 +1335,15 @@
 },
 {
     "model": "contenttypes.contenttype",
-    "pk": 15,
+    "pk": 17,
+    "fields": {
+        "app_label": "torneo",
+        "model": "torneojugador"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 18,
     "fields": {
         "app_label": "torneo",
         "model": "torneoparticipante"
@@ -813,7 +1351,7 @@
 },
 {
     "model": "contenttypes.contenttype",
-    "pk": 16,
+    "pk": 19,
     "fields": {
         "app_label": "torneo",
         "model": "perfildejugador"
@@ -821,7 +1359,7 @@
 },
 {
     "model": "contenttypes.contenttype",
-    "pk": 17,
+    "pk": 20,
     "fields": {
         "app_label": "torneo",
         "model": "espectador"
@@ -829,7 +1367,7 @@
 },
 {
     "model": "contenttypes.contenttype",
-    "pk": 18,
+    "pk": 21,
     "fields": {
         "app_label": "torneo",
         "model": "clasificacion"
@@ -837,3131 +1375,455 @@
 },
 {
     "model": "sessions.session",
-    "pk": "g9qzhy0il1b5viti8dwa3d4fezttfdqu",
+    "pk": "9na2cvyjbqxokhdq9ymn5q4ub5na27ol",
     "fields": {
-        "session_data": ".eJxVjDsOwjAQBe_iGlnxOo5tSnrOEO1POIAcKU4qxN0hUgpo38y8lxlxW8u4NV3GSczZOHP63Qj5oXUHcsd6my3PdV0msrtiD9rsdRZ9Xg7376BgK986aKAcJYvSEKIMyKmPkIHFsaYevO87iD5A5wIQI2rwjigBOfLIat4f4TQ37Q:1t6aKS:9-EuJphUIKsTH4N91uY-aimVbcP8Cy82roqQbChg9bw",
-        "expire_date": "2024-11-14T19:55:32.434"
+        "session_data": ".eJxVjEEOwiAQRe_C2hCcQgGX7nsGMjCDVA0kpV0Z765NutDtf-_9lwi4rSVsnZcwk7gIEKffLWJ6cN0B3bHemkytrssc5a7Ig3Y5NeLn9XD_Dgr28q1NtnlEGMB7P7BBxZqTy2c_EAMiadQEnpUbI2cCRTp5i84pJCJrtHh_APbkOKE:1tWZn0:BBQsrtwgHViTtG5HttuBodUcmh_3uSMWQYVqCrBTeec",
+        "expire_date": "2025-01-25T12:36:26.892"
     }
 },
 {
-    "model": "torneo.usuario",
+    "model": "sessions.session",
+    "pk": "g059j4jomlip2o4syj64xp79pkuzudfy",
+    "fields": {
+        "session_data": "eyJmZWNoYV9pbmljaW8iOiIxOC8wMS8yMDI1IDE0OjUyIn0:1tZ9F8:BCdFYRzJOlwFwzticS47W7JrKEQqogWQIpc7miXHiBA",
+        "expire_date": "2025-02-01T14:52:06.642"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "vgi7gxo5p30jknxo3e7q2ezovnsdpr7y",
+    "fields": {
+        "session_data": "eyJmZWNoYV9pbmljaW8iOiIxOS8wMS8yMDI1IDIzOjUzIn0:1tZeAc:C0BQ1FpO4n5DlVfk-DBx26fZYvF5Vn1xUJTV1Vwp4lk",
+        "expire_date": "2025-02-02T23:53:30.599"
+    }
+},
+{
+    "model": "torneo.usuariologin",
     "pk": 1,
     "fields": {
-        "nombre": "Reach piece sea. Production hotel offer mind expect conference laugh meeting.\nLarge kitchen decade who type miss popular. Believe never evening learn. Car drug claim.",
-        "correo": "timothymcdonald@example.net",
-        "clave_de_acceso": "Day responsibility arm others give record.\nMiss boy smile might ten stuff grow.\nPush conference Democrat born. Purpose successful artist technology bit someone.",
-        "fecha_registro": "2019-03-02T08:33:45"
+        "password": "pbkdf2_sha256$870000$1xx9XZshuUm8FzStdQvf0A$YSC2nBha3Pug3yL3eqOYYTcnZLtBZQDkEHzIwcIA8io=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "fefe",
+        "first_name": "",
+        "last_name": "",
+        "email": "elfefe34@gmail.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2025-01-10T19:11:10.601",
+        "rol": 2,
+        "groups": [],
+        "user_permissions": []
     }
 },
 {
-    "model": "torneo.usuario",
+    "model": "torneo.usuariologin",
     "pk": 2,
     "fields": {
-        "nombre": "Television describe likely house simple cause lead.",
-        "correo": "ffischer@example.com",
-        "clave_de_acceso": "Spend politics face simple. Concern him the act.\nOrganization leader hear push professional notice difficult. Already budget his talk. Alone medical doctor last teach.",
-        "fecha_registro": "2024-04-25T11:22:39"
+        "password": "pbkdf2_sha256$870000$5YeVSjCl5JR9buebhVjUP3$b0VRDIEzlOK0Td43X4mRbqMApihbg+ZUkdxG/KJpO/k=",
+        "last_login": "2025-01-19T23:31:20.076",
+        "is_superuser": true,
+        "username": "admin",
+        "first_name": "",
+        "last_name": "",
+        "email": "admin@gmail.com",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2025-01-10T19:12:28",
+        "rol": 1,
+        "groups": [],
+        "user_permissions": []
     }
 },
 {
-    "model": "torneo.usuario",
+    "model": "torneo.usuariologin",
     "pk": 3,
     "fields": {
-        "nombre": "Main admit over. Chair opportunity without consumer far north. Less already test born.\nLeft accept mouth. Eye story realize beat boy admit. Test son eye impact girl popular.",
-        "correo": "jacksonbradley@example.com",
-        "clave_de_acceso": "Heavy public form attention. Hour call garden physical minute staff. Worker beyond song moment know success.\nTry pass crime lawyer hand board nor. Purpose letter different.\nWhatever lay road federal.",
-        "fecha_registro": "1992-11-13T22:17:17"
+        "password": "pbkdf2_sha256$870000$kVvSyCTSvoRPc8pOLeKVLe$pF44J75wjP0/7URXZcLFg8y987EzGFX3/yhtVlVcyKY=",
+        "last_login": "2025-01-11T20:31:57.314",
+        "is_superuser": false,
+        "username": "elfefe",
+        "first_name": "",
+        "last_name": "",
+        "email": "eljuansito73@gmail.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2025-01-10T23:50:12.170",
+        "rol": 2,
+        "groups": [],
+        "user_permissions": []
     }
 },
 {
-    "model": "torneo.usuario",
+    "model": "torneo.usuariologin",
     "pk": 4,
     "fields": {
-        "nombre": "Mean total with boy single main certain.\nYoung long all social account.\nYard goal staff challenge about me. Treat several also senior dog skill represent live.",
-        "correo": "austinlee@example.com",
-        "clave_de_acceso": "Boy everyone either hard try.\nPerform act glass organization stay. Worry return ability red parent theory everything.",
-        "fecha_registro": "2005-06-15T18:00:49"
+        "password": "pbkdf2_sha256$870000$nJA4ccpMWRJwHBpwV3TsLJ$Il2xF8pOvLcAg/Wv+Flh8NPMNe7s2Yvjgb6q4KrPA/0=",
+        "last_login": "2025-01-18T14:26:55.587",
+        "is_superuser": false,
+        "username": "elpepe",
+        "first_name": "",
+        "last_name": "",
+        "email": "eljuansito73@outlook.es",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2025-01-11T00:14:37.427",
+        "rol": 3,
+        "groups": [],
+        "user_permissions": []
     }
 },
 {
-    "model": "torneo.usuario",
+    "model": "torneo.usuariologin",
     "pk": 5,
     "fields": {
-        "nombre": "Mean represent into. Find girl feeling lot magazine.\nStock else the Mrs reach. Nor guess stay safe production.",
-        "correo": "denise87@example.com",
-        "clave_de_acceso": "Fall difficult how ago information. Inside his artist either trip receive.\nThan wide avoid. Stand lay week focus.",
-        "fecha_registro": "1978-04-15T05:27:14"
+        "password": "pbkdf2_sha256$870000$LevzVGjzVkzFDgqKmlS6iS$UkE+ODY9FjBn0qPEHBCraRn1YolI3ihQHIpsIEVBGBQ=",
+        "last_login": "2025-01-19T21:41:48.357",
+        "is_superuser": false,
+        "username": "yassine",
+        "first_name": "",
+        "last_name": "",
+        "email": "yassine@gmail.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2025-01-18T14:18:55.677",
+        "rol": 2,
+        "groups": [
+            2
+        ],
+        "user_permissions": []
     }
 },
 {
-    "model": "torneo.usuario",
+    "model": "torneo.usuariologin",
     "pk": 6,
     "fields": {
-        "nombre": "Either without example Mrs such condition keep woman. Evidence trial change care.\nBorn middle subject go successful nature. Would take about with major economy discuss couple.",
-        "correo": "jonathan38@example.org",
-        "clave_de_acceso": "Hour film piece study provide. Radio size represent argue ground new. Kid Democrat hour push one same production.\nBeat happen land American military under pretty. Mouth reality program win effort.",
-        "fecha_registro": "2020-12-28T19:21:24"
+        "password": "pbkdf2_sha256$870000$WQPk0iXqZgkalwlSafkAmU$V06dsINa6vXI1IB8Tcso5GricAAHie9EtfHadc5CZV8=",
+        "last_login": "2025-01-18T14:37:37.155",
+        "is_superuser": false,
+        "username": "alvaro",
+        "first_name": "",
+        "last_name": "",
+        "email": "alvaro@gmail.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2025-01-18T14:27:29.434",
+        "rol": 3,
+        "groups": [
+            3
+        ],
+        "user_permissions": []
     }
 },
 {
-    "model": "torneo.usuario",
+    "model": "torneo.usuariologin",
     "pk": 7,
     "fields": {
-        "nombre": "Much this ground. Understand respond then country. Those be many sort argue.\nChoice wait think to expect strong. East off behind world. Pattern there key building.",
-        "correo": "michael37@example.net",
-        "clave_de_acceso": "Thank push price task almost cause popular. Tend practice step analysis himself stop.\nRespond to race crime by water. Star hear get according.\nSafe although window gun physical.",
-        "fecha_registro": "2012-04-22T07:55:37"
+        "password": "pbkdf2_sha256$870000$28Yu2AP8wSYOgwgtb8GEhD$SKCuRFu3tAdsEgZeBdNB3fsC/9w74C7hrH21RIgVrY4=",
+        "last_login": "2025-01-18T14:28:00.336",
+        "is_superuser": false,
+        "username": "jorge",
+        "first_name": "",
+        "last_name": "",
+        "email": "jorge@gmail.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2025-01-18T14:27:59.909",
+        "rol": 2,
+        "groups": [
+            2
+        ],
+        "user_permissions": []
     }
 },
 {
-    "model": "torneo.usuario",
+    "model": "torneo.usuariologin",
     "pk": 8,
     "fields": {
-        "nombre": "Kitchen during loss year soon method section. Imagine risk along outside research. Country happen anything before teach admit. Despite us raise talk week eye yes.",
-        "correo": "bakerrachel@example.com",
-        "clave_de_acceso": "Understand his base during example ask television. Parent third free truth manager thing decision.\nLaw somebody hear believe. Edge become call six what consumer wife. Seven let whether.",
-        "fecha_registro": "1998-04-26T02:17:18"
+        "password": "pbkdf2_sha256$870000$OjloYiLiIDU9vtZdr6OCWr$GOz2Z72xcTei7m63O693LRf+n03kj5ARFIT6bBlHbOs=",
+        "last_login": "2025-01-19T23:43:06.892",
+        "is_superuser": false,
+        "username": "javier",
+        "first_name": "",
+        "last_name": "",
+        "email": "javier@gmail.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2025-01-18T14:39:28.649",
+        "rol": 2,
+        "groups": [
+            2
+        ],
+        "user_permissions": []
     }
 },
 {
-    "model": "torneo.usuario",
+    "model": "torneo.usuariologin",
     "pk": 9,
     "fields": {
-        "nombre": "Cold adult sea close population position parent. Wait of year put agency.",
-        "correo": "kenneth50@example.org",
-        "clave_de_acceso": "Unit impact physical list. In writer single recognize although.\nGreat reveal law ahead look whether free.",
-        "fecha_registro": "2019-10-22T01:12:47"
+        "password": "pbkdf2_sha256$870000$SWf6TYACL8F4EvjW3ulwJ8$fkHp2t8SVZGOTIPsjNfaivFm0acW2jevg6V8IN0oRII=",
+        "last_login": "2025-01-19T21:30:43.878",
+        "is_superuser": true,
+        "username": "lolo",
+        "first_name": "",
+        "last_name": "",
+        "email": "lolo@gamil.com",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2025-01-19T21:30:30.646",
+        "rol": 2,
+        "groups": [],
+        "user_permissions": []
     }
 },
 {
-    "model": "torneo.usuario",
+    "model": "torneo.usuariologin",
     "pk": 10,
     "fields": {
-        "nombre": "Them pay benefit expert place hot forward. Law product up painting money. Agent hand operation song wish get but population.",
-        "correo": "rdixon@example.net",
-        "clave_de_acceso": "Green charge three perform president forward writer. Tough spring consumer at. Debate film guy out she wall return.\nFeeling the life off. Exactly involve tough late national school myself see.",
-        "fecha_registro": "1976-10-17T14:38:19"
+        "password": "pbkdf2_sha256$870000$7ohFM1yrmGp5WVydBuDNlw$PTmoOXD6FjMyVgHLtXYPiDe6tYDVwkEJq+KMBdFSFmk=",
+        "last_login": "2025-01-19T21:32:47.607",
+        "is_superuser": true,
+        "username": "fofo",
+        "first_name": "",
+        "last_name": "",
+        "email": "fofo@gmail.com",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2025-01-19T21:32:16.636",
+        "rol": 2,
+        "groups": [],
+        "user_permissions": []
     }
 },
 {
-    "model": "torneo.usuario",
+    "model": "torneo.usuariologin",
     "pk": 11,
     "fields": {
-        "nombre": "Foot by coach ahead cell read summer. Certain if fine sister side positive likely. Color over president perhaps various save.\nProve turn everybody minute discussion woman blood.",
-        "correo": "lcopeland@example.net",
-        "clave_de_acceso": "Decide thus executive peace. Term box nothing travel.\nCheck recently past activity window interest chance resource. Company end job behavior scene would.",
-        "fecha_registro": "2017-02-09T06:29:09"
+        "password": "pbkdf2_sha256$870000$FdazOFlcZRFrrUwv3TWD0e$NOpI2d4/Cg/XU4nRXsx3UAdCkttVBfCcD3Zxh/9BQc4=",
+        "last_login": "2025-01-19T23:52:37.179",
+        "is_superuser": false,
+        "username": "mocin",
+        "first_name": "",
+        "last_name": "",
+        "email": "elpepiito34@gmail.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2025-01-19T21:42:42.548",
+        "rol": 2,
+        "groups": [
+            2
+        ],
+        "user_permissions": []
     }
 },
 {
-    "model": "torneo.usuario",
+    "model": "torneo.usuariologin",
     "pk": 12,
     "fields": {
-        "nombre": "Realize response should project scene alone. Candidate natural this pressure hear. Imagine either here week light.\nLeast west sing. Will management off training national time.",
-        "correo": "dschultz@example.com",
-        "clave_de_acceso": "Now message concern suggest. Born west street cause agree move.\nKeep school interesting help eight. Southern support manager movement. Trouble never language writer affect program responsibility.",
-        "fecha_registro": "1987-08-01T09:04:17"
+        "password": "pbkdf2_sha256$870000$eGPlODyO3XITW05uYDaf4w$md8dNeCQE8qRZrccgaKcPQhGXTt8UY3lq0TH172qdxg=",
+        "last_login": "2025-01-19T23:44:02.069",
+        "is_superuser": false,
+        "username": "pablo",
+        "first_name": "",
+        "last_name": "",
+        "email": "jorge@gmail.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2025-01-19T23:44:01.640",
+        "rol": 2,
+        "groups": [
+            2
+        ],
+        "user_permissions": []
     }
 },
 {
-    "model": "torneo.usuario",
+    "model": "torneo.usuariologin",
     "pk": 13,
     "fields": {
-        "nombre": "Available bring state send every. Street base land administration them without good.\nFloor now might listen public past. Until full agreement order use out until.",
-        "correo": "christina69@example.com",
-        "clave_de_acceso": "Fish let pattern food travel. Strategy page too history. Respond company commercial around control kid.\nProcess summer serious leader fact. Then culture order education message vote.",
-        "fecha_registro": "1980-04-15T22:20:28"
+        "password": "pbkdf2_sha256$870000$51GDPQk1cJKeaeC1BEKQEX$kWlzgQDCwCBidX+zF/wj+CmF2goF0HLm2XwrqjCi1B0=",
+        "last_login": "2025-01-19T23:53:11.075",
+        "is_superuser": false,
+        "username": "paco",
+        "first_name": "",
+        "last_name": "",
+        "email": "paco@dwc.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2025-01-19T23:53:10.639",
+        "rol": 3,
+        "groups": [
+            3
+        ],
+        "user_permissions": []
     }
 },
 {
-    "model": "torneo.usuario",
-    "pk": 14,
-    "fields": {
-        "nombre": "If east fear theory seem positive way.\nLive necessary bit mention writer. Group threat build future. There while first represent nature.",
-        "correo": "austin66@example.net",
-        "clave_de_acceso": "These particular film who training company. Stop participant product bar several than process.\nOf film road coach simply avoid. Cost unit whose per wear.",
-        "fecha_registro": "2022-08-22T03:39:34"
-    }
-},
-{
-    "model": "torneo.usuario",
-    "pk": 15,
-    "fields": {
-        "nombre": "Design former suddenly paper free. Section least give government. Something research letter speak task car before.",
-        "correo": "davidmorgan@example.net",
-        "clave_de_acceso": "Television performance question building fly hair the. Live practice pressure anything.\nExpert concern people record often between window. Arrive they find back land.",
-        "fecha_registro": "2021-07-31T12:13:52"
-    }
-},
-{
-    "model": "torneo.usuario",
-    "pk": 16,
-    "fields": {
-        "nombre": "Pepe",
-        "correo": "saddsadsa@asdads.com",
-        "clave_de_acceso": "sdasdfeas",
-        "fecha_registro": "2024-10-31T00:00:00"
-    }
-},
-{
-    "model": "torneo.usuario",
-    "pk": 17,
-    "fields": {
-        "nombre": "Israel",
-        "correo": "sdsdadsa@sdsadsa.com",
-        "clave_de_acceso": "dsadsasda",
-        "fecha_registro": "2024-10-31T19:57:22"
-    }
-},
-{
-    "model": "torneo.perfildejugador",
-    "pk": 1,
-    "fields": {
-        "usuario": 14,
-        "puntos": 15555,
-        "nivel": -30097,
-        "ranking": 16384,
-        "avatar": "http://baker.com/search/list/explorefaq.htm"
-    }
-},
-{
-    "model": "torneo.perfildejugador",
-    "pk": 2,
-    "fields": {
-        "usuario": 2,
-        "puntos": -29261,
-        "nivel": -2948,
-        "ranking": 11142,
-        "avatar": "http://www.woods.com/wp-content/wp-content/categoriespost.asp"
-    }
-},
-{
-    "model": "torneo.perfildejugador",
-    "pk": 3,
-    "fields": {
-        "usuario": 6,
-        "puntos": -3312,
-        "nivel": 22423,
-        "ranking": 17375,
-        "avatar": "http://www.mitchell.com/wp-contentfaq.jsp"
-    }
-},
-{
-    "model": "torneo.perfildejugador",
-    "pk": 4,
-    "fields": {
-        "usuario": 4,
-        "puntos": 22985,
-        "nivel": -17760,
-        "ranking": -17407,
-        "avatar": "https://mccullough.com/tagcategory.php"
-    }
-},
-{
-    "model": "torneo.perfildejugador",
-    "pk": 5,
-    "fields": {
-        "usuario": 10,
-        "puntos": -4877,
-        "nivel": 28418,
-        "ranking": 19892,
-        "avatar": "http://www.richards.com/blog/categories/tagabout.htm"
-    }
-},
-{
-    "model": "torneo.perfildejugador",
-    "pk": 6,
-    "fields": {
-        "usuario": 12,
-        "puntos": 24873,
-        "nivel": -28663,
-        "ranking": -19122,
-        "avatar": "http://olson-cook.net/explore/wp-content/maincategory.php"
-    }
-},
-{
-    "model": "torneo.perfildejugador",
-    "pk": 7,
-    "fields": {
-        "usuario": 15,
-        "puntos": 23528,
-        "nivel": 8283,
-        "ranking": -32201,
-        "avatar": "http://jarvis.com/listabout.php"
-    }
-},
-{
-    "model": "torneo.perfildejugador",
-    "pk": 8,
-    "fields": {
-        "usuario": 13,
-        "puntos": 20116,
-        "nivel": -30344,
-        "ranking": 108,
-        "avatar": "http://horton.info/postsprivacy.html"
-    }
-},
-{
-    "model": "torneo.perfildejugador",
-    "pk": 9,
-    "fields": {
-        "usuario": 8,
-        "puntos": -26922,
-        "nivel": 20295,
-        "ranking": -3374,
-        "avatar": "http://www.rodriguez.com/tags/category/searchhome.asp"
-    }
-},
-{
-    "model": "torneo.perfildejugador",
-    "pk": 10,
-    "fields": {
-        "usuario": 5,
-        "puntos": 23707,
-        "nivel": -11671,
-        "ranking": 461,
-        "avatar": "https://www.phillips.org/tags/category/searchpost.php"
-    }
-},
-{
-    "model": "torneo.perfildejugador",
-    "pk": 11,
-    "fields": {
-        "usuario": 1,
-        "puntos": -8901,
-        "nivel": -6889,
-        "ranking": -12771,
-        "avatar": "http://becker.com/search/postssearch.asp"
-    }
-},
-{
-    "model": "torneo.perfildejugador",
-    "pk": 12,
-    "fields": {
-        "usuario": 3,
-        "puntos": 25694,
-        "nivel": 4365,
-        "ranking": 9451,
-        "avatar": "https://johnson-adams.net/tags/wp-content/mainabout.php"
-    }
-},
-{
-    "model": "torneo.perfildejugador",
-    "pk": 13,
-    "fields": {
-        "usuario": 9,
-        "puntos": -28337,
-        "nivel": 19342,
-        "ranking": -20388,
-        "avatar": "https://www.smith.net/wp-contentpost.html"
-    }
-},
-{
-    "model": "torneo.perfildejugador",
-    "pk": 14,
-    "fields": {
-        "usuario": 7,
-        "puntos": 3139,
-        "nivel": 29746,
-        "ranking": -5842,
-        "avatar": "http://johnson.com/categoryprivacy.php"
-    }
-},
-{
-    "model": "torneo.perfildejugador",
-    "pk": 15,
-    "fields": {
-        "usuario": 11,
-        "puntos": 31420,
-        "nivel": 22934,
-        "ranking": 20999,
-        "avatar": "http://www.martin.com/explore/explorehome.php"
-    }
-},
-{
-    "model": "torneo.equipo",
-    "pk": 1,
-    "fields": {
-        "nombre": "Finish culture management factor three.\nHuge billion picture prepare only. Financial charge increase front off give must.",
-        "logotipo": "https://little-santiago.com/blogprivacy.asp",
-        "fecha_ingreso": "2024-10-18",
-        "puntos_contribuidos": -29780
-    }
-},
-{
-    "model": "torneo.equipo",
-    "pk": 2,
-    "fields": {
-        "nombre": "Start enter degree child process attorney. Treatment kind outside possible expert. Certainly happy above over party.\nCost someone director picture game four sort. Floor brother design into current.",
-        "logotipo": "http://mann.com/tag/blog/listcategory.jsp",
-        "fecha_ingreso": "2024-10-18",
-        "puntos_contribuidos": -21406
-    }
-},
-{
-    "model": "torneo.equipo",
-    "pk": 3,
-    "fields": {
-        "nombre": "Attack choice Republican office political. Leave material piece similar exist century effort.\nTrial evidence race himself easy daughter above.",
-        "logotipo": "http://www.matthews.com/blog/mainhomepage.html",
-        "fecha_ingreso": "2024-10-18",
-        "puntos_contribuidos": 28927
-    }
-},
-{
-    "model": "torneo.equipo",
-    "pk": 4,
-    "fields": {
-        "nombre": "Follow book store. Inside floor hair bill suddenly positive long. Matter although call section with management.",
-        "logotipo": "https://www.allen.biz/tags/categoriescategory.htm",
-        "fecha_ingreso": "2024-10-18",
-        "puntos_contribuidos": -13871
-    }
-},
-{
-    "model": "torneo.equipo",
-    "pk": 5,
-    "fields": {
-        "nombre": "Could fire unit. Best draw whose.\nCrime stage field involve choice executive position risk. Development politics factor federal water. She often kitchen take.",
-        "logotipo": "https://cline-williams.com/list/listauthor.php",
-        "fecha_ingreso": "2024-10-18",
-        "puntos_contribuidos": 19780
-    }
-},
-{
-    "model": "torneo.equipo",
-    "pk": 6,
-    "fields": {
-        "nombre": "Poor TV then career. Which former green.\nOff claim risk former project article. Cultural interest market law.\nAnswer authority gun structure. Enter responsibility set process time almost.",
-        "logotipo": "https://www.pugh.info/searchmain.jsp",
-        "fecha_ingreso": "2024-10-18",
-        "puntos_contribuidos": 3525
-    }
-},
-{
-    "model": "torneo.equipo",
-    "pk": 7,
-    "fields": {
-        "nombre": "Democratic tough score to song. Example brother great even more detail.",
-        "logotipo": "http://huber-morrison.com/explore/exploreabout.jsp",
-        "fecha_ingreso": "2024-10-18",
-        "puntos_contribuidos": 22022
-    }
-},
-{
-    "model": "torneo.equipo",
-    "pk": 8,
-    "fields": {
-        "nombre": "Crime popular low must reflect.\nImprove idea ball thought business position such. Project activity develop industry pass. Agreement in point himself rather important interview.",
-        "logotipo": "https://lee.com/blogauthor.html",
-        "fecha_ingreso": "2024-10-18",
-        "puntos_contribuidos": -25832
-    }
-},
-{
-    "model": "torneo.equipo",
-    "pk": 9,
-    "fields": {
-        "nombre": "Law could small how trial range conference range. Shoulder career believe particular accept relationship. Player capital season.",
-        "logotipo": "http://www.moore.com/categories/wp-content/explorepost.jsp",
-        "fecha_ingreso": "2024-10-18",
-        "puntos_contribuidos": -27456
-    }
-},
-{
-    "model": "torneo.equipo",
-    "pk": 10,
-    "fields": {
-        "nombre": "Movement common group agency room with another. Grow part alone accept loss over.\nFear method almost another sit.\nOil radio already look recently parent. People whose ask clear.",
-        "logotipo": "http://collins.net/app/appauthor.asp",
-        "fecha_ingreso": "2024-10-18",
-        "puntos_contribuidos": 13312
-    }
-},
-{
-    "model": "torneo.equipo",
-    "pk": 11,
-    "fields": {
-        "nombre": "Establish all whose environmental compare forget cell. Bank organization enjoy save piece. Team decade suggest where develop.",
-        "logotipo": "https://www.valencia.biz/blogcategory.html",
-        "fecha_ingreso": "2024-10-18",
-        "puntos_contribuidos": -11330
-    }
-},
-{
-    "model": "torneo.equipo",
-    "pk": 12,
-    "fields": {
-        "nombre": "Drive what attention start ask former Democrat. Necessary image yeah only let amount. Activity control how use others better four fish.\nAdd ask expect smile bring since. Of project choice care big.",
-        "logotipo": "https://www.riggs.com/appabout.php",
-        "fecha_ingreso": "2024-10-18",
-        "puntos_contribuidos": -24739
-    }
-},
-{
-    "model": "torneo.equipo",
-    "pk": 13,
-    "fields": {
-        "nombre": "Language until product show. Sport several pattern need tonight painting.\nWorry strategy water speak professional big join happen. Interest mother Republican movement other meet east.",
-        "logotipo": "https://lee-baxter.com/app/posts/searchauthor.asp",
-        "fecha_ingreso": "2024-10-18",
-        "puntos_contribuidos": -19589
-    }
-},
-{
-    "model": "torneo.equipo",
-    "pk": 14,
-    "fields": {
-        "nombre": "Employee produce image. Color throw serve production nor allow.\nPast born away factor behind ball. Firm stuff month be job director four. View indeed main quickly if industry.",
-        "logotipo": "http://rogers.com/categories/wp-content/exploreprivacy.asp",
-        "fecha_ingreso": "2024-10-18",
-        "puntos_contribuidos": -30790
-    }
-},
-{
-    "model": "torneo.equipo",
-    "pk": 15,
-    "fields": {
-        "nombre": "New organization force address student idea get thus.\nPossible center score art defense smile argue week. Radio by network develop them hundred case. Next woman past mind easy.",
-        "logotipo": "https://mathis.biz/wp-contentterms.htm",
-        "fecha_ingreso": "2024-10-18",
-        "puntos_contribuidos": 26080
-    }
-},
-{
-    "model": "torneo.participante",
+    "model": "torneo.organizador",
     "pk": 1,
     "fields": {
         "usuario": 6,
-        "puntos_obtenidos": 22561,
-        "posicion_final": 12826,
-        "fecha_inscripcion": "2024-10-18",
-        "tiempo_jugado": 0.1261118789019785
+        "eventos_creados": 0
     }
 },
 {
-    "model": "torneo.participante",
+    "model": "torneo.organizador",
     "pk": 2,
-    "fields": {
-        "usuario": 15,
-        "puntos_obtenidos": -23818,
-        "posicion_final": 15357,
-        "fecha_inscripcion": "2024-10-18",
-        "tiempo_jugado": 0.5785592991535384
-    }
-},
-{
-    "model": "torneo.participante",
-    "pk": 3,
-    "fields": {
-        "usuario": 7,
-        "puntos_obtenidos": -9856,
-        "posicion_final": 31027,
-        "fecha_inscripcion": "2024-10-18",
-        "tiempo_jugado": 0.1537871247677074
-    }
-},
-{
-    "model": "torneo.participante",
-    "pk": 4,
-    "fields": {
-        "usuario": 10,
-        "puntos_obtenidos": 20011,
-        "posicion_final": -31794,
-        "fecha_inscripcion": "2024-10-18",
-        "tiempo_jugado": 0.9367540003150854
-    }
-},
-{
-    "model": "torneo.participante",
-    "pk": 5,
-    "fields": {
-        "usuario": 11,
-        "puntos_obtenidos": -16712,
-        "posicion_final": -20336,
-        "fecha_inscripcion": "2024-10-18",
-        "tiempo_jugado": 0.5673234816021006
-    }
-},
-{
-    "model": "torneo.participante",
-    "pk": 6,
-    "fields": {
-        "usuario": 12,
-        "puntos_obtenidos": 12974,
-        "posicion_final": -24865,
-        "fecha_inscripcion": "2024-10-18",
-        "tiempo_jugado": 0.6441243728514509
-    }
-},
-{
-    "model": "torneo.participante",
-    "pk": 7,
-    "fields": {
-        "usuario": 3,
-        "puntos_obtenidos": 9869,
-        "posicion_final": -18258,
-        "fecha_inscripcion": "2024-10-18",
-        "tiempo_jugado": 0.6747667235553462
-    }
-},
-{
-    "model": "torneo.participante",
-    "pk": 8,
-    "fields": {
-        "usuario": 14,
-        "puntos_obtenidos": 29995,
-        "posicion_final": -13446,
-        "fecha_inscripcion": "2024-10-18",
-        "tiempo_jugado": 0.5485153315457444
-    }
-},
-{
-    "model": "torneo.participante",
-    "pk": 9,
     "fields": {
         "usuario": 13,
-        "puntos_obtenidos": -32491,
-        "posicion_final": -30999,
-        "fecha_inscripcion": "2024-10-18",
-        "tiempo_jugado": 0.2944696643057434
+        "eventos_creados": 0
     }
 },
 {
-    "model": "torneo.participante",
-    "pk": 10,
+    "model": "torneo.torneo",
+    "pk": 6,
     "fields": {
-        "usuario": 8,
-        "puntos_obtenidos": -21022,
-        "posicion_final": -27729,
-        "fecha_inscripcion": "2024-10-18",
-        "tiempo_jugado": 0.15368276763563715
+        "nombre": "FIFA",
+        "descripcion": "torneo de futbol DE DEPORTes",
+        "categoria": "Acci¾n",
+        "duracion": "00:01:00",
+        "fecha_inicio": "2025-01-19"
     }
 },
 {
-    "model": "torneo.participante",
-    "pk": 11,
+    "model": "torneo.torneo",
+    "pk": 7,
     "fields": {
-        "usuario": 1,
-        "puntos_obtenidos": 10097,
-        "posicion_final": 13493,
-        "fecha_inscripcion": "2024-10-18",
-        "tiempo_jugado": 0.06188028956268432
+        "nombre": "LEAGUE OF LEGENDS",
+        "descripcion": "Juego de estrategia y acci¾n.",
+        "categoria": "Aventura",
+        "duracion": "00:01:00",
+        "fecha_inicio": "2025-01-19"
     }
 },
 {
-    "model": "torneo.participante",
-    "pk": 12,
+    "model": "torneo.torneo",
+    "pk": 8,
     "fields": {
-        "usuario": 4,
-        "puntos_obtenidos": 6805,
-        "posicion_final": -19631,
-        "fecha_inscripcion": "2024-10-18",
-        "tiempo_jugado": 0.9305923431765325
+        "nombre": "CLASH ROYALE",
+        "descripcion": "\"Estrategia en tiempo real.\"",
+        "categoria": "Estrategia",
+        "duracion": "00:04:00",
+        "fecha_inicio": "2025-01-19"
     }
 },
 {
-    "model": "torneo.participante",
-    "pk": 13,
+    "model": "torneo.torneo",
+    "pk": 9,
     "fields": {
-        "usuario": 2,
-        "puntos_obtenidos": 187,
-        "posicion_final": -4144,
-        "fecha_inscripcion": "2024-10-18",
-        "tiempo_jugado": 0.550450826958035
+        "nombre": "BRAWL STARS",
+        "descripcion": "\"Estrategia en tiempo real.\"",
+        "categoria": "Estrategia",
+        "duracion": "00:04:00",
+        "fecha_inicio": "2025-01-19"
     }
 },
 {
-    "model": "torneo.participante",
-    "pk": 14,
+    "model": "torneo.jugador",
+    "pk": 1,
     "fields": {
         "usuario": 5,
-        "puntos_obtenidos": 3656,
-        "posicion_final": -32690,
-        "fecha_inscripcion": "2024-10-18",
-        "tiempo_jugado": 0.5918314292592332
+        "puntos": 0,
+        "equipo": null
     }
 },
 {
-    "model": "torneo.participante",
-    "pk": 15,
-    "fields": {
-        "usuario": 9,
-        "puntos_obtenidos": 9258,
-        "posicion_final": 13572,
-        "fecha_inscripcion": "2024-10-18",
-        "tiempo_jugado": 0.5379576908455541
-    }
-},
-{
-    "model": "torneo.torneo",
-    "pk": 1,
-    "fields": {
-        "nombre": "Drive but hundred significant task firm town. Wide keep baby act. First year consumer husband chance him plant particular.",
-        "descripcion": "Manage single also land theory should have. Run push let piece occur. Score field someone gas simple discover.\nOther center team back. May a society life night relate.",
-        "categoria": "Whose force so today fund glass sign no. Cut travel democratic.",
-        "duracion": "3560 18:33:55",
-        "fecha_inicio": "2024-10-18"
-    }
-},
-{
-    "model": "torneo.torneo",
+    "model": "torneo.jugador",
     "pk": 2,
-    "fields": {
-        "nombre": "Contain expert miss. Item true we issue. Test agree low green record television.",
-        "descripcion": "Former speech know. Rather fast decade say nature skill.\nNor check lay.\nMind production during great artist pass represent poor. Professional visit guess already manager room.",
-        "categoria": "Eight how down analysis arrive board. Individual ahead number identify science onto tend.",
-        "duracion": "10414 08:39:14",
-        "fecha_inicio": "2024-10-18"
-    }
-},
-{
-    "model": "torneo.torneo",
-    "pk": 3,
-    "fields": {
-        "nombre": "On baby road choose number. Garden very coach seem that. War number both hard discuss rich far lawyer.\nAmerican occur doctor already once lead pattern all. Claim citizen get week about.",
-        "descripcion": "Culture whole heart east perhaps. Top student shake near. Method do ahead family history.\nMember common dog. Dream voice much use. Room effort spend radio part.",
-        "categoria": "Suggest bill child important suddenly institution customer. Claim wait recognize beyond worry born.",
-        "duracion": "1848 23:03:34",
-        "fecha_inicio": "2024-10-18"
-    }
-},
-{
-    "model": "torneo.torneo",
-    "pk": 4,
-    "fields": {
-        "nombre": "Senior mission this. Everyone value foot know across seat often.\nWest today thought responsibility. Soldier military special center wonder how.",
-        "descripcion": "Important teach significant same although now pretty. Note no morning culture. People floor across.",
-        "categoria": "Event reflect about soldier. Two measure along when whether feel realize. Represent spring agree.",
-        "duracion": "18025 23:13:14",
-        "fecha_inicio": "2024-10-18"
-    }
-},
-{
-    "model": "torneo.torneo",
-    "pk": 5,
-    "fields": {
-        "nombre": "Establish explain cost something travel town. Subject mind might new pay. Since main only century teach.",
-        "descripcion": "Believe sort bank agreement media. Mean person form. Catch tell increase only will.",
-        "categoria": "Instead within it tonight environment series cold. Sometimes see name.",
-        "duracion": "14468 11:20:33",
-        "fecha_inicio": "2024-10-18"
-    }
-},
-{
-    "model": "torneo.torneo",
-    "pk": 6,
-    "fields": {
-        "nombre": "Risk picture difficult us glass similar positive. Rate begin senior. Year side medical operation still result.\nCulture want put night produce fast. Ago few suggest mind director bag rock officer.",
-        "descripcion": "Artist individual former term part book letter young. Mother energy example. Reality despite treat finally.",
-        "categoria": "Wife member firm to better technology.",
-        "duracion": "14108 05:42:57",
-        "fecha_inicio": "2024-10-18"
-    }
-},
-{
-    "model": "torneo.torneo",
-    "pk": 7,
-    "fields": {
-        "nombre": "Energy door worry smile right visit leg yeah. Bed war another adult. Oil weight seven drug set describe.",
-        "descripcion": "Back away room fish head kitchen already agent. Training both ago within job.\nFace school same newspaper machine with help. Realize professional happy land simply during.",
-        "categoria": "Sing building interest recently finally analysis. Tax instead capital need stand sense.",
-        "duracion": "7400 13:39:10",
-        "fecha_inicio": "2024-10-18"
-    }
-},
-{
-    "model": "torneo.torneo",
-    "pk": 8,
-    "fields": {
-        "nombre": "Money land hair likely first lot rate.\nBegin stay speak artist least book. Collection respond by growth develop improve owner. Assume office customer care campaign see because.",
-        "descripcion": "Decade building friend individual TV clear represent your. Action local officer represent both whose.",
-        "categoria": "Inside opportunity market including. Husband eye discuss material traditional case.",
-        "duracion": "13505 11:40:16",
-        "fecha_inicio": "2024-10-18"
-    }
-},
-{
-    "model": "torneo.torneo",
-    "pk": 9,
-    "fields": {
-        "nombre": "Environmental look where executive cup although nearly purpose. Wife performance stand soldier recent simple. Money figure at deal recognize. Positive prove represent.",
-        "descripcion": "We get article hair game member game. Such base establish magazine. Same make population leader simply already especially.\nSingle American else practice operation. Song act notice nearly.",
-        "categoria": "Size far method husband sign along. Buy remain road. Do edge role fund mean receive.",
-        "duracion": "19071 16:39:01",
-        "fecha_inicio": "2024-10-18"
-    }
-},
-{
-    "model": "torneo.torneo",
-    "pk": 10,
-    "fields": {
-        "nombre": "Property culture economic subject social market. Energy late media simply successful be employee.\nAll ahead spring here change. Mind would as major movement wish.",
-        "descripcion": "Individual information charge next. Number live then Mr notice.\nFly wife stay condition whose their. Put really democratic their them.",
-        "categoria": "Serve attorney practice parent inside car. Business recently specific indeed.",
-        "duracion": "3996 19:08:44",
-        "fecha_inicio": "2024-10-18"
-    }
-},
-{
-    "model": "torneo.torneo",
-    "pk": 11,
-    "fields": {
-        "nombre": "Hair road both structure full government reflect.\nEnergy also interesting word type economic enjoy.\nSee us authority. Total around election them.",
-        "descripcion": "Eye tonight after again. Institution total federal they feeling indeed.\nLand soldier father mission. Her involve miss. Indicate professor glass year me get author.",
-        "categoria": "Matter century responsibility yet buy. Office subject subject government class.",
-        "duracion": "8519 14:02:24",
-        "fecha_inicio": "2024-10-18"
-    }
-},
-{
-    "model": "torneo.torneo",
-    "pk": 12,
-    "fields": {
-        "nombre": "Option computer chance crime. They know side shake. Drug key trial leg although.\nEvery star say high summer. Rate force writer national business ago dark.",
-        "descripcion": "School gun like pretty. Off bar TV list.\nPrevent somebody hundred reach.\nBrother buy my project back red show.\nWestern drive once stand whether. Picture out these maybe measure Congress degree.",
-        "categoria": "Executive also relate family.",
-        "duracion": "19223 15:43:06",
-        "fecha_inicio": "2024-10-18"
-    }
-},
-{
-    "model": "torneo.torneo",
-    "pk": 13,
-    "fields": {
-        "nombre": "Part she pressure. Foreign win model vote add rest road.\nModel mind attention game live. Build central management sea agreement blue technology.",
-        "descripcion": "During through same candidate tend record. Stage either report cost fall.\nWork whether though. Process month specific involve painting feeling carry. Try truth tell.",
-        "categoria": "Product run collection pick. Do only sport memory. Person student effect present note.",
-        "duracion": "13570 00:41:00",
-        "fecha_inicio": "2024-10-18"
-    }
-},
-{
-    "model": "torneo.torneo",
-    "pk": 14,
-    "fields": {
-        "nombre": "Art federal forward usually stay house. Administration may yes watch simple evidence. Watch sometimes effect north face.",
-        "descripcion": "Almost bank adult among field ready.\nSing take program feeling major total. Process deep task.\nHigh friend data great force magazine mission. Enough financial rather say after since road special.",
-        "categoria": "Seek animal available attack. Choose pressure truth gas amount area power.",
-        "duracion": "6479 22:38:02",
-        "fecha_inicio": "2024-10-18"
-    }
-},
-{
-    "model": "torneo.torneo",
-    "pk": 15,
-    "fields": {
-        "nombre": "Population history sound buy. Medical her kind general education there until.\nRole project none form. Turn lawyer seat office cover for.",
-        "descripcion": "Choice action woman occur something live. Clearly as table size service. Whose address there approach stock leader.",
-        "categoria": "Clear part each. Line nor organization win. Ok building itself may talk civil black.",
-        "duracion": "13444 21:56:54",
-        "fecha_inicio": "2024-10-18"
-    }
-},
-{
-    "model": "torneo.consola",
-    "pk": 1,
-    "fields": {
-        "nombre": "Car Democrat fight suggest each suggest. Imagine energy evening board sure fish season.\nPopular four born wall woman always same sort. Down network family movement carry marriage risk.",
-        "marca": "Shake worry account likely cut impact our. Condition ground rule book hotel special audience board.",
-        "tipo": "World special stock around a well. Leader rate page message law. Hot book take expect box.",
-        "precio": "0.82"
-    }
-},
-{
-    "model": "torneo.consola",
-    "pk": 2,
-    "fields": {
-        "nombre": "Draw film toward would mouth effort spring personal. Baby reflect just policy head thing. School event save up. Career while certainly real century style.",
-        "marca": "Make throw far social although.",
-        "tipo": "Institution month sing might peace apply. Against they rule few stop. Between as approach church.",
-        "precio": "0.95"
-    }
-},
-{
-    "model": "torneo.consola",
-    "pk": 3,
-    "fields": {
-        "nombre": "Evidence serve trip religious.\nNewspaper close resource. Generation involve significant interview ability. Until sit music much.",
-        "marca": "View responsibility candidate consumer whole school.",
-        "tipo": "Exactly their off light. Sister nation her red similar director experience. Different policy turn.",
-        "precio": "0.05"
-    }
-},
-{
-    "model": "torneo.consola",
-    "pk": 4,
-    "fields": {
-        "nombre": "Work everyone national require everything. Role through able size much west value.\nThought water structure art. Coach health ever husband chance who wrong.",
-        "marca": "Science dog stock them. Himself research air at upon.\nActivity see remember tree.",
-        "tipo": "Staff beyond respond bad hear measure effort pass.\nHigh matter lot send research himself.",
-        "precio": "0.77"
-    }
-},
-{
-    "model": "torneo.consola",
-    "pk": 5,
-    "fields": {
-        "nombre": "Recent say billion car author policy. Pay change cold morning the. Take land grow newspaper three.\nSeek safe current number stuff successful. Across plant ask name job city officer.",
-        "marca": "Force paper people recent effect current. Sit anyone toward yes call accept.",
-        "tipo": "Stuff training only should visit. But painting entire if.",
-        "precio": "0.27"
-    }
-},
-{
-    "model": "torneo.consola",
-    "pk": 6,
-    "fields": {
-        "nombre": "Live simple worry travel message drop college. Along second firm product reflect.\nOff Mrs specific kitchen decide join future. Newspaper best blood notice model call recent.\nWell part tonight.",
-        "marca": "Listen my beat fine go account. Week and production former break let.",
-        "tipo": "Little finish keep organization attention article safe country.",
-        "precio": "0.90"
-    }
-},
-{
-    "model": "torneo.consola",
-    "pk": 7,
-    "fields": {
-        "nombre": "Piece quality animal now office. Receive director way. Clear over standard paper discover.",
-        "marca": "Something anything sign effort power various child.",
-        "tipo": "Environment number job maintain possible. Her or institution job. Major check morning people.",
-        "precio": "0.80"
-    }
-},
-{
-    "model": "torneo.consola",
-    "pk": 8,
-    "fields": {
-        "nombre": "Week right small good personal my. Same will customer language. Tough present again.\nQuickly institution day media day must. Able lawyer notice. Statement old enough the often staff far.",
-        "marca": "Factor speech matter. Sister fact image head agent lawyer sense call.",
-        "tipo": "Concern unit court say single consumer. Very stuff just risk course goal collection.",
-        "precio": "0.52"
-    }
-},
-{
-    "model": "torneo.consola",
-    "pk": 9,
-    "fields": {
-        "nombre": "Big year drop seem kind Mr heart. Main firm seek entire movement any hard. Service look billion five everybody.",
-        "marca": "Sound use find. Rather material manage chair story build. Guy which arrive couple term.",
-        "tipo": "Popular run international specific week seven. Blood none continue operation foot.",
-        "precio": "0.65"
-    }
-},
-{
-    "model": "torneo.consola",
-    "pk": 10,
-    "fields": {
-        "nombre": "Assume attack quickly bring about life. Democratic white water from. Morning when whom be street.\nWith man just center. Wide hold here respond partner at shoulder.",
-        "marca": "Character rule director hundred. Production nation size leg near.",
-        "tipo": "Authority group religious single parent young maintain. Change happen social three.",
-        "precio": "0.87"
-    }
-},
-{
-    "model": "torneo.consola",
-    "pk": 11,
-    "fields": {
-        "nombre": "Its wide fund tend draw local hot. Above other whom and career care only. Wish possible challenge night civil possible effect. Action imagine want democratic.",
-        "marca": "Likely throw moment media.",
-        "tipo": "Serve performance quality cost itself poor no. According wife stay others.",
-        "precio": "0.14"
-    }
-},
-{
-    "model": "torneo.consola",
-    "pk": 12,
-    "fields": {
-        "nombre": "Next bad message hold image off child. Sea fight line agreement water really common. Eye citizen name face.\nLanguage then long dinner.",
-        "marca": "Month yourself as claim. Important finish successful off base market.",
-        "tipo": "Decide pattern particular east social billion get hot.",
-        "precio": "0.50"
-    }
-},
-{
-    "model": "torneo.consola",
-    "pk": 13,
-    "fields": {
-        "nombre": "Key likely surface doctor. Task help by much wife more friend difference.\nMiddle the trip mother. Show door ok in population line.",
-        "marca": "Inside history base professor speech few. Attack man point activity country new.",
-        "tipo": "Lot or place to build president high. Different grow Republican mouth stay note conference.",
-        "precio": "0.63"
-    }
-},
-{
-    "model": "torneo.consola",
-    "pk": 14,
-    "fields": {
-        "nombre": "Admit issue skin rule beyond. Save include society much increase study.\nAcross vote million hotel college amount management. Meeting clear step yes side. Clear PM magazine pretty.",
-        "marca": "Child sound check thing per. Seat common others either state challenge. Whatever stuff pick.",
-        "tipo": "Technology partner director Congress table who. Present tonight its new age.",
-        "precio": "0.96"
-    }
-},
-{
-    "model": "torneo.consola",
-    "pk": 15,
-    "fields": {
-        "nombre": "Paper action him trade ok. Turn police environmental hundred share cost may part.\nMeeting job size maintain. Somebody over who feeling company serve especially.",
-        "marca": "Challenge high either too girl. Official data should.",
-        "tipo": "Second one energy base area. Travel build want data tend. Establish new arrive.",
-        "precio": "0.88"
-    }
-},
-{
-    "model": "torneo.juego",
-    "pk": 1,
-    "fields": {
-        "torneo": 8,
-        "nombre": "Can discuss Congress with our. Best wide mean control organization.\nDeal drop movie mother upon sell across.\nCertain wife maintain poor. Your leave discuss lay might. Sign reason memory us.",
-        "genero": "On sure south its who.",
-        "id_consola": 12,
-        "descripcion": "Method any instead face fear imagine. Year conference amount performance white. Sit policy bag.\nRepublican miss almost purpose west well. First so recently."
-    }
-},
-{
-    "model": "torneo.juego",
-    "pk": 2,
-    "fields": {
-        "torneo": 10,
-        "nombre": "Do letter class them specific their section. Far create just choose service bar spend. Itself structure past hundred time growth.",
-        "genero": "Lot campaign these quite require.",
-        "id_consola": 14,
-        "descripcion": "Change free themselves interest art read effect. Radio entire itself black hope campaign wonder.\nContain price six ask south manager. But ability share institution Mr teacher."
-    }
-},
-{
-    "model": "torneo.juego",
-    "pk": 3,
-    "fields": {
-        "torneo": 2,
-        "nombre": "Instead floor heavy fund kind heavy. Generation test often small husband. Maintain involve something back space walk.\nJust authority lose unit tonight his once life.",
-        "genero": "Summer remember center product.",
-        "id_consola": 14,
-        "descripcion": "Opportunity various away again most enough set. Send find yard understand me. Detail fear lose media hear perform either."
-    }
-},
-{
-    "model": "torneo.juego",
-    "pk": 4,
-    "fields": {
-        "torneo": 5,
-        "nombre": "Put design else region figure establish out few. Box say movement may political. Tv voice officer reveal yourself. News protect area shake various.",
-        "genero": "Item fear also blue organization language.",
-        "id_consola": 9,
-        "descripcion": "Still month cause as perhaps leave. Professor fast only I the. Environment fast himself vote office unit. Environmental unit third industry protect.\nIssue very within interesting."
-    }
-},
-{
-    "model": "torneo.juego",
-    "pk": 5,
-    "fields": {
-        "torneo": 13,
-        "nombre": "Become along center answer speech lead. Pressure environmental itself course. Form hotel seat result stock sit maybe.",
-        "genero": "Fly entire body though loss. Man arrive training.",
-        "id_consola": 9,
-        "descripcion": "Dark drug sometimes boy unit close least. Republican cultural community build save five visit. Continue well nature every half everybody which."
-    }
-},
-{
-    "model": "torneo.juego",
-    "pk": 6,
-    "fields": {
-        "torneo": 6,
-        "nombre": "Appear bag likely week fund reach.\nCourse ahead cultural similar enter. Produce important fill serve. Yet turn person.",
-        "genero": "How sort return day again big.",
-        "id_consola": 12,
-        "descripcion": "Eye law fly create wrong toward over.\nFirm director loss stop meet officer many. Everyone affect throughout question. Republican politics director lot society."
-    }
-},
-{
-    "model": "torneo.juego",
-    "pk": 7,
-    "fields": {
-        "torneo": 7,
-        "nombre": "But development approach modern. Add stop hold prove family bit participant. Visit role minute machine.\nJoin herself account education. Idea star quickly fish. Special would star gun he may.",
-        "genero": "Early past force natural field explain view.",
-        "id_consola": 11,
-        "descripcion": "The relate admit hear lot. Later product one need conference throw old. Example do responsibility strategy act ready important."
-    }
-},
-{
-    "model": "torneo.juego",
-    "pk": 8,
-    "fields": {
-        "torneo": 15,
-        "nombre": "Dinner sister network admit expect dog. Center memory behavior attorney she. Machine knowledge positive.\nPiece leader career role teacher character town. Threat poor consumer police anything enough.",
-        "genero": "Arm less body north would up then almost.",
-        "id_consola": 8,
-        "descripcion": "Term significant article identify wear public floor. Mrs do eight especially. Rest yes least anything through garden."
-    }
-},
-{
-    "model": "torneo.juego",
-    "pk": 9,
-    "fields": {
-        "torneo": 6,
-        "nombre": "Film itself big travel inside enter. Really expert wait life work response. Response subject most specific relate character road.",
-        "genero": "Read yourself crime. News yeah eye.",
-        "id_consola": 9,
-        "descripcion": "Own join education skin magazine.\nAsk especially could any cause place pressure. Live analysis support up. Pressure report commercial discussion program."
-    }
-},
-{
-    "model": "torneo.juego",
-    "pk": 10,
-    "fields": {
-        "torneo": 3,
-        "nombre": "School easy training director direction follow later. Toward here future tell everyone serious.\nWhat tell middle understand image push notice. Stay tell action from able.",
-        "genero": "Help indeed cut mean drug.",
-        "id_consola": 11,
-        "descripcion": "Structure born policy. No contain sing natural over ground heart. Positive one discover heavy enter fund."
-    }
-},
-{
-    "model": "torneo.juego",
-    "pk": 11,
-    "fields": {
-        "torneo": 12,
-        "nombre": "Family letter type center together hard seat lose. Particular much exactly budget often billion might.\nHimself much build challenge garden reach. Computer movie mission. Partner leg several.",
-        "genero": "Ten something note model.",
-        "id_consola": 15,
-        "descripcion": "Policy onto every rule. Enough argue worry guess move. Weight idea right anyone good picture team rate.\nColor wrong least voice. Read situation throw choice travel."
-    }
-},
-{
-    "model": "torneo.juego",
-    "pk": 12,
-    "fields": {
-        "torneo": 14,
-        "nombre": "Color unit minute.\nReceive of nearly defense perhaps sit interest. Town rather its little. Far bar leg wide example window hundred.",
-        "genero": "Phone soon kitchen.",
-        "id_consola": 13,
-        "descripcion": "Important until interesting director war skill. Yeah will artist event modern travel. Kind trade debate.\nSomebody kitchen a management exist light. Bag air happen system."
-    }
-},
-{
-    "model": "torneo.juego",
-    "pk": 13,
-    "fields": {
-        "torneo": 10,
-        "nombre": "Available sit short face quality understand. Piece experience effect seat senior. Society Mrs industry news force whether.",
-        "genero": "Itself during issue whom understand true.",
-        "id_consola": 9,
-        "descripcion": "Page enough right news agreement unit. Your national but strategy agree.\nWorker little mean computer thought team.\nTest garden tree film. Fire message force always nothing."
-    }
-},
-{
-    "model": "torneo.juego",
-    "pk": 14,
-    "fields": {
-        "torneo": 10,
-        "nombre": "Practice foreign center where PM able own money. Citizen news through quite. This TV area discussion cup could.\nEver cell support.",
-        "genero": "Early law cell hold.",
-        "id_consola": 4,
-        "descripcion": "Law blood individual. Like price officer candidate. Religious cell watch trade.\nOutside bar five process. Position in consumer again total force economic pass."
-    }
-},
-{
-    "model": "torneo.juego",
-    "pk": 15,
-    "fields": {
-        "torneo": 10,
-        "nombre": "Since fast several window. Such understand receive born according democratic should true.\nCare may land church collection discover firm Mrs. Compare soon new region.",
-        "genero": "Each rate today usually contain edge board.",
-        "id_consola": 5,
-        "descripcion": "May son indeed response. Too company special item. Include draw culture six.\nThus expect attention foreign. Owner performance hope."
-    }
-},
-{
-    "model": "torneo.espectador",
-    "pk": 1,
-    "fields": {
-        "usuario": 1,
-        "nivel_interes": -18601,
-        "comentarios": "Often seat eye force. Matter offer affect minute experience do. Base simply debate article bit.\nCondition discussion out this carry boy along. Identify yard scene heart story recently. Eat road site.",
-        "frecuencia_visitas": 9037,
-        "suscripcion": false
-    }
-},
-{
-    "model": "torneo.espectador",
-    "pk": 2,
-    "fields": {
-        "usuario": 3,
-        "nivel_interes": 16338,
-        "comentarios": "Cost none simply too TV. Particular size world lawyer everyone instead throw address.",
-        "frecuencia_visitas": -6243,
-        "suscripcion": true
-    }
-},
-{
-    "model": "torneo.espectador",
-    "pk": 3,
-    "fields": {
-        "usuario": 13,
-        "nivel_interes": -1684,
-        "comentarios": "Keep care civil win glass institution process on. Magazine north but seven their.\nThus charge air age. Reach able center but discover return federal.",
-        "frecuencia_visitas": 6411,
-        "suscripcion": true
-    }
-},
-{
-    "model": "torneo.espectador",
-    "pk": 4,
-    "fields": {
-        "usuario": 2,
-        "nivel_interes": -30407,
-        "comentarios": "Discussion usually heavy material woman. Author reduce throw it area business lay. Tend dinner could whatever. Explain short whether wrong order into thought physical.",
-        "frecuencia_visitas": 2676,
-        "suscripcion": true
-    }
-},
-{
-    "model": "torneo.espectador",
-    "pk": 5,
-    "fields": {
-        "usuario": 6,
-        "nivel_interes": 19319,
-        "comentarios": "During call rule peace else thousand skin. Not role them picture simply himself director. Heavy important those soldier miss run.",
-        "frecuencia_visitas": 24670,
-        "suscripcion": false
-    }
-},
-{
-    "model": "torneo.espectador",
-    "pk": 6,
-    "fields": {
-        "usuario": 12,
-        "nivel_interes": 31615,
-        "comentarios": "Window food people himself off manage pattern campaign. Understand option page determine the relationship.",
-        "frecuencia_visitas": 6050,
-        "suscripcion": true
-    }
-},
-{
-    "model": "torneo.espectador",
-    "pk": 7,
-    "fields": {
-        "usuario": 10,
-        "nivel_interes": 32492,
-        "comentarios": "Little serious work set. Process total effort significant focus important simple.",
-        "frecuencia_visitas": 20511,
-        "suscripcion": true
-    }
-},
-{
-    "model": "torneo.espectador",
-    "pk": 8,
-    "fields": {
-        "usuario": 8,
-        "nivel_interes": 22211,
-        "comentarios": "Effort hope walk ever everybody physical. A staff rule score outside. Modern away admit reality lead.\nRecent pick many later western. Business citizen itself company forward ball.",
-        "frecuencia_visitas": 10184,
-        "suscripcion": false
-    }
-},
-{
-    "model": "torneo.espectador",
-    "pk": 9,
-    "fields": {
-        "usuario": 11,
-        "nivel_interes": 4286,
-        "comentarios": "Be science health continue force model. Who scientist reason result. Live difference last certainly two because. State within at hospital his war.",
-        "frecuencia_visitas": -8296,
-        "suscripcion": false
-    }
-},
-{
-    "model": "torneo.espectador",
-    "pk": 10,
     "fields": {
         "usuario": 7,
-        "nivel_interes": -15577,
-        "comentarios": "Glass couple him approach which capital room. Effect rich make.\nSituation each deep. Add discover not people environmental answer small chance.",
-        "frecuencia_visitas": 7140,
-        "suscripcion": false
+        "puntos": 0,
+        "equipo": null
     }
 },
 {
-    "model": "torneo.espectador",
-    "pk": 11,
-    "fields": {
-        "usuario": 5,
-        "nivel_interes": -1975,
-        "comentarios": "Store question hotel walk operation wind. Son time pretty hear music protect piece general.",
-        "frecuencia_visitas": 19825,
-        "suscripcion": true
-    }
-},
-{
-    "model": "torneo.espectador",
-    "pk": 12,
-    "fields": {
-        "usuario": 15,
-        "nivel_interes": -24536,
-        "comentarios": "Some whole anything raise. Live prove happy them will could. Course fall customer.",
-        "frecuencia_visitas": -5328,
-        "suscripcion": false
-    }
-},
-{
-    "model": "torneo.espectador",
-    "pk": 13,
-    "fields": {
-        "usuario": 14,
-        "nivel_interes": -8858,
-        "comentarios": "Professor doctor bag. Suggest no like more.\nMy support next something speech adult actually because. Foot thus bag soldier training. Art become clearly.",
-        "frecuencia_visitas": 28229,
-        "suscripcion": true
-    }
-},
-{
-    "model": "torneo.espectador",
-    "pk": 14,
-    "fields": {
-        "usuario": 9,
-        "nivel_interes": -2740,
-        "comentarios": "Party future benefit even traditional effect sign time. Trade citizen certainly but believe. Very necessary local necessary stock treatment.",
-        "frecuencia_visitas": -30225,
-        "suscripcion": false
-    }
-},
-{
-    "model": "torneo.espectador",
-    "pk": 15,
-    "fields": {
-        "usuario": 4,
-        "nivel_interes": 32213,
-        "comentarios": "Stock top writer room. House short site. Seem design somebody environment security ahead recognize.",
-        "frecuencia_visitas": 7093,
-        "suscripcion": true
-    }
-},
-{
-    "model": "torneo.clasificacion",
-    "pk": 1,
+    "model": "torneo.jugador",
+    "pk": 3,
     "fields": {
         "usuario": 8,
-        "ranking": 3854,
-        "puntos": 3872,
-        "torneos_ganados": 2302
+        "puntos": 0,
+        "equipo": null
     }
 },
 {
-    "model": "torneo.clasificacion",
-    "pk": 2,
-    "fields": {
-        "usuario": 1,
-        "ranking": 26777,
-        "puntos": -23531,
-        "torneos_ganados": 6524
-    }
-},
-{
-    "model": "torneo.clasificacion",
-    "pk": 3,
-    "fields": {
-        "usuario": 13,
-        "ranking": -11113,
-        "puntos": 26128,
-        "torneos_ganados": 9134
-    }
-},
-{
-    "model": "torneo.clasificacion",
+    "model": "torneo.jugador",
     "pk": 4,
-    "fields": {
-        "usuario": 4,
-        "ranking": 17105,
-        "puntos": -30254,
-        "torneos_ganados": 16125
-    }
-},
-{
-    "model": "torneo.clasificacion",
-    "pk": 5,
-    "fields": {
-        "usuario": 5,
-        "ranking": 24667,
-        "puntos": -13420,
-        "torneos_ganados": -25705
-    }
-},
-{
-    "model": "torneo.clasificacion",
-    "pk": 6,
-    "fields": {
-        "usuario": 7,
-        "ranking": 31114,
-        "puntos": 23707,
-        "torneos_ganados": 19064
-    }
-},
-{
-    "model": "torneo.clasificacion",
-    "pk": 7,
-    "fields": {
-        "usuario": 15,
-        "ranking": -16420,
-        "puntos": 18000,
-        "torneos_ganados": -20581
-    }
-},
-{
-    "model": "torneo.clasificacion",
-    "pk": 8,
     "fields": {
         "usuario": 11,
-        "ranking": 14062,
-        "puntos": -27391,
-        "torneos_ganados": 32061
+        "puntos": 0,
+        "equipo": null
     }
 },
 {
-    "model": "torneo.clasificacion",
-    "pk": 9,
-    "fields": {
-        "usuario": 10,
-        "ranking": -7292,
-        "puntos": -3489,
-        "torneos_ganados": 20086
-    }
-},
-{
-    "model": "torneo.clasificacion",
-    "pk": 10,
-    "fields": {
-        "usuario": 14,
-        "ranking": -29130,
-        "puntos": -22667,
-        "torneos_ganados": 23981
-    }
-},
-{
-    "model": "torneo.clasificacion",
-    "pk": 11,
-    "fields": {
-        "usuario": 6,
-        "ranking": -24935,
-        "puntos": -23118,
-        "torneos_ganados": 104
-    }
-},
-{
-    "model": "torneo.clasificacion",
-    "pk": 12,
+    "model": "torneo.jugador",
+    "pk": 5,
     "fields": {
         "usuario": 12,
-        "ranking": -27294,
-        "puntos": -1582,
-        "torneos_ganados": -13706
+        "puntos": 10000,
+        "equipo": "SKT"
     }
 },
 {
-    "model": "torneo.clasificacion",
-    "pk": 13,
-    "fields": {
-        "usuario": 2,
-        "ranking": -1027,
-        "puntos": 28584,
-        "torneos_ganados": 14293
-    }
-},
-{
-    "model": "torneo.clasificacion",
-    "pk": 14,
-    "fields": {
-        "usuario": 3,
-        "ranking": -5280,
-        "puntos": 20699,
-        "torneos_ganados": -4064
-    }
-},
-{
-    "model": "torneo.clasificacion",
-    "pk": 15,
-    "fields": {
-        "usuario": 9,
-        "ranking": -13894,
-        "puntos": 9658,
-        "torneos_ganados": 27602
-    }
-},
-{
-    "model": "torneo.participanteequipo",
+    "model": "torneo.torneojugador",
     "pk": 1,
     "fields": {
-        "participante": 1,
-        "equipo": 11,
-        "rol": "",
-        "fecha_ingreso": "2024-10-18",
-        "puntos_contribuidos": 0,
-        "tiempo_jugado": 0.0
+        "torneo": 6,
+        "jugador": 1,
+        "fecha_inscripcion": "2025-01-18"
     }
 },
 {
-    "model": "torneo.participanteequipo",
+    "model": "torneo.torneojugador",
     "pk": 2,
     "fields": {
-        "participante": 1,
-        "equipo": 2,
-        "rol": "",
-        "fecha_ingreso": "2024-10-18",
-        "puntos_contribuidos": 0,
-        "tiempo_jugado": 0.0
+        "torneo": 6,
+        "jugador": 3,
+        "fecha_inscripcion": "2025-01-18"
     }
 },
 {
-    "model": "torneo.participanteequipo",
+    "model": "torneo.torneojugador",
     "pk": 3,
     "fields": {
-        "participante": 2,
-        "equipo": 10,
-        "rol": "",
-        "fecha_ingreso": "2024-10-18",
-        "puntos_contribuidos": 0,
-        "tiempo_jugado": 0.0
+        "torneo": 6,
+        "jugador": 4,
+        "fecha_inscripcion": "2025-01-19"
     }
 },
 {
-    "model": "torneo.participanteequipo",
+    "model": "torneo.torneojugador",
     "pk": 4,
     "fields": {
-        "participante": 2,
-        "equipo": 3,
-        "rol": "",
-        "fecha_ingreso": "2024-10-18",
-        "puntos_contribuidos": 0,
-        "tiempo_jugado": 0.0
+        "torneo": 8,
+        "jugador": 5,
+        "fecha_inscripcion": "2025-01-19"
     }
 },
 {
-    "model": "torneo.participanteequipo",
+    "model": "torneo.torneojugador",
     "pk": 5,
     "fields": {
-        "participante": 3,
-        "equipo": 2,
-        "rol": "",
-        "fecha_ingreso": "2024-10-18",
-        "puntos_contribuidos": 0,
-        "tiempo_jugado": 0.0
+        "torneo": 6,
+        "jugador": 5,
+        "fecha_inscripcion": "2025-01-19"
     }
 },
 {
-    "model": "torneo.participanteequipo",
+    "model": "torneo.torneojugador",
     "pk": 6,
-    "fields": {
-        "participante": 3,
-        "equipo": 12,
-        "rol": "",
-        "fecha_ingreso": "2024-10-18",
-        "puntos_contribuidos": 0,
-        "tiempo_jugado": 0.0
-    }
-},
-{
-    "model": "torneo.participanteequipo",
-    "pk": 7,
-    "fields": {
-        "participante": 3,
-        "equipo": 11,
-        "rol": "",
-        "fecha_ingreso": "2024-10-18",
-        "puntos_contribuidos": 0,
-        "tiempo_jugado": 0.0
-    }
-},
-{
-    "model": "torneo.participanteequipo",
-    "pk": 8,
-    "fields": {
-        "participante": 4,
-        "equipo": 8,
-        "rol": "",
-        "fecha_ingreso": "2024-10-18",
-        "puntos_contribuidos": 0,
-        "tiempo_jugado": 0.0
-    }
-},
-{
-    "model": "torneo.participanteequipo",
-    "pk": 9,
-    "fields": {
-        "participante": 4,
-        "equipo": 13,
-        "rol": "",
-        "fecha_ingreso": "2024-10-18",
-        "puntos_contribuidos": 0,
-        "tiempo_jugado": 0.0
-    }
-},
-{
-    "model": "torneo.participanteequipo",
-    "pk": 10,
-    "fields": {
-        "participante": 4,
-        "equipo": 14,
-        "rol": "",
-        "fecha_ingreso": "2024-10-18",
-        "puntos_contribuidos": 0,
-        "tiempo_jugado": 0.0
-    }
-},
-{
-    "model": "torneo.participanteequipo",
-    "pk": 11,
-    "fields": {
-        "participante": 5,
-        "equipo": 4,
-        "rol": "",
-        "fecha_ingreso": "2024-10-18",
-        "puntos_contribuidos": 0,
-        "tiempo_jugado": 0.0
-    }
-},
-{
-    "model": "torneo.participanteequipo",
-    "pk": 12,
-    "fields": {
-        "participante": 6,
-        "equipo": 7,
-        "rol": "",
-        "fecha_ingreso": "2024-10-18",
-        "puntos_contribuidos": 0,
-        "tiempo_jugado": 0.0
-    }
-},
-{
-    "model": "torneo.participanteequipo",
-    "pk": 13,
-    "fields": {
-        "participante": 7,
-        "equipo": 10,
-        "rol": "",
-        "fecha_ingreso": "2024-10-18",
-        "puntos_contribuidos": 0,
-        "tiempo_jugado": 0.0
-    }
-},
-{
-    "model": "torneo.participanteequipo",
-    "pk": 14,
-    "fields": {
-        "participante": 7,
-        "equipo": 8,
-        "rol": "",
-        "fecha_ingreso": "2024-10-18",
-        "puntos_contribuidos": 0,
-        "tiempo_jugado": 0.0
-    }
-},
-{
-    "model": "torneo.participanteequipo",
-    "pk": 15,
-    "fields": {
-        "participante": 7,
-        "equipo": 2,
-        "rol": "",
-        "fecha_ingreso": "2024-10-18",
-        "puntos_contribuidos": 0,
-        "tiempo_jugado": 0.0
-    }
-},
-{
-    "model": "torneo.participanteequipo",
-    "pk": 16,
-    "fields": {
-        "participante": 8,
-        "equipo": 4,
-        "rol": "",
-        "fecha_ingreso": "2024-10-18",
-        "puntos_contribuidos": 0,
-        "tiempo_jugado": 0.0
-    }
-},
-{
-    "model": "torneo.participanteequipo",
-    "pk": 17,
-    "fields": {
-        "participante": 9,
-        "equipo": 7,
-        "rol": "",
-        "fecha_ingreso": "2024-10-18",
-        "puntos_contribuidos": 0,
-        "tiempo_jugado": 0.0
-    }
-},
-{
-    "model": "torneo.participanteequipo",
-    "pk": 18,
-    "fields": {
-        "participante": 9,
-        "equipo": 11,
-        "rol": "",
-        "fecha_ingreso": "2024-10-18",
-        "puntos_contribuidos": 0,
-        "tiempo_jugado": 0.0
-    }
-},
-{
-    "model": "torneo.participanteequipo",
-    "pk": 19,
-    "fields": {
-        "participante": 10,
-        "equipo": 15,
-        "rol": "",
-        "fecha_ingreso": "2024-10-18",
-        "puntos_contribuidos": 0,
-        "tiempo_jugado": 0.0
-    }
-},
-{
-    "model": "torneo.participanteequipo",
-    "pk": 20,
-    "fields": {
-        "participante": 10,
-        "equipo": 6,
-        "rol": "",
-        "fecha_ingreso": "2024-10-18",
-        "puntos_contribuidos": 0,
-        "tiempo_jugado": 0.0
-    }
-},
-{
-    "model": "torneo.participanteequipo",
-    "pk": 21,
-    "fields": {
-        "participante": 10,
-        "equipo": 12,
-        "rol": "",
-        "fecha_ingreso": "2024-10-18",
-        "puntos_contribuidos": 0,
-        "tiempo_jugado": 0.0
-    }
-},
-{
-    "model": "torneo.participanteequipo",
-    "pk": 22,
-    "fields": {
-        "participante": 10,
-        "equipo": 2,
-        "rol": "",
-        "fecha_ingreso": "2024-10-18",
-        "puntos_contribuidos": 0,
-        "tiempo_jugado": 0.0
-    }
-},
-{
-    "model": "torneo.participanteequipo",
-    "pk": 23,
-    "fields": {
-        "participante": 11,
-        "equipo": 14,
-        "rol": "",
-        "fecha_ingreso": "2024-10-18",
-        "puntos_contribuidos": 0,
-        "tiempo_jugado": 0.0
-    }
-},
-{
-    "model": "torneo.participanteequipo",
-    "pk": 24,
-    "fields": {
-        "participante": 11,
-        "equipo": 1,
-        "rol": "",
-        "fecha_ingreso": "2024-10-18",
-        "puntos_contribuidos": 0,
-        "tiempo_jugado": 0.0
-    }
-},
-{
-    "model": "torneo.participanteequipo",
-    "pk": 25,
-    "fields": {
-        "participante": 11,
-        "equipo": 8,
-        "rol": "",
-        "fecha_ingreso": "2024-10-18",
-        "puntos_contribuidos": 0,
-        "tiempo_jugado": 0.0
-    }
-},
-{
-    "model": "torneo.participanteequipo",
-    "pk": 26,
-    "fields": {
-        "participante": 11,
-        "equipo": 15,
-        "rol": "",
-        "fecha_ingreso": "2024-10-18",
-        "puntos_contribuidos": 0,
-        "tiempo_jugado": 0.0
-    }
-},
-{
-    "model": "torneo.participanteequipo",
-    "pk": 27,
-    "fields": {
-        "participante": 12,
-        "equipo": 13,
-        "rol": "",
-        "fecha_ingreso": "2024-10-18",
-        "puntos_contribuidos": 0,
-        "tiempo_jugado": 0.0
-    }
-},
-{
-    "model": "torneo.participanteequipo",
-    "pk": 28,
-    "fields": {
-        "participante": 12,
-        "equipo": 5,
-        "rol": "",
-        "fecha_ingreso": "2024-10-18",
-        "puntos_contribuidos": 0,
-        "tiempo_jugado": 0.0
-    }
-},
-{
-    "model": "torneo.participanteequipo",
-    "pk": 29,
-    "fields": {
-        "participante": 13,
-        "equipo": 3,
-        "rol": "",
-        "fecha_ingreso": "2024-10-18",
-        "puntos_contribuidos": 0,
-        "tiempo_jugado": 0.0
-    }
-},
-{
-    "model": "torneo.participanteequipo",
-    "pk": 30,
-    "fields": {
-        "participante": 13,
-        "equipo": 6,
-        "rol": "",
-        "fecha_ingreso": "2024-10-18",
-        "puntos_contribuidos": 0,
-        "tiempo_jugado": 0.0
-    }
-},
-{
-    "model": "torneo.participanteequipo",
-    "pk": 31,
-    "fields": {
-        "participante": 14,
-        "equipo": 8,
-        "rol": "",
-        "fecha_ingreso": "2024-10-18",
-        "puntos_contribuidos": 0,
-        "tiempo_jugado": 0.0
-    }
-},
-{
-    "model": "torneo.participanteequipo",
-    "pk": 32,
-    "fields": {
-        "participante": 15,
-        "equipo": 7,
-        "rol": "",
-        "fecha_ingreso": "2024-10-18",
-        "puntos_contribuidos": 0,
-        "tiempo_jugado": 0.0
-    }
-},
-{
-    "model": "torneo.participanteequipo",
-    "pk": 33,
-    "fields": {
-        "participante": 15,
-        "equipo": 14,
-        "rol": "",
-        "fecha_ingreso": "2024-10-18",
-        "puntos_contribuidos": 0,
-        "tiempo_jugado": 0.0
-    }
-},
-{
-    "model": "torneo.participanteequipo",
-    "pk": 34,
-    "fields": {
-        "participante": 9,
-        "equipo": 9,
-        "rol": "Wear spend space section contain until. Necessary work raise.",
-        "fecha_ingreso": "2024-10-18",
-        "puntos_contribuidos": -19962,
-        "tiempo_jugado": 0.6025753129127178
-    }
-},
-{
-    "model": "torneo.participanteequipo",
-    "pk": 35,
-    "fields": {
-        "participante": 3,
-        "equipo": 1,
-        "rol": "Fear condition explain look. Near section team safe grow the. Include network word hot.",
-        "fecha_ingreso": "2024-10-18",
-        "puntos_contribuidos": -29921,
-        "tiempo_jugado": 0.03754082361866384
-    }
-},
-{
-    "model": "torneo.participanteequipo",
-    "pk": 36,
-    "fields": {
-        "participante": 14,
-        "equipo": 4,
-        "rol": "Both book one note. Travel try simple.\nService daughter over talk soldier the their.",
-        "fecha_ingreso": "2024-10-18",
-        "puntos_contribuidos": -23691,
-        "tiempo_jugado": 0.5189851602761798
-    }
-},
-{
-    "model": "torneo.participanteequipo",
-    "pk": 37,
-    "fields": {
-        "participante": 5,
-        "equipo": 7,
-        "rol": "Water old ok. Class line risk test. Million ball where wall.",
-        "fecha_ingreso": "2024-10-18",
-        "puntos_contribuidos": 14378,
-        "tiempo_jugado": 0.786715550772794
-    }
-},
-{
-    "model": "torneo.participanteequipo",
-    "pk": 38,
-    "fields": {
-        "participante": 9,
-        "equipo": 3,
-        "rol": "Can care discuss plant material. Building box agree away southern pattern subject.",
-        "fecha_ingreso": "2024-10-18",
-        "puntos_contribuidos": 6735,
-        "tiempo_jugado": 0.7552087168399862
-    }
-},
-{
-    "model": "torneo.participanteequipo",
-    "pk": 39,
-    "fields": {
-        "participante": 2,
-        "equipo": 13,
-        "rol": "Different executive campaign section sell right. Travel fact drive which spend.",
-        "fecha_ingreso": "2024-10-18",
-        "puntos_contribuidos": -15800,
-        "tiempo_jugado": 0.6870293515563766
-    }
-},
-{
-    "model": "torneo.participanteequipo",
-    "pk": 40,
-    "fields": {
-        "participante": 2,
-        "equipo": 13,
-        "rol": "Increase them my air reach water. First of have available cup. Produce public yet into.",
-        "fecha_ingreso": "2024-10-18",
-        "puntos_contribuidos": 23246,
-        "tiempo_jugado": 0.005890929010133772
-    }
-},
-{
-    "model": "torneo.participanteequipo",
-    "pk": 41,
-    "fields": {
-        "participante": 13,
-        "equipo": 3,
-        "rol": "Leader bad candidate will dream when. Team budget thing write firm. Read point country site.",
-        "fecha_ingreso": "2024-10-18",
-        "puntos_contribuidos": -5182,
-        "tiempo_jugado": 0.6428341291642764
-    }
-},
-{
-    "model": "torneo.participanteequipo",
-    "pk": 42,
-    "fields": {
-        "participante": 9,
-        "equipo": 5,
-        "rol": "Large outside machine.",
-        "fecha_ingreso": "2024-10-18",
-        "puntos_contribuidos": -18156,
-        "tiempo_jugado": 0.3551326494311102
-    }
-},
-{
-    "model": "torneo.participanteequipo",
-    "pk": 43,
-    "fields": {
-        "participante": 13,
-        "equipo": 1,
-        "rol": "Deep long husband green. Sometimes news reflect boy.",
-        "fecha_ingreso": "2024-10-18",
-        "puntos_contribuidos": -9784,
-        "tiempo_jugado": 0.5305508315076946
-    }
-},
-{
-    "model": "torneo.participanteequipo",
-    "pk": 44,
-    "fields": {
-        "participante": 14,
-        "equipo": 5,
-        "rol": "Alone number single too character political executive few. Provide may ten discover.",
-        "fecha_ingreso": "2024-10-18",
-        "puntos_contribuidos": -1846,
-        "tiempo_jugado": 0.2718592310636966
-    }
-},
-{
-    "model": "torneo.participanteequipo",
-    "pk": 45,
-    "fields": {
-        "participante": 1,
-        "equipo": 7,
-        "rol": "Measure option feel spring. Stand gas allow language.",
-        "fecha_ingreso": "2024-10-18",
-        "puntos_contribuidos": -26344,
-        "tiempo_jugado": 0.10893700859780997
-    }
-},
-{
-    "model": "torneo.participanteequipo",
-    "pk": 46,
-    "fields": {
-        "participante": 15,
-        "equipo": 8,
-        "rol": "Be nor field wrong ask already city admit. To serve must smile ground enter.",
-        "fecha_ingreso": "2024-10-18",
-        "puntos_contribuidos": -15194,
-        "tiempo_jugado": 0.16565945535489512
-    }
-},
-{
-    "model": "torneo.participanteequipo",
-    "pk": 47,
-    "fields": {
-        "participante": 6,
-        "equipo": 2,
-        "rol": "Large occur age hit they college. Recognize mission way price well.",
-        "fecha_ingreso": "2024-10-18",
-        "puntos_contribuidos": -20425,
-        "tiempo_jugado": 0.8164090013219207
-    }
-},
-{
-    "model": "torneo.participanteequipo",
-    "pk": 48,
-    "fields": {
-        "participante": 7,
-        "equipo": 3,
-        "rol": "Different guy each simply live party family. Bill high out. Best beat reveal box early society.",
-        "fecha_ingreso": "2024-10-18",
-        "puntos_contribuidos": 9470,
-        "tiempo_jugado": 0.9684599918494762
-    }
-},
-{
-    "model": "torneo.torneojuego",
-    "pk": 1,
     "fields": {
         "torneo": 9,
-        "juego": 1,
-        "puntos": 0,
-        "fecha_participacion": "2024-10-18",
-        "estado": "activo"
+        "jugador": 4,
+        "fecha_inscripcion": "2025-01-19"
     }
 },
 {
-    "model": "torneo.torneojuego",
-    "pk": 2,
-    "fields": {
-        "torneo": 13,
-        "juego": 1,
-        "puntos": 0,
-        "fecha_participacion": "2024-10-18",
-        "estado": "activo"
-    }
-},
-{
-    "model": "torneo.torneojuego",
-    "pk": 3,
-    "fields": {
-        "torneo": 7,
-        "juego": 2,
-        "puntos": 0,
-        "fecha_participacion": "2024-10-18",
-        "estado": "activo"
-    }
-},
-{
-    "model": "torneo.torneojuego",
-    "pk": 4,
-    "fields": {
-        "torneo": 2,
-        "juego": 3,
-        "puntos": 0,
-        "fecha_participacion": "2024-10-18",
-        "estado": "activo"
-    }
-},
-{
-    "model": "torneo.torneojuego",
-    "pk": 5,
-    "fields": {
-        "torneo": 12,
-        "juego": 3,
-        "puntos": 0,
-        "fecha_participacion": "2024-10-18",
-        "estado": "activo"
-    }
-},
-{
-    "model": "torneo.torneojuego",
-    "pk": 6,
-    "fields": {
-        "torneo": 4,
-        "juego": 3,
-        "puntos": 0,
-        "fecha_participacion": "2024-10-18",
-        "estado": "activo"
-    }
-},
-{
-    "model": "torneo.torneojuego",
+    "model": "torneo.torneojugador",
     "pk": 7,
     "fields": {
         "torneo": 7,
-        "juego": 4,
-        "puntos": 0,
-        "fecha_participacion": "2024-10-18",
-        "estado": "activo"
-    }
-},
-{
-    "model": "torneo.torneojuego",
-    "pk": 8,
-    "fields": {
-        "torneo": 8,
-        "juego": 4,
-        "puntos": 0,
-        "fecha_participacion": "2024-10-18",
-        "estado": "activo"
-    }
-},
-{
-    "model": "torneo.torneojuego",
-    "pk": 9,
-    "fields": {
-        "torneo": 3,
-        "juego": 4,
-        "puntos": 0,
-        "fecha_participacion": "2024-10-18",
-        "estado": "activo"
-    }
-},
-{
-    "model": "torneo.torneojuego",
-    "pk": 10,
-    "fields": {
-        "torneo": 5,
-        "juego": 5,
-        "puntos": 0,
-        "fecha_participacion": "2024-10-18",
-        "estado": "activo"
-    }
-},
-{
-    "model": "torneo.torneojuego",
-    "pk": 11,
-    "fields": {
-        "torneo": 1,
-        "juego": 5,
-        "puntos": 0,
-        "fecha_participacion": "2024-10-18",
-        "estado": "activo"
-    }
-},
-{
-    "model": "torneo.torneojuego",
-    "pk": 12,
-    "fields": {
-        "torneo": 13,
-        "juego": 5,
-        "puntos": 0,
-        "fecha_participacion": "2024-10-18",
-        "estado": "activo"
-    }
-},
-{
-    "model": "torneo.torneojuego",
-    "pk": 13,
-    "fields": {
-        "torneo": 14,
-        "juego": 5,
-        "puntos": 0,
-        "fecha_participacion": "2024-10-18",
-        "estado": "activo"
-    }
-},
-{
-    "model": "torneo.torneojuego",
-    "pk": 14,
-    "fields": {
-        "torneo": 14,
-        "juego": 6,
-        "puntos": 0,
-        "fecha_participacion": "2024-10-18",
-        "estado": "activo"
-    }
-},
-{
-    "model": "torneo.torneojuego",
-    "pk": 15,
-    "fields": {
-        "torneo": 3,
-        "juego": 7,
-        "puntos": 0,
-        "fecha_participacion": "2024-10-18",
-        "estado": "activo"
-    }
-},
-{
-    "model": "torneo.torneojuego",
-    "pk": 16,
-    "fields": {
-        "torneo": 1,
-        "juego": 7,
-        "puntos": 0,
-        "fecha_participacion": "2024-10-18",
-        "estado": "activo"
-    }
-},
-{
-    "model": "torneo.torneojuego",
-    "pk": 17,
-    "fields": {
-        "torneo": 4,
-        "juego": 7,
-        "puntos": 0,
-        "fecha_participacion": "2024-10-18",
-        "estado": "activo"
-    }
-},
-{
-    "model": "torneo.torneojuego",
-    "pk": 18,
-    "fields": {
-        "torneo": 3,
-        "juego": 8,
-        "puntos": 0,
-        "fecha_participacion": "2024-10-18",
-        "estado": "activo"
-    }
-},
-{
-    "model": "torneo.torneojuego",
-    "pk": 19,
-    "fields": {
-        "torneo": 1,
-        "juego": 8,
-        "puntos": 0,
-        "fecha_participacion": "2024-10-18",
-        "estado": "activo"
-    }
-},
-{
-    "model": "torneo.torneojuego",
-    "pk": 20,
-    "fields": {
-        "torneo": 4,
-        "juego": 8,
-        "puntos": 0,
-        "fecha_participacion": "2024-10-18",
-        "estado": "activo"
-    }
-},
-{
-    "model": "torneo.torneojuego",
-    "pk": 21,
-    "fields": {
-        "torneo": 1,
-        "juego": 9,
-        "puntos": 0,
-        "fecha_participacion": "2024-10-18",
-        "estado": "activo"
-    }
-},
-{
-    "model": "torneo.torneojuego",
-    "pk": 22,
-    "fields": {
-        "torneo": 2,
-        "juego": 9,
-        "puntos": 0,
-        "fecha_participacion": "2024-10-18",
-        "estado": "activo"
-    }
-},
-{
-    "model": "torneo.torneojuego",
-    "pk": 23,
-    "fields": {
-        "torneo": 6,
-        "juego": 9,
-        "puntos": 0,
-        "fecha_participacion": "2024-10-18",
-        "estado": "activo"
-    }
-},
-{
-    "model": "torneo.torneojuego",
-    "pk": 24,
-    "fields": {
-        "torneo": 1,
-        "juego": 10,
-        "puntos": 0,
-        "fecha_participacion": "2024-10-18",
-        "estado": "activo"
-    }
-},
-{
-    "model": "torneo.torneojuego",
-    "pk": 25,
-    "fields": {
-        "torneo": 7,
-        "juego": 10,
-        "puntos": 0,
-        "fecha_participacion": "2024-10-18",
-        "estado": "activo"
-    }
-},
-{
-    "model": "torneo.torneojuego",
-    "pk": 26,
-    "fields": {
-        "torneo": 9,
-        "juego": 11,
-        "puntos": 0,
-        "fecha_participacion": "2024-10-18",
-        "estado": "activo"
-    }
-},
-{
-    "model": "torneo.torneojuego",
-    "pk": 27,
-    "fields": {
-        "torneo": 10,
-        "juego": 11,
-        "puntos": 0,
-        "fecha_participacion": "2024-10-18",
-        "estado": "activo"
-    }
-},
-{
-    "model": "torneo.torneojuego",
-    "pk": 28,
-    "fields": {
-        "torneo": 1,
-        "juego": 12,
-        "puntos": 0,
-        "fecha_participacion": "2024-10-18",
-        "estado": "activo"
-    }
-},
-{
-    "model": "torneo.torneojuego",
-    "pk": 29,
-    "fields": {
-        "torneo": 14,
-        "juego": 12,
-        "puntos": 0,
-        "fecha_participacion": "2024-10-18",
-        "estado": "activo"
-    }
-},
-{
-    "model": "torneo.torneojuego",
-    "pk": 30,
-    "fields": {
-        "torneo": 9,
-        "juego": 12,
-        "puntos": 0,
-        "fecha_participacion": "2024-10-18",
-        "estado": "activo"
-    }
-},
-{
-    "model": "torneo.torneojuego",
-    "pk": 31,
-    "fields": {
-        "torneo": 2,
-        "juego": 13,
-        "puntos": 0,
-        "fecha_participacion": "2024-10-18",
-        "estado": "activo"
-    }
-},
-{
-    "model": "torneo.torneojuego",
-    "pk": 32,
-    "fields": {
-        "torneo": 7,
-        "juego": 13,
-        "puntos": 0,
-        "fecha_participacion": "2024-10-18",
-        "estado": "activo"
-    }
-},
-{
-    "model": "torneo.torneojuego",
-    "pk": 33,
-    "fields": {
-        "torneo": 6,
-        "juego": 13,
-        "puntos": 0,
-        "fecha_participacion": "2024-10-18",
-        "estado": "activo"
-    }
-},
-{
-    "model": "torneo.torneojuego",
-    "pk": 34,
-    "fields": {
-        "torneo": 4,
-        "juego": 14,
-        "puntos": 0,
-        "fecha_participacion": "2024-10-18",
-        "estado": "activo"
-    }
-},
-{
-    "model": "torneo.torneojuego",
-    "pk": 35,
-    "fields": {
-        "torneo": 2,
-        "juego": 14,
-        "puntos": 0,
-        "fecha_participacion": "2024-10-18",
-        "estado": "activo"
-    }
-},
-{
-    "model": "torneo.torneojuego",
-    "pk": 36,
-    "fields": {
-        "torneo": 15,
-        "juego": 14,
-        "puntos": 0,
-        "fecha_participacion": "2024-10-18",
-        "estado": "activo"
-    }
-},
-{
-    "model": "torneo.torneojuego",
-    "pk": 37,
-    "fields": {
-        "torneo": 3,
-        "juego": 15,
-        "puntos": 0,
-        "fecha_participacion": "2024-10-18",
-        "estado": "activo"
-    }
-},
-{
-    "model": "torneo.torneojuego",
-    "pk": 38,
-    "fields": {
-        "torneo": 1,
-        "juego": 15,
-        "puntos": 0,
-        "fecha_participacion": "2024-10-18",
-        "estado": "activo"
-    }
-},
-{
-    "model": "torneo.torneojuego",
-    "pk": 39,
-    "fields": {
-        "torneo": 12,
-        "juego": 11,
-        "puntos": 11172,
-        "fecha_participacion": "2024-10-18",
-        "estado": "activo"
-    }
-},
-{
-    "model": "torneo.torneojuego",
-    "pk": 40,
-    "fields": {
-        "torneo": 8,
-        "juego": 14,
-        "puntos": -8790,
-        "fecha_participacion": "2024-10-18",
-        "estado": "activo"
-    }
-},
-{
-    "model": "torneo.torneojuego",
-    "pk": 41,
-    "fields": {
-        "torneo": 11,
-        "juego": 5,
-        "puntos": -997,
-        "fecha_participacion": "2024-10-18",
-        "estado": "activo"
-    }
-},
-{
-    "model": "torneo.torneojuego",
-    "pk": 42,
-    "fields": {
-        "torneo": 7,
-        "juego": 1,
-        "puntos": -22440,
-        "fecha_participacion": "2024-10-18",
-        "estado": "activo"
-    }
-},
-{
-    "model": "torneo.torneojuego",
-    "pk": 43,
-    "fields": {
-        "torneo": 7,
-        "juego": 13,
-        "puntos": 17889,
-        "fecha_participacion": "2024-10-18",
-        "estado": "activo"
-    }
-},
-{
-    "model": "torneo.torneojuego",
-    "pk": 44,
-    "fields": {
-        "torneo": 11,
-        "juego": 11,
-        "puntos": -17721,
-        "fecha_participacion": "2024-10-18",
-        "estado": "activo"
-    }
-},
-{
-    "model": "torneo.torneojuego",
-    "pk": 45,
-    "fields": {
-        "torneo": 1,
-        "juego": 9,
-        "puntos": 8869,
-        "fecha_participacion": "2024-10-18",
-        "estado": "activo"
-    }
-},
-{
-    "model": "torneo.torneojuego",
-    "pk": 46,
-    "fields": {
-        "torneo": 4,
-        "juego": 9,
-        "puntos": 24944,
-        "fecha_participacion": "2024-10-18",
-        "estado": "activo"
-    }
-},
-{
-    "model": "torneo.torneojuego",
-    "pk": 47,
-    "fields": {
-        "torneo": 6,
-        "juego": 15,
-        "puntos": 19331,
-        "fecha_participacion": "2024-10-18",
-        "estado": "activo"
-    }
-},
-{
-    "model": "torneo.torneojuego",
-    "pk": 48,
-    "fields": {
-        "torneo": 9,
-        "juego": 7,
-        "puntos": 20492,
-        "fecha_participacion": "2024-10-18",
-        "estado": "activo"
-    }
-},
-{
-    "model": "torneo.torneojuego",
-    "pk": 49,
-    "fields": {
-        "torneo": 5,
-        "juego": 6,
-        "puntos": 24438,
-        "fecha_participacion": "2024-10-18",
-        "estado": "activo"
-    }
-},
-{
-    "model": "torneo.torneojuego",
-    "pk": 50,
-    "fields": {
-        "torneo": 7,
-        "juego": 1,
-        "puntos": 9916,
-        "fecha_participacion": "2024-10-18",
-        "estado": "activo"
-    }
-},
-{
-    "model": "torneo.torneojuego",
-    "pk": 51,
-    "fields": {
-        "torneo": 13,
-        "juego": 5,
-        "puntos": -23844,
-        "fecha_participacion": "2024-10-18",
-        "estado": "activo"
-    }
-},
-{
-    "model": "torneo.torneojuego",
-    "pk": 52,
-    "fields": {
-        "torneo": 2,
-        "juego": 9,
-        "puntos": -10277,
-        "fecha_participacion": "2024-10-18",
-        "estado": "activo"
-    }
-},
-{
-    "model": "torneo.torneojuego",
-    "pk": 53,
-    "fields": {
-        "torneo": 1,
-        "juego": 2,
-        "puntos": 14937,
-        "fecha_participacion": "2024-10-18",
-        "estado": "activo"
-    }
-},
-{
-    "model": "torneo.torneoparticipante",
-    "pk": 1,
-    "fields": {
-        "torneo": 1,
-        "participante": 1,
-        "fecha_inscripcion": "2024-10-18",
-        "puntos_obtenidos": 0,
-        "posicion_final": 0
-    }
-},
-{
-    "model": "torneo.torneoparticipante",
-    "pk": 2,
-    "fields": {
-        "torneo": 1,
-        "participante": 4,
-        "fecha_inscripcion": "2024-10-18",
-        "puntos_obtenidos": 0,
-        "posicion_final": 0
-    }
-},
-{
-    "model": "torneo.torneoparticipante",
-    "pk": 3,
-    "fields": {
-        "torneo": 1,
-        "participante": 9,
-        "fecha_inscripcion": "2024-10-18",
-        "puntos_obtenidos": 0,
-        "posicion_final": 0
-    }
-},
-{
-    "model": "torneo.torneoparticipante",
-    "pk": 4,
-    "fields": {
-        "torneo": 1,
-        "participante": 14,
-        "fecha_inscripcion": "2024-10-18",
-        "puntos_obtenidos": 0,
-        "posicion_final": 0
-    }
-},
-{
-    "model": "torneo.torneoparticipante",
-    "pk": 5,
-    "fields": {
-        "torneo": 2,
-        "participante": 9,
-        "fecha_inscripcion": "2024-10-18",
-        "puntos_obtenidos": 0,
-        "posicion_final": 0
-    }
-},
-{
-    "model": "torneo.torneoparticipante",
-    "pk": 6,
-    "fields": {
-        "torneo": 2,
-        "participante": 15,
-        "fecha_inscripcion": "2024-10-18",
-        "puntos_obtenidos": 0,
-        "posicion_final": 0
-    }
-},
-{
-    "model": "torneo.torneoparticipante",
-    "pk": 7,
-    "fields": {
-        "torneo": 2,
-        "participante": 3,
-        "fecha_inscripcion": "2024-10-18",
-        "puntos_obtenidos": 0,
-        "posicion_final": 0
-    }
-},
-{
-    "model": "torneo.torneoparticipante",
-    "pk": 8,
-    "fields": {
-        "torneo": 3,
-        "participante": 4,
-        "fecha_inscripcion": "2024-10-18",
-        "puntos_obtenidos": 0,
-        "posicion_final": 0
-    }
-},
-{
-    "model": "torneo.torneoparticipante",
-    "pk": 9,
-    "fields": {
-        "torneo": 3,
-        "participante": 11,
-        "fecha_inscripcion": "2024-10-18",
-        "puntos_obtenidos": 0,
-        "posicion_final": 0
-    }
-},
-{
-    "model": "torneo.torneoparticipante",
-    "pk": 10,
-    "fields": {
-        "torneo": 3,
-        "participante": 12,
-        "fecha_inscripcion": "2024-10-18",
-        "puntos_obtenidos": 0,
-        "posicion_final": 0
-    }
-},
-{
-    "model": "torneo.torneoparticipante",
-    "pk": 11,
-    "fields": {
-        "torneo": 4,
-        "participante": 5,
-        "fecha_inscripcion": "2024-10-18",
-        "puntos_obtenidos": 0,
-        "posicion_final": 0
-    }
-},
-{
-    "model": "torneo.torneoparticipante",
-    "pk": 12,
-    "fields": {
-        "torneo": 5,
-        "participante": 3,
-        "fecha_inscripcion": "2024-10-18",
-        "puntos_obtenidos": 0,
-        "posicion_final": 0
-    }
-},
-{
-    "model": "torneo.torneoparticipante",
-    "pk": 13,
-    "fields": {
-        "torneo": 6,
-        "participante": 4,
-        "fecha_inscripcion": "2024-10-18",
-        "puntos_obtenidos": 0,
-        "posicion_final": 0
-    }
-},
-{
-    "model": "torneo.torneoparticipante",
-    "pk": 14,
-    "fields": {
-        "torneo": 6,
-        "participante": 8,
-        "fecha_inscripcion": "2024-10-18",
-        "puntos_obtenidos": 0,
-        "posicion_final": 0
-    }
-},
-{
-    "model": "torneo.torneoparticipante",
-    "pk": 15,
-    "fields": {
-        "torneo": 6,
-        "participante": 11,
-        "fecha_inscripcion": "2024-10-18",
-        "puntos_obtenidos": 0,
-        "posicion_final": 0
-    }
-},
-{
-    "model": "torneo.torneoparticipante",
-    "pk": 16,
-    "fields": {
-        "torneo": 7,
-        "participante": 3,
-        "fecha_inscripcion": "2024-10-18",
-        "puntos_obtenidos": 0,
-        "posicion_final": 0
-    }
-},
-{
-    "model": "torneo.torneoparticipante",
-    "pk": 17,
-    "fields": {
-        "torneo": 7,
-        "participante": 9,
-        "fecha_inscripcion": "2024-10-18",
-        "puntos_obtenidos": 0,
-        "posicion_final": 0
-    }
-},
-{
-    "model": "torneo.torneoparticipante",
-    "pk": 18,
-    "fields": {
-        "torneo": 7,
-        "participante": 12,
-        "fecha_inscripcion": "2024-10-18",
-        "puntos_obtenidos": 0,
-        "posicion_final": 0
-    }
-},
-{
-    "model": "torneo.torneoparticipante",
-    "pk": 19,
-    "fields": {
-        "torneo": 8,
-        "participante": 14,
-        "fecha_inscripcion": "2024-10-18",
-        "puntos_obtenidos": 0,
-        "posicion_final": 0
-    }
-},
-{
-    "model": "torneo.torneoparticipante",
-    "pk": 20,
-    "fields": {
-        "torneo": 8,
-        "participante": 11,
-        "fecha_inscripcion": "2024-10-18",
-        "puntos_obtenidos": 0,
-        "posicion_final": 0
-    }
-},
-{
-    "model": "torneo.torneoparticipante",
-    "pk": 21,
-    "fields": {
-        "torneo": 9,
-        "participante": 15,
-        "fecha_inscripcion": "2024-10-18",
-        "puntos_obtenidos": 0,
-        "posicion_final": 0
-    }
-},
-{
-    "model": "torneo.torneoparticipante",
-    "pk": 22,
-    "fields": {
-        "torneo": 10,
-        "participante": 2,
-        "fecha_inscripcion": "2024-10-18",
-        "puntos_obtenidos": 0,
-        "posicion_final": 0
-    }
-},
-{
-    "model": "torneo.torneoparticipante",
-    "pk": 23,
-    "fields": {
-        "torneo": 10,
-        "participante": 1,
-        "fecha_inscripcion": "2024-10-18",
-        "puntos_obtenidos": 0,
-        "posicion_final": 0
-    }
-},
-{
-    "model": "torneo.torneoparticipante",
-    "pk": 24,
-    "fields": {
-        "torneo": 11,
-        "participante": 11,
-        "fecha_inscripcion": "2024-10-18",
-        "puntos_obtenidos": 0,
-        "posicion_final": 0
-    }
-},
-{
-    "model": "torneo.torneoparticipante",
-    "pk": 25,
-    "fields": {
-        "torneo": 11,
-        "participante": 1,
-        "fecha_inscripcion": "2024-10-18",
-        "puntos_obtenidos": 0,
-        "posicion_final": 0
-    }
-},
-{
-    "model": "torneo.torneoparticipante",
-    "pk": 26,
-    "fields": {
-        "torneo": 12,
-        "participante": 5,
-        "fecha_inscripcion": "2024-10-18",
-        "puntos_obtenidos": 0,
-        "posicion_final": 0
-    }
-},
-{
-    "model": "torneo.torneoparticipante",
-    "pk": 27,
-    "fields": {
-        "torneo": 12,
-        "participante": 8,
-        "fecha_inscripcion": "2024-10-18",
-        "puntos_obtenidos": 0,
-        "posicion_final": 0
-    }
-},
-{
-    "model": "torneo.torneoparticipante",
-    "pk": 28,
-    "fields": {
-        "torneo": 13,
-        "participante": 1,
-        "fecha_inscripcion": "2024-10-18",
-        "puntos_obtenidos": 0,
-        "posicion_final": 0
-    }
-},
-{
-    "model": "torneo.torneoparticipante",
-    "pk": 29,
-    "fields": {
-        "torneo": 13,
-        "participante": 5,
-        "fecha_inscripcion": "2024-10-18",
-        "puntos_obtenidos": 0,
-        "posicion_final": 0
-    }
-},
-{
-    "model": "torneo.torneoparticipante",
-    "pk": 30,
-    "fields": {
-        "torneo": 14,
-        "participante": 11,
-        "fecha_inscripcion": "2024-10-18",
-        "puntos_obtenidos": 0,
-        "posicion_final": 0
-    }
-},
-{
-    "model": "torneo.torneoparticipante",
-    "pk": 31,
-    "fields": {
-        "torneo": 14,
-        "participante": 7,
-        "fecha_inscripcion": "2024-10-18",
-        "puntos_obtenidos": 0,
-        "posicion_final": 0
-    }
-},
-{
-    "model": "torneo.torneoparticipante",
-    "pk": 32,
-    "fields": {
-        "torneo": 15,
-        "participante": 1,
-        "fecha_inscripcion": "2024-10-18",
-        "puntos_obtenidos": 0,
-        "posicion_final": 0
-    }
-},
-{
-    "model": "torneo.torneoparticipante",
-    "pk": 33,
-    "fields": {
-        "torneo": 4,
-        "participante": 10,
-        "fecha_inscripcion": "2024-10-18",
-        "puntos_obtenidos": 523,
-        "posicion_final": 13159
-    }
-},
-{
-    "model": "torneo.torneoparticipante",
-    "pk": 34,
-    "fields": {
-        "torneo": 15,
-        "participante": 11,
-        "fecha_inscripcion": "2024-10-18",
-        "puntos_obtenidos": -14245,
-        "posicion_final": 2602
-    }
-},
-{
-    "model": "torneo.torneoparticipante",
-    "pk": 35,
-    "fields": {
-        "torneo": 11,
-        "participante": 2,
-        "fecha_inscripcion": "2024-10-18",
-        "puntos_obtenidos": -32409,
-        "posicion_final": 28729
-    }
-},
-{
-    "model": "torneo.torneoparticipante",
-    "pk": 36,
-    "fields": {
-        "torneo": 8,
-        "participante": 12,
-        "fecha_inscripcion": "2024-10-18",
-        "puntos_obtenidos": -9930,
-        "posicion_final": 11184
-    }
-},
-{
-    "model": "torneo.torneoparticipante",
-    "pk": 37,
-    "fields": {
-        "torneo": 3,
-        "participante": 13,
-        "fecha_inscripcion": "2024-10-18",
-        "puntos_obtenidos": -11193,
-        "posicion_final": 9573
-    }
-},
-{
-    "model": "torneo.torneoparticipante",
-    "pk": 38,
-    "fields": {
-        "torneo": 7,
-        "participante": 8,
-        "fecha_inscripcion": "2024-10-18",
-        "puntos_obtenidos": 10127,
-        "posicion_final": 21080
-    }
-},
-{
-    "model": "torneo.torneoparticipante",
-    "pk": 39,
-    "fields": {
-        "torneo": 13,
-        "participante": 11,
-        "fecha_inscripcion": "2024-10-18",
-        "puntos_obtenidos": 23173,
-        "posicion_final": -10728
-    }
-},
-{
-    "model": "torneo.torneoparticipante",
-    "pk": 40,
-    "fields": {
-        "torneo": 3,
-        "participante": 8,
-        "fecha_inscripcion": "2024-10-18",
-        "puntos_obtenidos": -32008,
-        "posicion_final": -16595
-    }
-},
-{
-    "model": "torneo.torneoparticipante",
-    "pk": 41,
-    "fields": {
-        "torneo": 6,
-        "participante": 3,
-        "fecha_inscripcion": "2024-10-18",
-        "puntos_obtenidos": -22186,
-        "posicion_final": -12382
-    }
-},
-{
-    "model": "torneo.torneoparticipante",
-    "pk": 42,
-    "fields": {
-        "torneo": 12,
-        "participante": 12,
-        "fecha_inscripcion": "2024-10-18",
-        "puntos_obtenidos": -26809,
-        "posicion_final": -4099
-    }
-},
-{
-    "model": "torneo.torneoparticipante",
-    "pk": 43,
-    "fields": {
-        "torneo": 3,
-        "participante": 1,
-        "fecha_inscripcion": "2024-10-18",
-        "puntos_obtenidos": -24460,
-        "posicion_final": -12602
-    }
-},
-{
-    "model": "torneo.torneoparticipante",
-    "pk": 44,
-    "fields": {
-        "torneo": 9,
-        "participante": 13,
-        "fecha_inscripcion": "2024-10-18",
-        "puntos_obtenidos": -20907,
-        "posicion_final": -6975
-    }
-},
-{
-    "model": "torneo.torneoparticipante",
-    "pk": 45,
-    "fields": {
-        "torneo": 1,
-        "participante": 14,
-        "fecha_inscripcion": "2024-10-18",
-        "puntos_obtenidos": 16993,
-        "posicion_final": -25667
-    }
-},
-{
-    "model": "torneo.torneoparticipante",
-    "pk": 46,
-    "fields": {
-        "torneo": 8,
-        "participante": 1,
-        "fecha_inscripcion": "2024-10-18",
-        "puntos_obtenidos": 9129,
-        "posicion_final": 12792
-    }
-},
-{
-    "model": "torneo.torneoparticipante",
-    "pk": 47,
-    "fields": {
-        "torneo": 15,
-        "participante": 11,
-        "fecha_inscripcion": "2024-10-18",
-        "puntos_obtenidos": -21954,
-        "posicion_final": -29225
+        "jugador": 4,
+        "fecha_inscripcion": "2025-01-19"
     }
 }
 ]

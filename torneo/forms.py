@@ -8,8 +8,6 @@ from django.contrib.auth.forms import UserCreationForm
 from .models import UsuarioLogin  # Usamos UsuarioLogin ya que es el modelo que define el rol
 
 class TorneoForm(forms.ModelForm):
-    
-    
     DURACIONES = [
         ('1:00', '1 hora'),
         ('2:00', '2 horas'),
@@ -20,7 +18,7 @@ class TorneoForm(forms.ModelForm):
         ('12:00', '12 horas'),
         ('24:00', '1 día'),
     ]
-
+    
     CATEGORIAS = [
         ('Acción', 'Acción'),
         ('Deportes', 'Deportes'),
@@ -42,60 +40,60 @@ class TorneoForm(forms.ModelForm):
         widget=forms.Select(attrs={'class': 'form-control'}),
         help_text="Selecciona la duración del torneo"
     )
-    
-    
-    
-    class Meta:
-        model = Torneo  # Asociamos el formulario al modelo Torneo
-        fields = ['nombre', 'descripcion', 'fecha_inicio', 'categoria', 'duracion']# Campos que se mostrarán en el formulario
-        widgets = {
 
-            'fecha_inicio': forms.DateInput(format="%Y-%m-%d",attrs={'type': 'date', 'class': 'form-control'})
+    jugadores = forms.ModelMultipleChoiceField(
+        queryset=Jugador.objects.all(),  # Todos los jugadores disponibles
+        widget=forms.CheckboxSelectMultiple,
+        required=False,
+        label="Jugadores asociados al torneo"
+    )
+
+    class Meta:
+        model = Torneo
+        fields = ['nombre', 'descripcion', 'fecha_inicio', 'categoria', 'duracion', 'jugadores']  # Añadido 'jugadores'
+
+        widgets = {
+            'fecha_inicio': forms.DateInput(format="%Y-%m-%d", attrs={'type': 'date', 'class': 'form-control'})
         }
-        
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if self.instance.pk:  # Si estamos editando un torneo ya existente
+            # Establecer los jugadores seleccionados inicialmente
+            self.fields['jugadores'].initial = self.instance.jugadores.all()
 
     def clean(self):
-        super().clean() #se llama al clean ejecutan las validaciones 
-        #predefinidas de Django (como asegurarse de que los campos requeridos estén presentes, que los campos numéricos sean válidos, etc.), 
-        #y luego se devuelve un diccionario cleaned_data con los valores validados de los campos.
+        super().clean()
 
-        #una vez calidado accedemos a los valores del clean y ya luego podemos añadir nuestros propios errores
         nombre = self.cleaned_data.get('nombre')
         descripcion = self.cleaned_data.get('descripcion')
         fecha_inicio = self.cleaned_data.get('fecha_inicio')
         categoria = self.cleaned_data.get('categoria')
         duracion = self.cleaned_data.get('duracion')
-        
-            # Asegurarnos de que duracion esté en formato timedelta
-        if isinstance(duracion, str):  # Si la duración es una cadena de texto, la convertimos a timedelta
+
+        if isinstance(duracion, str):  # Convertir la duración en timedelta si es necesario
             horas, minutos = map(int, duracion.split(':'))
             duracion = timedelta(hours=horas, minutes=minutos)
 
-        # Validaciones personalizadas (como las tenías)
-            torneoNombre = Torneo.objects.filter(nombre=nombre).first()
-            if(not torneoNombre is None
-            ):
-                if(not self.instance is None and torneoNombre.id == self.instance.id):
-                    pass
-                else:
-                    self.add_error('nombre','Ya existe un torneo con ese nombre')
+        # Validación de nombre único
+        torneo_nombre = Torneo.objects.filter(nombre=nombre).first()
+        if torneo_nombre and (not self.instance or torneo_nombre.id != self.instance.id):
+            self.add_error('nombre', 'Ya existe un torneo con ese nombre')
 
         if descripcion and len(descripcion) < 20:
             self.add_error('descripcion', 'La descripción debe tener al menos 20 caracteres.')
 
         if fecha_inicio and fecha_inicio < date.today():
             self.add_error('fecha_inicio', 'La fecha de inicio no puede ser anterior a hoy.')
-        # Comprobamos que la categoría sea 'Acción' y que la duración supere las 3 horas (10800 segundos)
-        if categoria and categoria.lower() == "acción":
-            if duracion:
-                # Verifica si la duración es mayor a 3 horas (10800 segundos)
-                if isinstance(duracion, timedelta) and duracion.total_seconds() > 10800:
-                    self.add_error('categoria', 'La categoría "Acción" no puede tener una duración superior a 3 horas.')
-                    self.add_error('duracion', 'Duración no válida para la categoría "Acción".')
 
-                return self.cleaned_data
+        # Validaciones adicionales para categorías y duraciones
+        if categoria and categoria.lower() == "acción":
+            if duracion and isinstance(duracion, timedelta) and duracion.total_seconds() > 10800:
+                self.add_error('categoria', 'La categoría "Acción" no puede tener una duración superior a 3 horas.')
+                self.add_error('duracion', 'Duración no válida para la categoría "Acción".')
 
         return self.cleaned_data
+
 
     
     
