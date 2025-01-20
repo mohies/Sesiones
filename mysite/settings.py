@@ -144,4 +144,6 @@ LOGIN_REDIRECT_URL = 'index'
 LOGOUT_REDIRECT_URL = 'index'
 
 STATIC_ROOT = BASE_DIR / 'static'
+
+ #se usa para el desarrollo y pruebas locales. Esto le indica a Django que, en lugar de enviar correos electrónicos a través de un servidor de correo real, debe imprimir el contenido de los correos electrónicos en la consola (terminal) donde se está ejecutando el servidor de desarrollo.
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

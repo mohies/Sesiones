@@ -158,7 +158,7 @@ class BusquedaAvanzadaTorneoForm(forms.Form):
             if duracion_minima.total_seconds() <= 0:
                 self.add_error('duracion_minima', 'La duración mínima debe ser un tiempo válido y mayor que cero')
 
-        # Siempre devolvemos el conjunto de datos
+       
         return self.cleaned_data
 
 

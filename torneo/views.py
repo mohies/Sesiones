@@ -1,15 +1,15 @@
 from django.shortcuts import render,redirect
 from .models import *
-from django.db.models import Prefetch,Count,Q
+from django.db.models import Q
 from .forms import *
 from django.contrib import messages
 from django.contrib.auth import login
 from django.shortcuts import render, redirect
 from .forms import RegistroForm
-from .models import UsuarioLogin, Organizador, Jugador
+from .models import UsuarioLogin, Jugador
 from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required, permission_required
-from django.contrib.auth import authenticate, login,logout
+from django.contrib.auth import  login
 from datetime import datetime
 
 
@@ -113,6 +113,7 @@ def torneo_buscar_avanzado(request):
     return render(request, 'torneo/creartorneo/busqueda_avanzada.html', {"formulario": formulario})
 
 
+#Para la inscripción al torneo con el jugador logueado
 @login_required
 def torneo_jugador(request):
     if request.method == 'POST':
@@ -173,7 +174,7 @@ def registrar_usuario(request):
 
             # Si el rol no es Administrador, el login se realiza después del registro
             login(request, user)
-            return redirect('index')  # Redirigir a la página principal o cualquier otra vista que desees
+            return redirect('index')  # Redirigir a la página principal
 
     else:
         # Crear instancias vacías de los formularios
@@ -181,7 +182,6 @@ def registrar_usuario(request):
         jugador_form = RegistroJugadorForm()
         organizador_form = RegistroOrganizadorForm()
 
-    # Renderizamos el formulario de registro, pasando los formularios contextuales
     return render(request, 'torneo/registration/signup.html', {
         'formulario': formulario,
         'jugador_form': jugador_form,
@@ -221,7 +221,7 @@ def torneo_editarr(request, torneo_id):
             try:
                 formulario.save()
                 messages.success(request, "Torneo actualizado correctamente.")
-                return redirect("lista_torneo")  # Adjusted to match URL name
+                return redirect("lista_torneo") 
             except Exception as error:
                 print(error)
                 messages.error(request, "Hubo un error al actualizar el torneo.")
@@ -258,7 +258,6 @@ def torneo_ver(request, torneo_id):
     participantes = torneo.participantes.all()
     jugadores = torneo.jugadores.all()
 
-    # Pasar los datos a la plantilla
     return render(request, 'torneo/create/ver.html', {
         'torneo': torneo,
         'participantes': participantes,
