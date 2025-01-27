@@ -21,6 +21,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("__debug__/", include("debug_toolbar.urls")),
     path('',include('torneo.urls')),
+    path('api/v1/',include("torneo.api_urls")),
+    path('oauth2/', include('oauth2_provider.urls', namespace='oauth2_provider')),
+
     
 ]
 

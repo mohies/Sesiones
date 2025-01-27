@@ -47,3 +47,10 @@ Cada tipo de usuario tiene diferentes permisos según su rol y el tipo de operac
 - **Administradores** tienen acceso completo a todas las vistas y funcionalidades.
 
 ---
+
+
+
+Invoke-WebRequest -Uri "http://127.0.0.1:8000/oauth2/token/" `
+                  -Method POST `
+                  -Body "grant_type=password&username=admin&password=admin&client_id=pepeid&client_secret=pepesecreto" `
+                  -ContentType "application/x-www-form-urlencoded"
