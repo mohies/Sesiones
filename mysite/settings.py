@@ -20,7 +20,7 @@ import os
 
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'),True)
 env = environ.Env()
-SECRET_KEY =  env("SECRET_KEY")
+SECRET_KEY = env('SECRET_KEY')
 
 
 
@@ -160,6 +160,7 @@ OAUTH2_PROVIDER = {
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',  # Autentic
     ),
 
     'DEFAULT_PERMISSION_CLASSES': (
@@ -168,18 +169,5 @@ REST_FRAMEWORK = {
 }
 
 
-USER_KEY_ADMINISTRADOR = env("USER_KEY_ADMINISTRADOR")
-USER_KEY_JUGADOR = env("USER_KEY_JUGADOR")
-USER_KEY_ORGANIZADOR = env("USER_KEY_ORGANIZADOR")
-
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.SessionAuthentication',  # Autenticación por sesión
-        'rest_framework_simplejwt.authentication.JWTAuthentication',  # Autenticación por token JWT
-    ),
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',  # Permitir solo a usuarios autenticados
-    ),
-}
 
 
