@@ -153,33 +153,7 @@ STATIC_ROOT = BASE_DIR / 'static'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
-OAUTH2_PROVIDER = {
-    'SCOPES': {'read': 'Read scope', 'write': 'Write scope', 'groups': 'Acceso a los grupos'}
-}
-
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
-    ),
-
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
-    ),
-}
 
 
-USER_KEY_ADMINISTRADOR = env("USER_KEY_ADMINISTRADOR")
-USER_KEY_JUGADOR = env("USER_KEY_JUGADOR")
-USER_KEY_ORGANIZADOR = env("USER_KEY_ORGANIZADOR")
-
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.SessionAuthentication',  # Autenticación por sesión
-        'rest_framework_simplejwt.authentication.JWTAuthentication',  # Autenticación por token JWT
-    ),
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',  # Permitir solo a usuarios autenticados
-    ),
-}
 
 

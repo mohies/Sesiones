@@ -152,15 +152,14 @@ class EquipoSerializerMejorado(serializers.ModelSerializer):
 
 
 class ParticipanteSerializerMejorado(serializers.ModelSerializer):
-    # Agregamos un campo adicional para el nombre del usuario
-    nombre_usuario = serializers.CharField(source='usuario.nombre', read_only=True)
-    
-    # Campo torneos usando el related_name y accediendo a los torneos del participante
-    torneos = serializers.PrimaryKeyRelatedField(queryset=Torneo.objects.all(), many=True, source='participante_torneo.all')
+    nombre_usuario = serializers.CharField(source='usuario.nombre')
+    equipos = EquipoSerializer(many=True, read_only=True)  # Usamos el EquipoSerializer para mostrar los detalles del equipo
+    torneos = TorneoSerializer(many=True, read_only=True)  # Usamos el TorneoSerializer para mostrar los detalles del torneo
 
     class Meta:
         model = Participante
         fields = ['nombre_usuario', 'puntos_obtenidos', 'posicion_final', 'fecha_inscripcion', 'tiempo_jugado', 'equipos', 'torneos']
+
         
 class JuegoSerializerMejorado(serializers.ModelSerializer):
     consola = serializers.StringRelatedField()  # Muestra el nombre de la consola
