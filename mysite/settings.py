@@ -20,7 +20,7 @@ import os
 
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'),True)
 env = environ.Env()
-SECRET_KEY =  env("SECRET_KEY")
+SECRET_KEY = env('SECRET_KEY')
 
 
 
@@ -153,6 +153,20 @@ STATIC_ROOT = BASE_DIR / 'static'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
+OAUTH2_PROVIDER = {
+    'SCOPES': {'read': 'Read scope', 'write': 'Write scope', 'groups': 'Acceso a los grupos'}
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',  # Autentic
+    ),
+
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+}
 
 
 
