@@ -128,19 +128,14 @@ class TorneoJugadorSerializer(serializers.ModelSerializer):
         fields = '__all__'
 #Crear una consulta mejorada al listado de vuestro modelo principal de la aplicación cliente. Debe ser una vista distinta a la anterior, con un template y url disntinta. (1 punto     
 class TorneoSerializerMejorado(serializers.ModelSerializer):
-    # Relaciones ManyToMany a través de otros serializers
     participantes = ParticipanteSerializer(many=True)
-    juegos = JuegoSerializer(many=True, source='juegos_torneo')  # Usamos 'juegos_torneo' que es el related_name en el modelo Juego
 
-    # Para formatear la fecha de inicio
     fecha_inicio = serializers.DateField(format='%d-%m-%Y')
-
-    # Para obtener el nombre de la categoría, no necesitas 'get_categoria_display', ya que no está definida en el modelo
     categoria = serializers.CharField()
 
     class Meta:
         model = Torneo
-        fields = ('id', 'nombre', 'descripcion', 'categoria', 'duracion', 'fecha_inicio', 'participantes', 'juegos')
+        fields = ('id', 'nombre', 'descripcion', 'categoria', 'duracion', 'fecha_inicio', 'participantes')
         
         
 class EquipoSerializerMejorado(serializers.ModelSerializer):
@@ -162,7 +157,10 @@ class ParticipanteSerializerMejorado(serializers.ModelSerializer):
 
         
 class JuegoSerializerMejorado(serializers.ModelSerializer):
-    consola = serializers.StringRelatedField()  # Muestra el nombre de la consola
+    # Muestra el nombre de la consola
+    consola = serializers.StringRelatedField()  
+    
+    # Relación ManyToMany con Torneo a través de la tabla intermedia TorneoJuego
     torneos = TorneoSerializer(many=True)  # Relación con los torneos
 
     class Meta:

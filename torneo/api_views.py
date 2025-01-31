@@ -24,13 +24,9 @@ def torneo_list_sencillo(request):
 #Crear una consulta mejorada al listado de vuestro modelo principal de la aplicación cliente. Debe ser una vista distinta a la anterior, con un template y url disntinta. (1 punto
 @api_view(['GET'])
 def torneo_list(request):
-    # Usamos la relación correcta 'juegos_torneo' en lugar de 'juegos'
-    torneos = Torneo.objects.prefetch_related("participantes", "juegos_torneo").all()
-    
-    # Serializa los torneos usando el serializer correspondiente
+    # Usamos prefetch_related con el related_name 'participante_torneo' o 'torneoparticipante_set' dependiendo de cómo lo hayas configurado
+    torneos = Torneo.objects.prefetch_related('torneoparticipante_set').all()
     serializer = TorneoSerializerMejorado(torneos, many=True)
-    
-    # Devuelve los datos serializados
     return Response(serializer.data)
 
 
@@ -48,7 +44,7 @@ def equipo_list_sencillo(request):
 @api_view(['GET'])
 def participante_list_mejorado(request):
     # Optimizar relaciones ManyToMany con prefetch_related usando el related_name 'participante_torneo'
-    participantes = Participante.objects.prefetch_related('equipos', 'usuario', 'participante_torneo').all()
+    participantes = Participante.objects.prefetch_related('participanteequipo_set').all()
     
     # Serializar con el serializer mejorado
     serializer = ParticipanteSerializerMejorado(participantes, many=True)
@@ -61,11 +57,10 @@ def participante_list_mejorado(request):
 
 @api_view(['GET'])
 def juego_list_mejorado(request):
-    # Optimizar relaciones ManyToMany con prefetch_related
-    juegos = Juego.objects.prefetch_related('id_consola', 'torneos').all()
+    juegos = Juego.objects.prefetch_related('torneos').all()  # Prefetch de la relación ManyToMany
     
-    # Serializar con el serializer mejorado
+    # Serializa los juegos usando el serializador correspondiente
     serializer = JuegoSerializerMejorado(juegos, many=True)
     
-    # Devolver los datos serializados
+    # Devuelve los datos serializados
     return Response(serializer.data)
