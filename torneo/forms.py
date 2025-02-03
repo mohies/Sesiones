@@ -100,67 +100,29 @@ class TorneoForm(forms.ModelForm):
 class BusquedaTorneoForm(forms.Form):
     textoBusqueda = forms.CharField(required=True)
     
-    
 class BusquedaAvanzadaTorneoForm(forms.Form):
     textoBusqueda = forms.CharField(required=False)
-    
-    
-    categorias = forms.CharField(
-    required=False,
-    widget=forms.TextInput(attrs={'placeholder': 'Introduce las categorías separadas por comas'})
-)
+    fecha_desde = forms.DateField(required=False, widget=forms.DateInput(attrs={"type": "date"}))
+    fecha_hasta = forms.DateField(required=False, widget=forms.DateInput(attrs={"type": "date"}))
+    categoria = forms.CharField(required=False)
 
-    fecha_desde = forms.DateField(label="Fecha Desde", 
-                                  required=False, 
-                                  widget=forms.DateInput(attrs={"type": "date", "class": "form-control"}))
+class BusquedaAvanzadaEquipoForm(forms.Form):
+    nombre = forms.CharField(required=False)
+    fecha_ingreso_desde = forms.DateField(required=False, widget=forms.DateInput(attrs={"type": "date"}))
+    fecha_ingreso_hasta = forms.DateField(required=False, widget=forms.DateInput(attrs={"type": "date"}))
+    puntos_contribuidos_min = forms.IntegerField(required=False)
 
-    fecha_hasta = forms.DateField(label="Fecha Hasta", 
-                                  required=False,
-                                  initial=datetime.date.today,
-                                  widget=forms.DateInput(format="%Y-%m-%d", 
-                                                         attrs={"type": "date", "class": "form-control"}))
+class BusquedaAvanzadaParticipanteForm(forms.Form):
+    nombre = forms.CharField(required=False)
+    puntos_obtenidos_min = forms.IntegerField(required=False)
+    fecha_inscripcion_desde = forms.DateField(required=False, widget=forms.DateInput(attrs={"type": "date"}))
+    fecha_inscripcion_hasta = forms.DateField(required=False, widget=forms.DateInput(attrs={"type": "date"}))
 
-    # Filtrar por duración mínima de los torneos
-    duracion_minima = forms.TimeField(label="Duración mínima", 
-                                      required=False, 
-                                      widget=forms.TimeInput(attrs={"type": "time", "class": "form-control"}))
-    
-
-
-    def clean(self):
-        # Validamos con el formulario base
-        super().clean()
-
-        # Obtenemos los campos
-        textoBusqueda = self.cleaned_data.get('textoBusqueda')
-        fecha_desde = self.cleaned_data.get('fecha_desde')
-        fecha_hasta = self.cleaned_data.get('fecha_hasta')
-        duracion_minima = self.cleaned_data.get('duracion_minima')
-
-        # Controlamos que al menos se haya introducido un valor en uno de los campos
-        if not textoBusqueda and not fecha_desde and not fecha_hasta and not duracion_minima:
-            error_message = 'Debe introducir al menos un valor en un campo del formulario'
-            self.add_error('textoBusqueda', error_message)
-            self.add_error('fecha_desde', error_message)
-            self.add_error('fecha_hasta', error_message)
-            self.add_error('duracion_minima', error_message)
-            # Validar que el texto de búsqueda tenga al menos 3 caracteres si se ingresa algo
-        if textoBusqueda != "" and len(textoBusqueda) < 3:
-                self.add_error('textoBusqueda', 'Debe introducir al menos 3 caracteres')
-
-            # La fecha hasta debe ser mayor o igual a la fecha desde, si ambas se introducen
-        if fecha_desde and fecha_hasta and fecha_hasta < fecha_desde:
-                self.add_error('fecha_desde', 'La fecha hasta no puede ser menor que la fecha desde')
-                self.add_error('fecha_hasta', 'La fecha hasta no puede ser menor que la fecha desde')
-
-            # Si se especifica una duración mínima, debe ser un tiempo positivo
-        if duracion_minima:
-            if duracion_minima.total_seconds() <= 0:
-                self.add_error('duracion_minima', 'La duración mínima debe ser un tiempo válido y mayor que cero')
-
-       
-        return self.cleaned_data
-
+class BusquedaAvanzadaJuegoForm(forms.Form):
+    nombre = forms.CharField(required=False)
+    genero = forms.CharField(required=False)
+    fecha_participacion_desde = forms.DateField(required=False, widget=forms.DateInput(attrs={"type": "date"}))
+    fecha_participacion_hasta = forms.DateField(required=False, widget=forms.DateInput(attrs={"type": "date"}))
 
 class RegistroForm(UserCreationForm):
     roles = (
@@ -197,13 +159,13 @@ class TorneoJugadorForm(forms.Form):
         empty_label="Seleccione un torneo"
     )
 
-        
 
 
 
 
-    
 
 
 
-   
+
+
+

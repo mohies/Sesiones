@@ -14,7 +14,9 @@ urlpatterns = [
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),  # Obtener el token
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),  # Refrescar el token
     
-    
-    
-
+    path('torneos/buscar/', api_views.torneo_buscar, name='torneo_buscar'),
+    path('torneos/buscar/avanzado/', api_views.torneo_buscar_avanzado, name='torneo_buscar_avanzado'),
+    path('equipos/buscar/avanzado/', api_views.equipo_buscar_avanzado, name='equipo_buscar_avanzado'),
+    path('participantes/buscar/avanzado/', api_views.participante_buscar_avanzado, name='participante_buscar_avanzado'),
+    path('juegos/buscar/avanzado/', api_views.juego_buscar_avanzado, name='juego_buscar_avanzado'),
 ]

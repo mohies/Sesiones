@@ -64,3 +64,145 @@ def juego_list_mejorado(request):
     
     # Devuelve los datos serializados
     return Response(serializer.data)
+
+
+@api_view(['GET'])
+def torneo_buscar(request):
+    formulario = BusquedaTorneoForm(request.query_params)
+    if formulario.is_valid():
+        texto = formulario.data.get('textoBusqueda')
+        torneos = Torneo.objects.prefetch_related("participantes","juegos_torneo")
+        torneos = torneos.filter(Q(nombre__contains=texto) | Q(descripcion__contains=texto)).all()
+        serializer = TorneoSerializerMejorado(torneos, many=True)
+        return Response(serializer.data)
+    else:
+        return Response(formulario.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+def torneo_buscar_avanzado(request):
+    if len(request.query_params) > 0:
+        formulario = BusquedaAvanzadaTorneoForm(request.query_params)
+        if formulario.is_valid():
+            QStorneos = Torneo.objects.prefetch_related("participantes")
+
+            textoBusqueda = formulario.cleaned_data.get('textoBusqueda')
+            fechaDesde = formulario.cleaned_data.get('fecha_desde')
+            fechaHasta = formulario.cleaned_data.get('fecha_hasta')
+            categoria = formulario.cleaned_data.get('categoria')
+
+            if textoBusqueda:
+                QStorneos = QStorneos.filter(Q(nombre__icontains=textoBusqueda) | Q(descripcion__icontains=textoBusqueda) | Q(categoria__contains=textoBusqueda))
+
+            if fechaDesde:
+                QStorneos = QStorneos.filter(fecha_inicio__gte=fechaDesde)
+
+            if fechaHasta:
+                QStorneos = QStorneos.filter(fecha_inicio__lte=fechaHasta)
+
+            if categoria:
+                QStorneos = QStorneos.filter(categoria__icontains=categoria)
+
+            torneos = QStorneos.all()
+            serializer = TorneoSerializerMejorado(torneos, many=True)
+            return Response(serializer.data)
+        else:
+            return Response(formulario.errors, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        return Response({}, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+def equipo_buscar_avanzado(request):
+    if len(request.query_params) > 0:
+        formulario = BusquedaAvanzadaEquipoForm(request.query_params)
+        if formulario.is_valid():
+            QEquipos = Equipo.objects.all()
+
+            nombre = formulario.cleaned_data.get('nombre')
+            fechaIngresoDesde = formulario.cleaned_data.get('fecha_ingreso_desde')
+            fechaIngresoHasta = formulario.cleaned_data.get('fecha_ingreso_hasta')
+            puntosContribuidosMin = formulario.cleaned_data.get('puntos_contribuidos_min')
+
+            if nombre:
+                QEquipos = QEquipos.filter(nombre__icontains=nombre)
+
+            if fechaIngresoDesde:
+                QEquipos = QEquipos.filter(fecha_ingreso__gte=fechaIngresoDesde)
+
+            if fechaIngresoHasta:
+                QEquipos = QEquipos.filter(fecha_ingreso__lte=fechaIngresoHasta)
+
+            if puntosContribuidosMin:
+                QEquipos = QEquipos.filter(puntos_contribuidos__gte=puntosContribuidosMin)
+
+            equipos = QEquipos.all()
+            serializer = EquipoSerializerMejorado(equipos, many=True)
+            return Response(serializer.data)
+        else:
+            return Response(formulario.errors, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        return Response({}, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+def participante_buscar_avanzado(request):
+    if len(request.query_params) > 0:
+        formulario = BusquedaAvanzadaParticipanteForm(request.query_params)
+        if formulario.is_valid():
+            QParticipantes = Participante.objects.prefetch_related('equipos')
+
+            nombre = formulario.cleaned_data.get('nombre')
+            puntosObtenidosMin = formulario.cleaned_data.get('puntos_obtenidos_min')
+            fechaInscripcionDesde = formulario.cleaned_data.get('fecha_inscripcion_desde')
+            fechaInscripcionHasta = formulario.cleaned_data.get('fecha_inscripcion_hasta')
+
+            if nombre:
+                QParticipantes = QParticipantes.filter(usuario__nombre__icontains=nombre)
+
+            if puntosObtenidosMin:
+                QParticipantes = QParticipantes.filter(puntos_obtenidos__gte=puntosObtenidosMin)
+
+            if fechaInscripcionDesde:
+                QParticipantes = QParticipantes.filter(fecha_inscripcion__gte=fechaInscripcionDesde)
+
+            if fechaInscripcionHasta:
+                QParticipantes = QParticipantes.filter(fecha_inscripcion__lte=fechaInscripcionHasta)
+
+            participantes = QParticipantes.all()
+            serializer = ParticipanteSerializerMejorado(participantes, many=True)
+            return Response(serializer.data)
+        else:
+            return Response(formulario.errors, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        return Response({}, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+def juego_buscar_avanzado(request):
+    if len(request.query_params) > 0:
+        formulario = BusquedaAvanzadaJuegoForm(request.query_params)
+        if formulario.is_valid():
+            QJuegos = Juego.objects.prefetch_related('torneos')
+
+            nombre = formulario.cleaned_data.get('nombre')
+            genero = formulario.cleaned_data.get('genero')
+            fechaParticipacionDesde = formulario.cleaned_data.get('fecha_participacion_desde')
+            fechaParticipacionHasta = formulario.cleaned_data.get('fecha_participacion_hasta')
+
+            if nombre:
+                QJuegos = QJuegos.filter(nombre__icontains=nombre)
+
+            if genero:
+                QJuegos = QJuegos.filter(genero__icontains=genero)
+
+            if fechaParticipacionDesde:
+                QJuegos = QJuegos.filter(torneojuego__fecha_participacion__gte=fechaParticipacionDesde)
+
+            if fechaParticipacionHasta:
+                QJuegos = QJuegos.filter(torneojuego__fecha_participacion__lte=fechaParticipacionHasta)
+
+            juegos = QJuegos.all()
+            serializer = JuegoSerializerMejorado(juegos, many=True)
+            return Response(serializer.data)
+        else:
+            return Response(formulario.errors, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        return Response({}, status=status.HTTP_400_BAD_REQUEST)
+
