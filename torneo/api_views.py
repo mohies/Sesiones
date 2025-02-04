@@ -140,7 +140,7 @@ def equipo_buscar_avanzado(request):
         else:
             return Response(formulario.errors, status=status.HTTP_400_BAD_REQUEST)
     else:
-        return Response({}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'error': 'No se proporcionaron parámetros de búsqueda.'}, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET'])
 def participante_buscar_avanzado(request):
@@ -172,7 +172,7 @@ def participante_buscar_avanzado(request):
         else:
             return Response(formulario.errors, status=status.HTTP_400_BAD_REQUEST)
     else:
-        return Response({}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'error': 'No se proporcionaron parámetros de búsqueda.'}, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET'])
 def juego_buscar_avanzado(request):
@@ -204,5 +204,5 @@ def juego_buscar_avanzado(request):
         else:
             return Response(formulario.errors, status=status.HTTP_400_BAD_REQUEST)
     else:
-        return Response({}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'error': 'No se proporcionaron parámetros de búsqueda.'}, status=status.HTTP_400_BAD_REQUEST)
 

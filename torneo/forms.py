@@ -107,22 +107,91 @@ class BusquedaAvanzadaTorneoForm(forms.Form):
     categoria = forms.CharField(required=False)
 
 class BusquedaAvanzadaEquipoForm(forms.Form):
-    nombre = forms.CharField(required=False)
-    fecha_ingreso_desde = forms.DateField(required=False, widget=forms.DateInput(attrs={"type": "date"}))
-    fecha_ingreso_hasta = forms.DateField(required=False, widget=forms.DateInput(attrs={"type": "date"}))
-    puntos_contribuidos_min = forms.IntegerField(required=False)
+    nombre = forms.CharField(label="Nombre del Equipo", required=False, max_length=200)
+    fecha_ingreso_desde = forms.DateField(label="Fecha Ingreso Desde", required=False, widget=forms.SelectDateWidget())
+    fecha_ingreso_hasta = forms.DateField(label="Fecha Ingreso Hasta", required=False, widget=forms.SelectDateWidget())
+    puntos_contribuidos_min = forms.IntegerField(label="Puntos Contribuidos Mínimos", required=False)
+
+    def clean(self):
+        super().clean()
+        
+        nombre = self.cleaned_data.get('nombre')
+        fecha_ingreso_desde = self.cleaned_data.get('fecha_ingreso_desde')
+        fecha_ingreso_hasta = self.cleaned_data.get('fecha_ingreso_hasta')
+        puntos_contribuidos_min = self.cleaned_data.get('puntos_contribuidos_min')
+
+        if not (nombre or fecha_ingreso_desde or fecha_ingreso_hasta or puntos_contribuidos_min):
+            self.add_error('nombre', 'Debe introducir al menos un valor en un campo del formulario')
+            self.add_error('fecha_ingreso_desde', 'Debe introducir al menos un valor en un campo del formulario')
+            self.add_error('fecha_ingreso_hasta', 'Debe introducir al menos un valor en un campo del formulario')
+            self.add_error('puntos_contribuidos_min', 'Debe introducir al menos un valor en un campo del formulario')
+        else:
+            if nombre and len(nombre) < 3:
+                self.add_error('nombre', 'Debe introducir al menos 3 caracteres')
+
+            if fecha_ingreso_desde and fecha_ingreso_hasta and fecha_ingreso_hasta < fecha_ingreso_desde:
+                self.add_error('fecha_ingreso_desde', 'La fecha hasta no puede ser menor que la fecha desde')
+                self.add_error('fecha_ingreso_hasta', 'La fecha hasta no puede ser menor que la fecha desde')
+
+        return self.cleaned_data
 
 class BusquedaAvanzadaParticipanteForm(forms.Form):
-    nombre = forms.CharField(required=False)
-    puntos_obtenidos_min = forms.IntegerField(required=False)
-    fecha_inscripcion_desde = forms.DateField(required=False, widget=forms.DateInput(attrs={"type": "date"}))
-    fecha_inscripcion_hasta = forms.DateField(required=False, widget=forms.DateInput(attrs={"type": "date"}))
+    nombre = forms.CharField(label="Nombre del Participante", required=False, max_length=200)
+    puntos_obtenidos_min = forms.IntegerField(label="Puntos Obtenidos Mínimos", required=False)
+    fecha_inscripcion_desde = forms.DateField(label="Fecha Inscripción Desde", required=False, widget=forms.SelectDateWidget())
+    fecha_inscripcion_hasta = forms.DateField(label="Fecha Inscripción Hasta", required=False, widget=forms.SelectDateWidget())
+
+    def clean(self):
+        super().clean()
+        
+        nombre = self.cleaned_data.get('nombre')
+        puntos_obtenidos_min = self.cleaned_data.get('puntos_obtenidos_min')
+        fecha_inscripcion_desde = self.cleaned_data.get('fecha_inscripcion_desde')
+        fecha_inscripcion_hasta = self.cleaned_data.get('fecha_inscripcion_hasta')
+
+        if not (nombre or puntos_obtenidos_min or fecha_inscripcion_desde or fecha_inscripcion_hasta):
+            self.add_error('nombre', 'Debe introducir al menos un valor en un campo del formulario')
+            self.add_error('puntos_obtenidos_min', 'Debe introducir al menos un valor en un campo del formulario')
+            self.add_error('fecha_inscripcion_desde', 'Debe introducir al menos un valor en un campo del formulario')
+            self.add_error('fecha_inscripcion_hasta', 'Debe introducir al menos un valor en un campo del formulario')
+        else:
+            if nombre and len(nombre) < 3:
+                self.add_error('nombre', 'Debe introducir al menos 3 caracteres')
+
+            if fecha_inscripcion_desde and fecha_inscripcion_hasta and fecha_inscripcion_hasta < fecha_inscripcion_desde:
+                self.add_error('fecha_inscripcion_desde', 'La fecha hasta no puede ser menor que la fecha desde')
+                self.add_error('fecha_inscripcion_hasta', 'La fecha hasta no puede ser menor que la fecha desde')
+
+        return self.cleaned_data
 
 class BusquedaAvanzadaJuegoForm(forms.Form):
-    nombre = forms.CharField(required=False)
-    genero = forms.CharField(required=False)
-    fecha_participacion_desde = forms.DateField(required=False, widget=forms.DateInput(attrs={"type": "date"}))
-    fecha_participacion_hasta = forms.DateField(required=False, widget=forms.DateInput(attrs={"type": "date"}))
+    nombre = forms.CharField(label="Nombre del Juego", required=False, max_length=200)
+    genero = forms.CharField(label="Género", required=False, max_length=200)
+    fecha_participacion_desde = forms.DateField(label="Fecha Participación Desde", required=False, widget=forms.SelectDateWidget())
+    fecha_participacion_hasta = forms.DateField(label="Fecha Participación Hasta", required=False, widget=forms.SelectDateWidget())
+
+    def clean(self):
+        super().clean()
+        
+        nombre = self.cleaned_data.get('nombre')
+        genero = self.cleaned_data.get('genero')
+        fecha_participacion_desde = self.cleaned_data.get('fecha_participacion_desde')
+        fecha_participacion_hasta = self.cleaned_data.get('fecha_participacion_hasta')
+
+        if not (nombre or genero or fecha_participacion_desde or fecha_participacion_hasta):
+            self.add_error('nombre', 'Debe introducir al menos un valor en un campo del formulario')
+            self.add_error('genero', 'Debe introducir al menos un valor en un campo del formulario')
+            self.add_error('fecha_participacion_desde', 'Debe introducir al menos un valor en un campo del formulario')
+            self.add_error('fecha_participacion_hasta', 'Debe introducir al menos un valor en un campo del formulario')
+        else:
+            if nombre and len(nombre) < 3:
+                self.add_error('nombre', 'Debe introducir al menos 3 caracteres')
+
+            if fecha_participacion_desde and fecha_participacion_hasta and fecha_participacion_hasta < fecha_participacion_desde:
+                self.add_error('fecha_participacion_desde', 'La fecha hasta no puede ser menor que la fecha desde')
+                self.add_error('fecha_participacion_hasta', 'La fecha hasta no puede ser menor que la fecha desde')
+
+        return self.cleaned_data
 
 class RegistroForm(UserCreationForm):
     roles = (
