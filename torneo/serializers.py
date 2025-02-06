@@ -157,10 +157,7 @@ class ParticipanteSerializerMejorado(serializers.ModelSerializer):
 
         
 class JuegoSerializerMejorado(serializers.ModelSerializer):
-    # Muestra el nombre de la consola
-    consola = serializers.StringRelatedField()  
-    
-    # Relación ManyToMany con Torneo a través de la tabla intermedia TorneoJuego
+    consola = serializers.CharField(source='id_consola.nombre')  # Mostrar el nombre de la consola
     torneos = TorneoSerializer(many=True)  # Relación con los torneos
 
     class Meta:
