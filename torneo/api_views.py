@@ -206,3 +206,73 @@ def juego_buscar_avanzado(request):
     else:
         return Response({'error': 'No se proporcionaron parámetros de búsqueda.'}, status=status.HTTP_400_BAD_REQUEST)
 
+@api_view(['GET'])
+def participante_list(request):
+    participantes = Participante.objects.all()
+    serializer = ParticipanteSerializer(participantes, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def categoria_list(request):
+    """
+    Devuelve una lista de categorías disponibles en los torneos.
+    """
+    categorias = Torneo.objects.values_list('categoria', flat=True).distinct()
+    return Response(list(categorias))
+
+
+
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
+from .serializers import TorneoSerializerCreate
+
+@api_view(['POST'])
+def torneo_create(request): 
+    print(request.data)  # Para depuración
+    torneoCreateSerializer = TorneoSerializerCreate(data=request.data)
+
+    if torneoCreateSerializer.is_valid():
+        try:
+            torneoCreateSerializer.save()
+            return Response("Torneo CREADO")
+        except serializers.ValidationError as error:
+            return Response(error.detail, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as error:
+            print(repr(error))
+            return Response(repr(error), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    else:
+        return Response(torneoCreateSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    
+    
+@api_view(['GET']) 
+def torneo_obtener(request, torneo_id):
+    """
+    Obtiene un torneo específico con sus relaciones (participantes y otros datos).
+    """
+    torneo = Torneo.objects.prefetch_related("participantes").get(id=torneo_id)
+    serializer = TorneoSerializerMejorado(torneo)  # 🔹 Usamos un serializer mejorado
+    return Response(serializer.data)
+
+
+
+@api_view(['PUT'])
+def torneo_editar(request, torneo_id):
+    torneo = Torneo.objects.get(id=torneo_id)
+    torneoCreateSerializer = TorneoSerializerCreate(data=request.data, instance=torneo)
+    
+    if torneoCreateSerializer.is_valid():
+        try:
+            torneoCreateSerializer.save()
+            return Response("Torneo EDITADO")
+        except serializers.ValidationError as error:
+            return Response(error.detail, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as error:
+            return Response(repr(error), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    else:
+        return Response(torneoCreateSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+

@@ -141,7 +141,8 @@ class TorneoSerializerMejorado(serializers.ModelSerializer):
 class EquipoSerializerMejorado(serializers.ModelSerializer):
     class Meta:
         model = Equipo
-        fields = ('id', 'nombre', 'logotipo', 'puntos_contribuidos')  # Usamos puntos_contribuidos directamente
+        fecha_ingreso = serializers.DateField(format='%d-%m-%Y')
+        fields = ('id', 'nombre', 'logotipo', 'puntos_contribuidos','fecha_ingreso')  # Usamos puntos_contribuidos directamente
         
         
 
@@ -163,3 +164,33 @@ class JuegoSerializerMejorado(serializers.ModelSerializer):
     class Meta:
         model = Juego
         fields = ['id', 'nombre', 'genero', 'descripcion', 'consola', 'torneos']
+        
+        
+class TorneoSerializerCreate(serializers.ModelSerializer):
+    
+    class Meta:
+        model = Torneo
+        fields = ['nombre', 'descripcion', 'fecha_inicio', 
+                  'categoria', 'duracion', 'participantes']
+
+    def validate_nombre(self, value):
+        """Verifica que el nombre del torneo no exista en la base de datos"""
+        if Torneo.objects.filter(nombre=value).exists():
+            raise serializers.ValidationError("Ya existe un torneo con este nombre.")
+        if len(value) < 5:
+            raise serializers.ValidationError("El nombre debe tener al menos 5 caracteres.")
+        return value  # Siempre devolvemos el valor validado
+
+    def validate_fecha_inicio(self, value):
+        """La fecha de inicio no puede ser en el pasado"""
+        from datetime import date
+        if value < date.today():
+            raise serializers.ValidationError("La fecha de inicio no puede ser en el pasado.")
+        return value
+
+    def validate_duracion(self, value):
+        """La duración no puede ser menor a 1 hora"""
+        from datetime import timedelta
+        if value < timedelta(hours=1):
+            raise serializers.ValidationError("La duración mínima debe ser de 1 hora.")
+        return value
