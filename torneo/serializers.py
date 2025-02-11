@@ -163,7 +163,7 @@ class JuegoSerializerMejorado(serializers.ModelSerializer):
 
     class Meta:
         model = Juego
-        fields = ['id', 'nombre', 'genero', 'descripcion', 'consola', 'torneos']
+        fields = ['id', 'nombre', 'genero', 'descripcion','id_consola', 'consola','torneo', 'torneos']
         
         
 class TorneoSerializerCreate(serializers.ModelSerializer):
@@ -207,5 +207,47 @@ class TorneoSerializerActualizarNombre(serializers.ModelSerializer):
         torneo_existente = Torneo.objects.filter(nombre=nombre).first()
         if torneo_existente and torneo_existente.id != self.instance.id:
             raise serializers.ValidationError('Ya existe un torneo con ese nombre')
-        return nombre  # ✅ Si no hay problema, devuelve el nombre original
+        return nombre  #  Si no hay problema, devuelve el nombre original
+    
+class JuegoSerializerCreate(serializers.ModelSerializer):
+    
+    GENEROS_CHOICES = [
+        ("", "Selecciona un género"),  # Opción vacía por defecto
+        ("Acción", "Acción"),
+        ("Aventura", "Aventura"),
+        ("Estrategia", "Estrategia"),
+        ("Deportes", "Deportes"),
+        ("RPG", "RPG"),
+        ("Shooter", "Shooter"),
+    ]
+
+    torneo = serializers.PrimaryKeyRelatedField(queryset=Torneo.objects.all())  # Torneo obligatorio
+    id_consola = serializers.PrimaryKeyRelatedField(queryset=Consola.objects.all())  # Consola obligatoria
+    genero = serializers.ChoiceField(choices=GENEROS_CHOICES)  # Género ahora es un ChoiceField
+
+    class Meta:
+        model = Juego
+        fields = ['torneo', 'nombre', 'genero', 'id_consola', 'descripcion']
+
+    # 🔹 Validación 1: El nombre del juego no debe repetirse en el mismo torneo
+    def validate_nombre(self, nombre):
+        juego_existente = Juego.objects.filter(nombre=nombre).first()
+        if juego_existente:
+            if self.instance and juego_existente.id == self.instance.id:
+                pass  # Permite actualizar el mismo juego sin error
+            else:
+                raise serializers.ValidationError("Ya existe un juego con ese nombre en este torneo.")
+        return nombre
+
+    # 🔹 Validación 2: La descripción debe tener al menos 10 caracteres
+    def validate_descripcion(self, descripcion):
+        if len(descripcion) < 10:
+            raise serializers.ValidationError("Al menos debes indicar 10 caracteres en la descripción.")
+        return descripcion
+
+    # 🔹 Validación 3: El género del juego no puede estar vacío
+    def validate_genero(self, genero):
+        if genero == "":
+            raise serializers.ValidationError("Debes seleccionar un género.")
+        return genero
 

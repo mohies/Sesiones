@@ -221,12 +221,6 @@ def categoria_list(request):
     return Response(list(categorias))
 
 
-
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
-from rest_framework import status
-from .serializers import TorneoSerializerCreate
-
 @api_view(['POST'])
 def torneo_create(request): 
     print(request.data)  # Para depuración
@@ -303,7 +297,72 @@ def torneo_eliminar(request, torneo_id):
         return Response(repr(error), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
+@api_view(['GET'])
+def torneo_list(request):
+    """
+    Devuelve la lista de todos los torneos registrados.
+    """
+    torneos = Torneo.objects.all()  # Obtiene todos los torneos
+    serializer = TorneoSerializer(torneos, many=True)  # ✅ Serializa los torneos
+    return Response(serializer.data)  # Retorna la respuesta en JSON
+
+@api_view(['GET'])
+def consola_list(request):
+    """
+    Devuelve la lista de todas las consolas registradas.
+    """
+    consolas = Consola.objects.all()  # Obtiene todas las consolas
+    serializer = ConsolaSerializer(consolas, many=True)  # Serializa las consolas
+    return Response(serializer.data)  # Retorna la respuesta en JSON
 
 
 
+@api_view(['POST'])
+def juego_create(request): 
+    print(request.data)  # Para depuración
+    juegoCreateSerializer = JuegoSerializerCreate(data=request.data)
+
+    if juegoCreateSerializer.is_valid():
+        try:
+            juegoCreateSerializer.save()
+            return Response("Juego CREADO")
+        except serializers.ValidationError as error:
+            return Response(error.detail, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as error:
+            print(repr(error))
+            return Response(repr(error), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    else:
+        return Response(juegoCreateSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+@api_view(['GET']) 
+def juego_obtener(request, juego_id):
+    """
+    Obtiene un juego específico con sus relaciones (torneo y consola).
+    """
+    juego = Juego.objects.select_related("torneo", "id_consola").get(id=juego_id)
+    serializer = JuegoSerializerMejorado(juego)  # 🔹 Usamos un serializer mejorado
+    return Response(serializer.data)
+
+
+
+@api_view(['PUT'])
+def juego_editar(request, juego_id):
+    """
+    Editar un juego específico con los datos proporcionados.
+    """
+    juego = Juego.objects.get(id=juego_id)
+    juegoCreateSerializer = JuegoSerializerCreate(data=request.data, instance=juego)
+
+    if juegoCreateSerializer.is_valid():
+        try:
+            juegoCreateSerializer.save()
+            return Response("Juego EDITADO")
+        except serializers.ValidationError as error:
+            return Response(error.detail, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as error:
+            return Response(repr(error), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    else:
+        return Response(juegoCreateSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

@@ -26,6 +26,13 @@ urlpatterns = [
     path('torneos/<int:torneo_id>/', api_views.torneo_obtener, name='torneo_obtener'),
     path('torneos/actualizar-nombre/<int:torneo_id>/', api_views.torneo_actualizar_nombre, name='torneo_actualizar_nombre'),
     path('torneos/eliminar/<int:torneo_id>/', api_views.torneo_eliminar, name='torneo_eliminar'),
+    path('torneos_list/', api_views.torneo_list, name='torneo_list'),
+    path('consolas/', api_views.consola_list, name='consola_list'),
+    path('juegos/crear/', api_views.juego_create, name='juego_create'),
+    path('juegos/<int:juego_id>/', api_views.juego_obtener, name='juego_obtener'),
+    path('juegos/editar/<int:juego_id>/', api_views.juego_editar, name='juego_editar'),
+
+
     
 
 
