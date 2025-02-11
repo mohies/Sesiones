@@ -272,6 +272,37 @@ def torneo_editar(request, torneo_id):
             return Response(repr(error), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     else:
         return Response(torneoCreateSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    
+@api_view(['PATCH'])
+def torneo_actualizar_nombre(request, torneo_id):
+    """
+    Actualiza solo el nombre de un torneo específico.
+    """
+    torneo = Torneo.objects.get(id=torneo_id)
+    serializer = TorneoSerializerActualizarNombre(data=request.data, instance=torneo)
+
+    if serializer.is_valid():
+        try:
+            serializer.save()
+            return Response("Torneo EDITADO")
+        except Exception as error:
+            print(repr(error))
+            return Response(repr(error), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    else:
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    
+@api_view(['DELETE'])
+def torneo_eliminar(request, torneo_id):
+    torneo = Torneo.objects.get(id=torneo_id)  # 🔹 Obtiene el torneo
+    try:
+        torneo.delete()
+        return Response("Torneo ELIMINADO")  # ✅ Mensaje igual al del profesor
+    except Exception as error:
+        return Response(repr(error), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
 
 
 

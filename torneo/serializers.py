@@ -194,3 +194,18 @@ class TorneoSerializerCreate(serializers.ModelSerializer):
         if value < timedelta(hours=1):
             raise serializers.ValidationError("La duración mínima debe ser de 1 hora.")
         return value
+    
+class TorneoSerializerActualizarNombre(serializers.ModelSerializer):
+    class Meta:
+        model = Torneo
+        fields = ['nombre']
+        
+    def validate_nombre(self, nombre):
+        """
+        Valida que el nombre del torneo no esté repetido.
+        """
+        torneo_existente = Torneo.objects.filter(nombre=nombre).first()
+        if torneo_existente and torneo_existente.id != self.instance.id:
+            raise serializers.ValidationError('Ya existe un torneo con ese nombre')
+        return nombre  # ✅ Si no hay problema, devuelve el nombre original
+
