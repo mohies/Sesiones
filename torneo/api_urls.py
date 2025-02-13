@@ -31,6 +31,24 @@ urlpatterns = [
     path('juegos/crear/', api_views.juego_create, name='juego_create'),
     path('juegos/<int:juego_id>/', api_views.juego_obtener, name='juego_obtener'),
     path('juegos/editar/<int:juego_id>/', api_views.juego_editar, name='juego_editar'),
+    path('juegos/actualizar-nombre/<int:juego_id>/', api_views.juego_actualizar_nombre, name='juego_actualizar_nombre'),
+    path('juegos/eliminar/<int:juego_id>/', api_views.juego_eliminar, name='juego_eliminar'),
+    path('usuarios/', api_views.usuario_list, name='usuario_list'),
+    path('equipos/', api_views.equipo_list, name='equipo_list'),
+    path('participantes/crear/', api_views.participante_create, name='participante_create'),
+    path('participantes/<int:participante_id>/', api_views.participante_obtener, name='participante_obtener'),
+    path('participantes/editar/<int:participante_id>/', api_views.participante_editar, name='participante_editar'),
+    path('participantes/actualizar-equipos/<int:participante_id>/', api_views.participante_actualizar_equipos, name='participante_actualizar_equipos'),
+    path('participantes/eliminar/<int:participante_id>/', api_views.participante_eliminar, name='participante_eliminar'),
+
+
+
+
+
+
+
+
+    
 
 
     

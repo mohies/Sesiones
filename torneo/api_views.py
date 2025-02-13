@@ -298,12 +298,12 @@ def torneo_eliminar(request, torneo_id):
 
 
 @api_view(['GET'])
-def torneo_list(request):
+def participante_list(request):
     """
-    Devuelve la lista de todos los torneos registrados.
+    Devuelve la lista de todos los participantes registrados.
     """
-    torneos = Torneo.objects.all()  # Obtiene todos los torneos
-    serializer = TorneoSerializer(torneos, many=True)  # ✅ Serializa los torneos
+    participantes = Participante.objects.all()  # Obtiene todos los participantes
+    serializer = ParticipanteSerializer(participantes, many=True)  # Serializa los participantes
     return Response(serializer.data)  # Retorna la respuesta en JSON
 
 @api_view(['GET'])
@@ -365,4 +365,150 @@ def juego_editar(request, juego_id):
             return Response(repr(error), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     else:
         return Response(juegoCreateSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    
+    
+    
+@api_view(['PATCH'])
+def juego_actualizar_nombre(request, juego_id):
+    """
+    API para actualizar solo el nombre de un juego.
+    """
+    juego = Juego.objects.get(id=juego_id)
+    serializer = JuegoSerializerActualizarNombre(data=request.data, instance=juego)
+
+    if serializer.is_valid():
+        try:
+            serializer.save()
+            return Response("Juego EDITADO")
+        except Exception as error:
+            print(repr(error))
+            return Response(repr(error), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    else:
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    
+    
+@api_view(['DELETE'])
+def juego_eliminar(request, juego_id):
+    """
+    API para eliminar un juego.
+    """
+    juego = Juego.objects.get(id=juego_id)  # 🔹 Obtiene el juego
+    try:
+        juego.delete()
+        return Response("Juego ELIMINADO")  # ✅ Mensaje igual al del profesor
+    except Exception as error:
+        return Response(repr(error), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
+    
+@api_view(['GET'])
+def usuario_list(request):
+    """
+    Devuelve la lista de todos los usuarios registrados.
+    """
+    usuarios = Usuario.objects.all()  # Obtiene todos los usuarios
+    serializer = UsuarioSerializer(usuarios, many=True)  # Serializa los usuarios
+    return Response(serializer.data)  # Retorna la respuesta en JSON
+
+@api_view(['GET'])
+def equipo_list(request):
+    """
+    Devuelve la lista de todos los equipos registrados.
+    """
+    equipos = Equipo.objects.all()  # Obtiene todos los equipos
+    serializer = EquipoSerializer(equipos, many=True)  # Serializa los equipos
+    return Response(serializer.data)  # Retorna la respuesta en JSON
+
+
+
+
+@api_view(['POST'])
+def participante_create(request): 
+    print(request.data)  # Para depuración
+    participanteCreateSerializer = ParticipanteSerializerCreate(data=request.data)
+
+    if participanteCreateSerializer.is_valid():
+        try:
+            participanteCreateSerializer.save()
+            return Response("Participante CREADO")  # ✅ Mensaje de confirmación
+        except serializers.ValidationError as error:
+            return Response(error.detail, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as error:
+            print(repr(error))  # 🔹 Muestra el error en consola para depuración
+            return Response(repr(error), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    else:
+        return Response(participanteCreateSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    
+@api_view(['GET']) 
+def participante_obtener(request, participante_id):
+    """
+    Obtiene un participante específico con sus relaciones (usuario y equipos).
+    """
+    participante = Participante.objects.prefetch_related("equipos").get(id=participante_id)
+    serializer = ParticipanteSerializerMejorado(participante)  # Usamos un serializer mejorado
+    return Response(serializer.data)
+
+
+
+
+@api_view(['PUT'])
+def participante_editar(request, participante_id):
+    """
+    Editar un participante específico con los datos proporcionados.
+    """
+    participante = Participante.objects.get(id=participante_id)
+    participanteSerializer = ParticipanteSerializerCreate(data=request.data, instance=participante)
+
+    if participanteSerializer.is_valid():
+        try:
+            participanteSerializer.save()
+            return Response("Participante EDITADO")
+        except serializers.ValidationError as error:
+            return Response(error.detail, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as error:
+            return Response(repr(error), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    else:
+        return Response(participanteSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+@api_view(['PATCH'])
+def participante_actualizar_equipos(request, participante_id):
+    """
+    API para actualizar los equipos de un participante.
+    """
+    participante = Participante.objects.get(id=participante_id)
+    serializer = ParticipanteSerializerActualizarEquipos(data=request.data, instance=participante)
+
+    if serializer.is_valid():
+        try:
+            serializer.save()
+            return Response("Equipos del participante ACTUALIZADOS")
+        except Exception as error:
+            print(repr(error))
+            return Response(repr(error), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    else:
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    
+    
+@api_view(['DELETE'])
+def participante_eliminar(request, participante_id):
+    """
+    API para eliminar un participante.
+    """
+    try:
+        participante = Participante.objects.get(id=participante_id)  # 🔹 Obtiene el participante
+        participante.delete()  # 🔹 Elimina el participante
+        return Response("Participante ELIMINADO")  # ✅ Mensaje de éxito
+    except Participante.DoesNotExist:
+        return Response({"error": "Participante no encontrado"}, status=status.HTTP_404_NOT_FOUND)
+    except Exception as error:
+        return Response(repr(error), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+
+
 

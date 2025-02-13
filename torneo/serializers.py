@@ -148,13 +148,15 @@ class EquipoSerializerMejorado(serializers.ModelSerializer):
 
 
 class ParticipanteSerializerMejorado(serializers.ModelSerializer):
-    nombre_usuario = serializers.CharField(source='usuario.nombre')
-    equipos = EquipoSerializer(many=True, read_only=True)  # Usamos el EquipoSerializer para mostrar los detalles del equipo
-    torneos = TorneoSerializer(many=True, read_only=True)  # Usamos el TorneoSerializer para mostrar los detalles del torneo
+    usuario = serializers.PrimaryKeyRelatedField(queryset=Usuario.objects.all())  # 🔹 Esto asegura que 'usuario' esté presente
+    nombre_usuario = serializers.CharField(source='usuario.nombre', read_only=True)
+    equipos = EquipoSerializer(many=True, read_only=True)  # ✅ Muestra los detalles del equipo
+    torneos = TorneoSerializer(many=True, read_only=True)  # ✅ Muestra los detalles del torneo
 
     class Meta:
         model = Participante
-        fields = ['nombre_usuario', 'puntos_obtenidos', 'posicion_final', 'fecha_inscripcion', 'tiempo_jugado', 'equipos', 'torneos']
+        fields = ['id', 'usuario', 'nombre_usuario', 'puntos_obtenidos', 'posicion_final', 'fecha_inscripcion', 'tiempo_jugado', 'equipos', 'torneos']
+
 
         
 class JuegoSerializerMejorado(serializers.ModelSerializer):
@@ -250,4 +252,70 @@ class JuegoSerializerCreate(serializers.ModelSerializer):
         if genero == "":
             raise serializers.ValidationError("Debes seleccionar un género.")
         return genero
+    
+
+
+class JuegoSerializerActualizarNombre(serializers.ModelSerializer):
+    class Meta:
+        model = Juego
+        fields = ['nombre']
+
+    def validate_nombre(self, nombre):
+        """
+        Validación: No permitir nombres duplicados en la misma consola.
+        """
+        juego_existente = Juego.objects.filter(nombre=nombre).first()
+        if juego_existente and juego_existente.id != self.instance.id:
+            raise serializers.ValidationError("Ya existe un juego con ese nombre.")
+        return nombre
+
+
+
+
+class ParticipanteSerializerCreate(serializers.ModelSerializer):
+
+    # 🔹 Lista de equipos disponibles para seleccionar en el formulario
+    equipos = serializers.PrimaryKeyRelatedField(queryset=Equipo.objects.all(), many=True)
+
+    class Meta:
+        model = Participante
+        fields = ['usuario', 'puntos_obtenidos', 'posicion_final', 'fecha_inscripcion', 'tiempo_jugado', 'equipos']
+
+    # 🔹 Validación 1: Un participante no puede inscribirse dos veces con el mismo usuario
+    def validate_usuario(self, usuario):
+        participante_existente = Participante.objects.filter(usuario=usuario).first()
+        if participante_existente and participante_existente.id != self.instance.id:
+            raise serializers.ValidationError("Este usuario ya está registrado como participante.")
+        return usuario
+
+    # 🔹 Validación 2: Los puntos obtenidos no pueden ser negativos
+    def validate_puntos_obtenidos(self, puntos):
+        if puntos < 0:
+            raise serializers.ValidationError("Los puntos obtenidos no pueden ser negativos.")
+        return puntos
+
+    # 🔹 Validación 3: El participante debe pertenecer al menos a un equipo
+    def validate_equipos(self, equipos):
+        if len(equipos) < 1:
+            raise serializers.ValidationError("Debe seleccionar al menos un equipo.")
+        return equipos
+
+
+
+
+class ParticipanteSerializerActualizarEquipos(serializers.ModelSerializer):
+    equipos = serializers.PrimaryKeyRelatedField(queryset=Equipo.objects.all(), many=True)  # 🔹 Selección de varios equipos
+
+    class Meta:
+        model = Participante
+        fields = ['equipos']
+
+    def validate_equipos(self, equipos):
+        """
+        Validación: Asegurar que los equipos seleccionados existen.
+        """
+        if not equipos:
+            raise serializers.ValidationError("Debes seleccionar al menos un equipo.")
+        return equipos
+
 
