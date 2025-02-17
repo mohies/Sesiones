@@ -128,14 +128,14 @@ class TorneoJugadorSerializer(serializers.ModelSerializer):
         fields = '__all__'
 #Crear una consulta mejorada al listado de vuestro modelo principal de la aplicación cliente. Debe ser una vista distinta a la anterior, con un template y url disntinta. (1 punto     
 class TorneoSerializerMejorado(serializers.ModelSerializer):
-    participantes = ParticipanteSerializer(many=True)
-
+    participantes = ParticipanteSerializer(many=True, read_only=True)
+    jugadores = JugadorSerializer(many=True, read_only=True)  # 🔹 Agregado para incluir jugadores
     fecha_inicio = serializers.DateField(format='%d-%m-%Y')
     categoria = serializers.CharField()
 
     class Meta:
         model = Torneo
-        fields = ('id', 'nombre', 'descripcion', 'categoria', 'duracion', 'fecha_inicio', 'participantes')
+        fields = ('id', 'nombre', 'descripcion', 'categoria', 'duracion', 'fecha_inicio', 'participantes','jugadores')
         
         
 class EquipoSerializerMejorado(serializers.ModelSerializer):
@@ -317,5 +317,90 @@ class ParticipanteSerializerActualizarEquipos(serializers.ModelSerializer):
         if not equipos:
             raise serializers.ValidationError("Debes seleccionar al menos un equipo.")
         return equipos
+
+
+
+class JugadorSerializerCreate(serializers.ModelSerializer):
+    usuario = serializers.PrimaryKeyRelatedField(queryset=UsuarioLogin.objects.all())  # Usuario obligatorio
+    torneos = serializers.ListField(
+        child=serializers.IntegerField(),  # IDs de los torneos
+        required=False  # Puede no estar en torneos al inicio
+    )
+
+    class Meta:
+        model = Jugador
+        fields = ['usuario', 'puntos', 'equipo', 'torneos']  # Campos requeridos
+
+    # 🔹 Validación 1: Usuario único (no duplicado)
+    def validate_usuario(self, usuario):
+        jugador_existente = Jugador.objects.filter(usuario=usuario).first()
+        if jugador_existente and jugador_existente.id != self.instance.id:
+            raise serializers.ValidationError("Ya existe un jugador con ese nombre.")
+        return usuario
+
+    # 🔹 Validación 2: Puntos no pueden ser negativos
+    def validate_puntos(self, puntos):
+        if puntos < 0:
+            raise serializers.ValidationError("Los puntos no pueden ser negativos.")
+        return puntos
+
+    # 🔹 Validación 3: Si hay torneos, verificar que existen
+    def validate_torneos(self, torneos):
+        for torneo_id in torneos:
+            if not Torneo.objects.filter(id=torneo_id).exists():
+                raise serializers.ValidationError(f"El torneo con ID {torneo_id} no existe.")
+        return torneos
+
+    # 📌 **Método CREATE: Manejo especial de ManyToMany**
+    def create(self, validated_data):
+        torneos_data = validated_data.pop('torneos', [])  # Extraer torneos si existen
+        jugador = Jugador.objects.create(**validated_data)  # Crear el jugador
+
+        # 🔹 Si hay torneos, los agregamos a la tabla intermedia `TorneoJugador`
+        for torneo_id in torneos_data:
+            torneo = Torneo.objects.get(id=torneo_id)
+            TorneoJugador.objects.create(torneo=torneo, jugador=jugador)
+
+        return jugador
+
+    # 📌 **Método UPDATE: Manejo de ManyToMany con `through`**
+    def update(self, instance, validated_data):
+        # 🔹 Obtener los torneos desde los datos iniciales
+        torneos_data = self.initial_data.get("torneos", [])
+
+        # 🔹 Validación: Un jugador debe estar al menos en un torneo
+        if len(torneos_data) < 1:
+            raise serializers.ValidationError(
+                {"torneos": ["Debe seleccionar al menos un torneo."]}
+            )
+
+        # 🔹 Actualizar los campos normales del modelo
+        instance.puntos = validated_data.get("puntos", instance.puntos)
+        instance.equipo = validated_data.get("equipo", instance.equipo)
+        instance.save()
+
+        # 🔹 Actualizar la relación ManyToMany con `through`
+        instance.torneos.clear()  # ✅ Elimina las relaciones actuales
+
+        for torneo_id in torneos_data:
+            torneo = Torneo.objects.get(id=torneo_id)  # Busca el torneo
+            TorneoJugador.objects.create(torneo=torneo, jugador=instance)  # Crea la relación
+
+        return instance
+    
+    
+class JugadorActualizarPuntosSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Jugador
+        fields = ['puntos']
+
+    def validate_puntos(self, puntos):
+        """
+        Validación: Los puntos no pueden ser negativos.
+        """
+        if puntos < 0:
+            raise serializers.ValidationError("Los puntos no pueden ser negativos.")
+        return puntos
+
 
 

@@ -40,6 +40,14 @@ urlpatterns = [
     path('participantes/editar/<int:participante_id>/', api_views.participante_editar, name='participante_editar'),
     path('participantes/actualizar-equipos/<int:participante_id>/', api_views.participante_actualizar_equipos, name='participante_actualizar_equipos'),
     path('participantes/eliminar/<int:participante_id>/', api_views.participante_eliminar, name='participante_eliminar'),
+    path('usuarios-login/', api_views.usuariologin_list, name='usuariologin_list'),  # La URL debe coincidir con la del helper
+    path('jugadores/crear/', api_views.jugador_create, name='jugador_crear'),
+    path('jugadores/obtener/<int:jugador_id>/', api_views.jugador_obtener, name='jugador_obtener'),
+    path('jugadores/editar/<int:jugador_id>/', api_views.jugador_editar, name='jugador_editar'),
+    path('jugadores/actualizar_puntos/<int:jugador_id>/', api_views.jugador_actualizar_puntos, name="jugador_actualizar_puntos"),
+    path('jugadores/eliminar/<int:jugador_id>/<int:torneo_id>/', api_views.jugador_eliminar_torneo, name="jugador_eliminar_torneo"),
+
+
 
 
 

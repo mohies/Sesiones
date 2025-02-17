@@ -8,507 +8,564 @@ from django.db.models import Q, Prefetch
 from django.contrib.auth.models import Group
 from rest_framework.authentication import SessionAuthentication
 from rest_framework.permissions import IsAuthenticated
+import logging
+from django.shortcuts import redirect
 
-#Crear una consulta sencilla al listado de vuestro modelo principal de la aplicación y mostrarla en vuestra aplicación cliente. (1 punto)
+logger = logging.getLogger(__name__)
+
+def handle_error(request, error_message, status_code):
+    logger.error(error_message)
+    if status_code == status.HTTP_404_NOT_FOUND:
+        return redirect('/error/404')
+    elif status_code == status.HTTP_400_BAD_REQUEST:
+        return redirect('/error/400')
+    else:
+        return redirect('/error/500')
+
 @api_view(['GET'])
 def torneo_list_sencillo(request):
-    # Obtener todos los torneos sin optimizaciones adicionales
-    torneos = Torneo.objects.all()
+    try:
+        torneos = Torneo.objects.all()
+        serializer = TorneoSerializer(torneos, many=True)
+        return Response(serializer.data)
+    except Exception as e:
+        return handle_error(request, f"Error al obtener la lista de torneos: {e}", status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-    # Serializar los torneos usando un serializer básico
-    serializer = TorneoSerializer(torneos, many=True)
-
-    # Devuelve los datos serializados
-    return Response(serializer.data)
-
-#Crear una consulta mejorada al listado de vuestro modelo principal de la aplicación cliente. Debe ser una vista distinta a la anterior, con un template y url disntinta. (1 punto
 @api_view(['GET'])
 def torneo_list(request):
-    # Usamos prefetch_related con el related_name 'participante_torneo' o 'torneoparticipante_set' dependiendo de cómo lo hayas configurado
-    torneos = Torneo.objects.prefetch_related('torneoparticipante_set').all()
-    serializer = TorneoSerializerMejorado(torneos, many=True)
-    return Response(serializer.data)
-
+    try:
+        torneos = Torneo.objects.prefetch_related(
+            'torneoparticipante_set__participante__usuario',
+            'torneojugador_set__jugador__usuario'
+        ).all()
+        serializer = TorneoSerializerMejorado(torneos, many=True)
+        return Response(serializer.data)
+    except Exception as e:
+        return handle_error(request, f"Error al obtener la lista de torneos: {e}", status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 @api_view(['GET'])
 def equipo_list_sencillo(request):
-    # Obtener todos los equipos
-    equipos = Equipo.objects.all()
-    
-    # Serializar los equipos usando el serializer mejorado
-    serializer = EquipoSerializerMejorado(equipos, many=True)
-    
-    # Devuelve los datos serializados
-    return Response(serializer.data)
+    try:
+        equipos = Equipo.objects.all()
+        serializer = EquipoSerializerMejorado(equipos, many=True)
+        return Response(serializer.data)
+    except Exception as e:
+        return handle_error(request, f"Error al obtener la lista de equipos: {e}", status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 @api_view(['GET'])
 def participante_list_mejorado(request):
-    # Optimizar relaciones ManyToMany con prefetch_related usando el related_name 'participante_torneo'
-    participantes = Participante.objects.prefetch_related('participanteequipo_set').all()
-    
-    # Serializar con el serializer mejorado
-    serializer = ParticipanteSerializerMejorado(participantes, many=True)
-    
-    # Devolver los datos serializados
-    return Response(serializer.data)
-
-
-
+    try:
+        participantes = Participante.objects.prefetch_related('participanteequipo_set').all()
+        serializer = ParticipanteSerializerMejorado(participantes, many=True)
+        return Response(serializer.data)
+    except Exception as e:
+        return handle_error(request, f"Error al obtener la lista de participantes: {e}", status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 @api_view(['GET'])
 def juego_list_mejorado(request):
-    juegos = Juego.objects.prefetch_related('torneos').all()  # Prefetch de la relación ManyToMany
-    
-    # Serializa los juegos usando el serializador correspondiente
-    serializer = JuegoSerializerMejorado(juegos, many=True)
-    
-    # Devuelve los datos serializados
-    return Response(serializer.data)
-
+    try:
+        juegos = Juego.objects.prefetch_related('torneos').all()
+        serializer = JuegoSerializerMejorado(juegos, many=True)
+        return Response(serializer.data)
+    except Exception as e:
+        return handle_error(request, f"Error al obtener la lista de juegos: {e}", status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 @api_view(['GET'])
 def torneo_buscar(request):
-    formulario = BusquedaTorneoForm(request.query_params)
-    if formulario.is_valid():
-        texto = formulario.data.get('textoBusqueda')
-        torneos = Torneo.objects.prefetch_related("participantes","juegos_torneo")
-        torneos = torneos.filter(Q(nombre__contains=texto) | Q(descripcion__contains=texto)).all()
-        serializer = TorneoSerializerMejorado(torneos, many=True)
-        return Response(serializer.data)
-    else:
-        return Response(formulario.errors, status=status.HTTP_400_BAD_REQUEST)
-
-@api_view(['GET'])
-def torneo_buscar_avanzado(request):
-    if len(request.query_params) > 0:
-        formulario = BusquedaAvanzadaTorneoForm(request.query_params)
+    try:
+        formulario = BusquedaTorneoForm(request.query_params)
         if formulario.is_valid():
-            QStorneos = Torneo.objects.prefetch_related("participantes")
-
-            textoBusqueda = formulario.cleaned_data.get('textoBusqueda')
-            fechaDesde = formulario.cleaned_data.get('fecha_desde')
-            fechaHasta = formulario.cleaned_data.get('fecha_hasta')
-            categoria = formulario.cleaned_data.get('categoria')
-
-            if textoBusqueda:
-                QStorneos = QStorneos.filter(Q(nombre__icontains=textoBusqueda) | Q(descripcion__icontains=textoBusqueda) | Q(categoria__contains=textoBusqueda))
-
-            if fechaDesde:
-                QStorneos = QStorneos.filter(fecha_inicio__gte=fechaDesde)
-
-            if fechaHasta:
-                QStorneos = QStorneos.filter(fecha_inicio__lte=fechaHasta)
-
-            if categoria:
-                QStorneos = QStorneos.filter(categoria__icontains=categoria)
-
-            torneos = QStorneos.all()
+            texto = formulario.data.get('textoBusqueda')
+            torneos = Torneo.objects.prefetch_related("participantes", "juegos_torneo")
+            torneos = torneos.filter(Q(nombre__contains=texto) | Q(descripcion__contains=texto)).all()
             serializer = TorneoSerializerMejorado(torneos, many=True)
             return Response(serializer.data)
         else:
             return Response(formulario.errors, status=status.HTTP_400_BAD_REQUEST)
-    else:
-        return Response({}, status=status.HTTP_400_BAD_REQUEST)
+    except Exception as e:
+        return handle_error(request, f"Error al buscar torneos: {e}", status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+@api_view(['GET'])
+def torneo_buscar_avanzado(request):
+    try:
+        if len(request.query_params) > 0:
+            formulario = BusquedaAvanzadaTorneoForm(request.query_params)
+            if formulario.is_valid():
+                QStorneos = Torneo.objects.prefetch_related("participantes")
+
+                textoBusqueda = formulario.cleaned_data.get('textoBusqueda')
+                fechaDesde = formulario.cleaned_data.get('fecha_desde')
+                fechaHasta = formulario.cleaned_data.get('fecha_hasta')
+                categoria = formulario.cleaned_data.get('categoria')
+
+                if textoBusqueda:
+                    QStorneos = QStorneos.filter(Q(nombre__icontains=textoBusqueda) | Q(descripcion__icontains=textoBusqueda) | Q(categoria__contains=textoBusqueda))
+
+                if fechaDesde:
+                    QStorneos = QStorneos.filter(fecha_inicio__gte=fechaDesde)
+
+                if fechaHasta:
+                    QStorneos = QStorneos.filter(fecha_inicio__lte=fechaHasta)
+
+                if categoria:
+                    QStorneos = QStorneos.filter(categoria__icontains=categoria)
+
+                torneos = QStorneos.all()
+                serializer = TorneoSerializerMejorado(torneos, many=True)
+                return Response(serializer.data)
+            else:
+                return Response(formulario.errors, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response({}, status=status.HTTP_400_BAD_REQUEST)
+    except Exception as e:
+        return handle_error(request, f"Error al buscar torneos avanzados: {e}", status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 @api_view(['GET'])
 def equipo_buscar_avanzado(request):
-    if len(request.query_params) > 0:
-        formulario = BusquedaAvanzadaEquipoForm(request.query_params)
-        if formulario.is_valid():
-            QEquipos = Equipo.objects.all()
+    try:
+        if len(request.query_params) > 0:
+            formulario = BusquedaAvanzadaEquipoForm(request.query_params)
+            if formulario.is_valid():
+                QEquipos = Equipo.objects.all()
 
-            nombre = formulario.cleaned_data.get('nombre')
-            fechaIngresoDesde = formulario.cleaned_data.get('fecha_ingreso_desde')
-            fechaIngresoHasta = formulario.cleaned_data.get('fecha_ingreso_hasta')
-            puntosContribuidosMin = formulario.cleaned_data.get('puntos_contribuidos_min')
+                nombre = formulario.cleaned_data.get('nombre')
+                fechaIngresoDesde = formulario.cleaned_data.get('fecha_ingreso_desde')
+                fechaIngresoHasta = formulario.cleaned_data.get('fecha_ingreso_hasta')
+                puntosContribuidosMin = formulario.cleaned_data.get('puntos_contribuidos_min')
 
-            if nombre:
-                QEquipos = QEquipos.filter(nombre__icontains=nombre)
+                if nombre:
+                    QEquipos = QEquipos.filter(nombre__icontains=nombre)
 
-            if fechaIngresoDesde:
-                QEquipos = QEquipos.filter(fecha_ingreso__gte=fechaIngresoDesde)
+                if fechaIngresoDesde:
+                    QEquipos = QEquipos.filter(fecha_ingreso__gte=fechaIngresoDesde)
 
-            if fechaIngresoHasta:
-                QEquipos = QEquipos.filter(fecha_ingreso__lte=fechaIngresoHasta)
+                if fechaIngresoHasta:
+                    QEquipos = QEquipos.filter(fecha_ingreso__lte=fechaIngresoHasta)
 
-            if puntosContribuidosMin:
-                QEquipos = QEquipos.filter(puntos_contribuidos__gte=puntosContribuidosMin)
+                if puntosContribuidosMin:
+                    QEquipos = QEquipos.filter(puntos_contribuidos__gte=puntosContribuidosMin)
 
-            equipos = QEquipos.all()
-            serializer = EquipoSerializerMejorado(equipos, many=True)
-            return Response(serializer.data)
+                equipos = QEquipos.all()
+                serializer = EquipoSerializerMejorado(equipos, many=True)
+                return Response(serializer.data)
+            else:
+                return Response(formulario.errors, status=status.HTTP_400_BAD_REQUEST)
         else:
-            return Response(formulario.errors, status=status.HTTP_400_BAD_REQUEST)
-    else:
-        return Response({'error': 'No se proporcionaron parámetros de búsqueda.'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'error': 'No se proporcionaron parámetros de búsqueda.'}, status=status.HTTP_400_BAD_REQUEST)
+    except Exception as e:
+        return handle_error(request, f"Error al buscar equipos avanzados: {e}", status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 @api_view(['GET'])
 def participante_buscar_avanzado(request):
-    if len(request.query_params) > 0:
-        formulario = BusquedaAvanzadaParticipanteForm(request.query_params)
-        if formulario.is_valid():
-            QParticipantes = Participante.objects.prefetch_related('equipos')
+    try:
+        if len(request.query_params) > 0:
+            formulario = BusquedaAvanzadaParticipanteForm(request.query_params)
+            if formulario.is_valid():
+                QParticipantes = Participante.objects.prefetch_related('equipos')
 
-            nombre = formulario.cleaned_data.get('nombre')
-            puntosObtenidosMin = formulario.cleaned_data.get('puntos_obtenidos_min')
-            fechaInscripcionDesde = formulario.cleaned_data.get('fecha_inscripcion_desde')
-            fechaInscripcionHasta = formulario.cleaned_data.get('fecha_inscripcion_hasta')
+                nombre = formulario.cleaned_data.get('nombre')
+                puntosObtenidosMin = formulario.cleaned_data.get('puntos_obtenidos_min')
+                fechaInscripcionDesde = formulario.cleaned_data.get('fecha_inscripcion_desde')
+                fechaInscripcionHasta = formulario.cleaned_data.get('fecha_inscripcion_hasta')
 
-            if nombre:
-                QParticipantes = QParticipantes.filter(usuario__nombre__icontains=nombre)
+                if nombre:
+                    QParticipantes = QParticipantes.filter(usuario__nombre__icontains=nombre)
 
-            if puntosObtenidosMin:
-                QParticipantes = QParticipantes.filter(puntos_obtenidos__gte=puntosObtenidosMin)
+                if puntosObtenidosMin:
+                    QParticipantes = QParticipantes.filter(puntos_obtenidos__gte=puntosObtenidosMin)
 
-            if fechaInscripcionDesde:
-                QParticipantes = QParticipantes.filter(fecha_inscripcion__gte=fechaInscripcionDesde)
+                if fechaInscripcionDesde:
+                    QParticipantes = QParticipantes.filter(fecha_inscripcion__gte=fechaInscripcionDesde)
 
-            if fechaInscripcionHasta:
-                QParticipantes = QParticipantes.filter(fecha_inscripcion__lte=fechaInscripcionHasta)
+                if fechaInscripcionHasta:
+                    QParticipantes = QParticipantes.filter(fecha_inscripcion__lte=fechaInscripcionHasta)
 
-            participantes = QParticipantes.all()
-            serializer = ParticipanteSerializerMejorado(participantes, many=True)
-            return Response(serializer.data)
+                participantes = QParticipantes.all()
+                serializer = ParticipanteSerializerMejorado(participantes, many=True)
+                return Response(serializer.data)
+            else:
+                return Response(formulario.errors, status=status.HTTP_400_BAD_REQUEST)
         else:
-            return Response(formulario.errors, status=status.HTTP_400_BAD_REQUEST)
-    else:
-        return Response({'error': 'No se proporcionaron parámetros de búsqueda.'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'error': 'No se proporcionaron parámetros de búsqueda.'}, status=status.HTTP_400_BAD_REQUEST)
+    except Exception as e:
+        return handle_error(request, f"Error al buscar participantes avanzados: {e}", status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 @api_view(['GET'])
 def juego_buscar_avanzado(request):
-    if len(request.query_params) > 0:
-        formulario = BusquedaAvanzadaJuegoForm(request.query_params)
-        if formulario.is_valid():
-            QJuegos = Juego.objects.prefetch_related('torneos')
+    try:
+        if len(request.query_params) > 0:
+            formulario = BusquedaAvanzadaJuegoForm(request.query_params)
+            if formulario.is_valid():
+                QJuegos = Juego.objects.prefetch_related('torneos')
 
-            nombre = formulario.cleaned_data.get('nombre')
-            genero = formulario.cleaned_data.get('genero')
-            fechaParticipacionDesde = formulario.cleaned_data.get('fecha_participacion_desde')
-            fechaParticipacionHasta = formulario.cleaned_data.get('fecha_participacion_hasta')
+                nombre = formulario.cleaned_data.get('nombre')
+                genero = formulario.cleaned_data.get('genero')
+                fechaParticipacionDesde = formulario.cleaned_data.get('fecha_participacion_desde')
+                fechaParticipacionHasta = formulario.cleaned_data.get('fecha_participacion_hasta')
 
-            if nombre:
-                QJuegos = QJuegos.filter(nombre__icontains=nombre)
+                if nombre:
+                    QJuegos = QJuegos.filter(nombre__icontains=nombre)
 
-            if genero:
-                QJuegos = QJuegos.filter(genero__icontains=genero)
+                if genero:
+                    QJuegos = QJuegos.filter(genero__icontains=genero)
 
-            if fechaParticipacionDesde:
-                QJuegos = QJuegos.filter(torneojuego__fecha_participacion__gte=fechaParticipacionDesde)
+                if fechaParticipacionDesde:
+                    QJuegos = QJuegos.filter(torneojuego__fecha_participacion__gte=fechaParticipacionDesde)
 
-            if fechaParticipacionHasta:
-                QJuegos = QJuegos.filter(torneojuego__fecha_participacion__lte=fechaParticipacionHasta)
+                if fechaParticipacionHasta:
+                    QJuegos = QJuegos.filter(torneojuego__fecha_participacion__lte=fechaParticipacionHasta)
 
-            juegos = QJuegos.all()
-            serializer = JuegoSerializerMejorado(juegos, many=True)
-            return Response(serializer.data)
+                juegos = QJuegos.all()
+                serializer = JuegoSerializerMejorado(juegos, many=True)
+                return Response(serializer.data)
+            else:
+                return Response(formulario.errors, status=status.HTTP_400_BAD_REQUEST)
         else:
-            return Response(formulario.errors, status=status.HTTP_400_BAD_REQUEST)
-    else:
-        return Response({'error': 'No se proporcionaron parámetros de búsqueda.'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'error': 'No se proporcionaron parámetros de búsqueda.'}, status=status.HTTP_400_BAD_REQUEST)
+    except Exception as e:
+        return handle_error(request, f"Error al buscar juegos avanzados: {e}", status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 @api_view(['GET'])
 def participante_list(request):
-    participantes = Participante.objects.all()
-    serializer = ParticipanteSerializer(participantes, many=True)
-    return Response(serializer.data)
+    try:
+        participantes = Participante.objects.all()
+        serializer = ParticipanteSerializer(participantes, many=True)
+        return Response(serializer.data)
+    except Exception as e:
+        return handle_error(request, f"Error al obtener la lista de participantes: {e}", status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 @api_view(['GET'])
 def categoria_list(request):
-    """
-    Devuelve una lista de categorías disponibles en los torneos.
-    """
-    categorias = Torneo.objects.values_list('categoria', flat=True).distinct()
-    return Response(list(categorias))
-
+    try:
+        categorias = Torneo.objects.values_list('categoria', flat=True).distinct()
+        return Response(list(categorias))
+    except Exception as e:
+        return handle_error(request, f"Error al obtener la lista de categorías: {e}", status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 @api_view(['POST'])
-def torneo_create(request): 
-    print(request.data)  # Para depuración
-    torneoCreateSerializer = TorneoSerializerCreate(data=request.data)
+def torneo_create(request):
+    try:
+        torneoCreateSerializer = TorneoSerializerCreate(data=request.data)
+        if torneoCreateSerializer.is_valid():
+            try:
+                torneoCreateSerializer.save()
+                return Response("Torneo CREADO")
+            except serializers.ValidationError as error:
+                return Response(error.detail, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response(torneoCreateSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    except Exception as e:
+        return handle_error(request, f"Error al crear el torneo: {e}", status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-    if torneoCreateSerializer.is_valid():
-        try:
-            torneoCreateSerializer.save()
-            return Response("Torneo CREADO")
-        except serializers.ValidationError as error:
-            return Response(error.detail, status=status.HTTP_400_BAD_REQUEST)
-        except Exception as error:
-            print(repr(error))
-            return Response(repr(error), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-    else:
-        return Response(torneoCreateSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-    
-    
-@api_view(['GET']) 
+@api_view(['GET'])
 def torneo_obtener(request, torneo_id):
-    """
-    Obtiene un torneo específico con sus relaciones (participantes y otros datos).
-    """
-    torneo = Torneo.objects.prefetch_related("participantes").get(id=torneo_id)
-    serializer = TorneoSerializerMejorado(torneo)  # 🔹 Usamos un serializer mejorado
-    return Response(serializer.data)
-
-
+    try:
+        torneo = Torneo.objects.prefetch_related("participantes").get(id=torneo_id)
+        serializer = TorneoSerializerMejorado(torneo)
+        return Response(serializer.data)
+    except Torneo.DoesNotExist:
+        return handle_error(request, "Torneo no encontrado", status.HTTP_404_NOT_FOUND)
+    except Exception as e:
+        return handle_error(request, f"Error al obtener el torneo: {e}", status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 @api_view(['PUT'])
 def torneo_editar(request, torneo_id):
-    torneo = Torneo.objects.get(id=torneo_id)
-    torneoCreateSerializer = TorneoSerializerCreate(data=request.data, instance=torneo)
-    
-    if torneoCreateSerializer.is_valid():
-        try:
-            torneoCreateSerializer.save()
-            return Response("Torneo EDITADO")
-        except serializers.ValidationError as error:
-            return Response(error.detail, status=status.HTTP_400_BAD_REQUEST)
-        except Exception as error:
-            return Response(repr(error), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-    else:
-        return Response(torneoCreateSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-    
+    try:
+        torneo = Torneo.objects.get(id=torneo_id)
+        torneoCreateSerializer = TorneoSerializerCreate(data=request.data, instance=torneo)
+        if torneoCreateSerializer.is_valid():
+            try:
+                torneoCreateSerializer.save()
+                return Response("Torneo EDITADO")
+            except serializers.ValidationError as error:
+                return Response(error.detail, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response(torneoCreateSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    except Torneo.DoesNotExist:
+        return handle_error(request, "Torneo no encontrado", status.HTTP_404_NOT_FOUND)
+    except Exception as e:
+        return handle_error(request, f"Error al editar el torneo: {e}", status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 @api_view(['PATCH'])
 def torneo_actualizar_nombre(request, torneo_id):
-    """
-    Actualiza solo el nombre de un torneo específico.
-    """
-    torneo = Torneo.objects.get(id=torneo_id)
-    serializer = TorneoSerializerActualizarNombre(data=request.data, instance=torneo)
+    try:
+        torneo = Torneo.objects.get(id=torneo_id)
+        serializer = TorneoSerializerActualizarNombre(data=request.data, instance=torneo)
+        if serializer.is_valid():
+            try:
+                serializer.save()
+                return Response("Torneo EDITADO")
+            except Exception as error:
+                return Response(repr(error), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    except Torneo.DoesNotExist:
+        return handle_error(request, "Torneo no encontrado", status.HTTP_404_NOT_FOUND)
+    except Exception as e:
+        return handle_error(request, f"Error al actualizar el nombre del torneo: {e}", status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-    if serializer.is_valid():
-        try:
-            serializer.save()
-            return Response("Torneo EDITADO")
-        except Exception as error:
-            print(repr(error))
-            return Response(repr(error), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-    else:
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-    
 @api_view(['DELETE'])
 def torneo_eliminar(request, torneo_id):
-    torneo = Torneo.objects.get(id=torneo_id)  # 🔹 Obtiene el torneo
     try:
+        torneo = Torneo.objects.get(id=torneo_id)
         torneo.delete()
-        return Response("Torneo ELIMINADO")  # ✅ Mensaje igual al del profesor
-    except Exception as error:
-        return Response(repr(error), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
-
-@api_view(['GET'])
-def participante_list(request):
-    """
-    Devuelve la lista de todos los participantes registrados.
-    """
-    participantes = Participante.objects.all()  # Obtiene todos los participantes
-    serializer = ParticipanteSerializer(participantes, many=True)  # Serializa los participantes
-    return Response(serializer.data)  # Retorna la respuesta en JSON
+        return Response("Torneo ELIMINADO")
+    except Torneo.DoesNotExist:
+        return handle_error(request, "Torneo no encontrado", status.HTTP_404_NOT_FOUND)
+    except Exception as e:
+        return handle_error(request, f"Error al eliminar el torneo: {e}", status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 @api_view(['GET'])
 def consola_list(request):
-    """
-    Devuelve la lista de todas las consolas registradas.
-    """
-    consolas = Consola.objects.all()  # Obtiene todas las consolas
-    serializer = ConsolaSerializer(consolas, many=True)  # Serializa las consolas
-    return Response(serializer.data)  # Retorna la respuesta en JSON
-
-
+    try:
+        consolas = Consola.objects.all()
+        serializer = ConsolaSerializer(consolas, many=True)
+        return Response(serializer.data)
+    except Exception as e:
+        return handle_error(request, f"Error al obtener la lista de consolas: {e}", status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 @api_view(['POST'])
-def juego_create(request): 
-    print(request.data)  # Para depuración
-    juegoCreateSerializer = JuegoSerializerCreate(data=request.data)
+def juego_create(request):
+    try:
+        juegoCreateSerializer = JuegoSerializerCreate(data=request.data)
+        if juegoCreateSerializer.is_valid():
+            try:
+                juegoCreateSerializer.save()
+                return Response("Juego CREADO")
+            except serializers.ValidationError as error:
+                return Response(error.detail, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response(juegoCreateSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    except Exception as e:
+        return handle_error(request, f"Error al crear el juego: {e}", status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-    if juegoCreateSerializer.is_valid():
-        try:
-            juegoCreateSerializer.save()
-            return Response("Juego CREADO")
-        except serializers.ValidationError as error:
-            return Response(error.detail, status=status.HTTP_400_BAD_REQUEST)
-        except Exception as error:
-            print(repr(error))
-            return Response(repr(error), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-    else:
-        return Response(juegoCreateSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-
-@api_view(['GET']) 
+@api_view(['GET'])
 def juego_obtener(request, juego_id):
-    """
-    Obtiene un juego específico con sus relaciones (torneo y consola).
-    """
-    juego = Juego.objects.select_related("torneo", "id_consola").get(id=juego_id)
-    serializer = JuegoSerializerMejorado(juego)  # 🔹 Usamos un serializer mejorado
-    return Response(serializer.data)
-
-
+    try:
+        juego = Juego.objects.select_related("torneo", "id_consola").get(id=juego_id)
+        serializer = JuegoSerializerMejorado(juego)
+        return Response(serializer.data)
+    except Juego.DoesNotExist:
+        return handle_error(request, "Juego no encontrado", status.HTTP_404_NOT_FOUND)
+    except Exception as e:
+        return handle_error(request, f"Error al obtener el juego: {e}", status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 @api_view(['PUT'])
 def juego_editar(request, juego_id):
-    """
-    Editar un juego específico con los datos proporcionados.
-    """
-    juego = Juego.objects.get(id=juego_id)
-    juegoCreateSerializer = JuegoSerializerCreate(data=request.data, instance=juego)
+    try:
+        juego = Juego.objects.get(id=juego_id)
+        juegoCreateSerializer = JuegoSerializerCreate(data=request.data, instance=juego)
+        if juegoCreateSerializer.is_valid():
+            try:
+                juegoCreateSerializer.save()
+                return Response("Juego EDITADO")
+            except serializers.ValidationError as error:
+                return Response(error.detail, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response(juegoCreateSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    except Juego.DoesNotExist:
+        return handle_error(request, "Juego no encontrado", status.HTTP_404_NOT_FOUND)
+    except Exception as e:
+        return handle_error(request, f"Error al editar el juego: {e}", status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-    if juegoCreateSerializer.is_valid():
-        try:
-            juegoCreateSerializer.save()
-            return Response("Juego EDITADO")
-        except serializers.ValidationError as error:
-            return Response(error.detail, status=status.HTTP_400_BAD_REQUEST)
-        except Exception as error:
-            return Response(repr(error), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-    else:
-        return Response(juegoCreateSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-    
-    
-    
 @api_view(['PATCH'])
 def juego_actualizar_nombre(request, juego_id):
-    """
-    API para actualizar solo el nombre de un juego.
-    """
-    juego = Juego.objects.get(id=juego_id)
-    serializer = JuegoSerializerActualizarNombre(data=request.data, instance=juego)
+    try:
+        juego = Juego.objects.get(id=juego_id)
+        serializer = JuegoSerializerActualizarNombre(data=request.data, instance=juego)
+        if serializer.is_valid():
+            try:
+                serializer.save()
+                return Response("Juego EDITADO")
+            except Exception as error:
+                return Response(repr(error), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    except Juego.DoesNotExist:
+        return handle_error(request, "Juego no encontrado", status.HTTP_404_NOT_FOUND)
+    except Exception as e:
+        return handle_error(request, f"Error al actualizar el nombre del juego: {e}", status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-    if serializer.is_valid():
-        try:
-            serializer.save()
-            return Response("Juego EDITADO")
-        except Exception as error:
-            print(repr(error))
-            return Response(repr(error), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-    else:
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-    
-    
 @api_view(['DELETE'])
 def juego_eliminar(request, juego_id):
-    """
-    API para eliminar un juego.
-    """
-    juego = Juego.objects.get(id=juego_id)  # 🔹 Obtiene el juego
     try:
+        juego = Juego.objects.get(id=juego_id)
         juego.delete()
-        return Response("Juego ELIMINADO")  # ✅ Mensaje igual al del profesor
-    except Exception as error:
-        return Response(repr(error), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-    
-    
+        return Response("Juego ELIMINADO")
+    except Juego.DoesNotExist:
+        return handle_error(request, "Juego no encontrado", status.HTTP_404_NOT_FOUND)
+    except Exception as e:
+        return handle_error(request, f"Error al eliminar el juego: {e}", status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 @api_view(['GET'])
 def usuario_list(request):
-    """
-    Devuelve la lista de todos los usuarios registrados.
-    """
-    usuarios = Usuario.objects.all()  # Obtiene todos los usuarios
-    serializer = UsuarioSerializer(usuarios, many=True)  # Serializa los usuarios
-    return Response(serializer.data)  # Retorna la respuesta en JSON
+    try:
+        usuarios = Usuario.objects.all()
+        serializer = UsuarioSerializer(usuarios, many=True)
+        return Response(serializer.data)
+    except Exception as e:
+        return handle_error(request, f"Error al obtener la lista de usuarios: {e}", status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 @api_view(['GET'])
 def equipo_list(request):
-    """
-    Devuelve la lista de todos los equipos registrados.
-    """
-    equipos = Equipo.objects.all()  # Obtiene todos los equipos
-    serializer = EquipoSerializer(equipos, many=True)  # Serializa los equipos
-    return Response(serializer.data)  # Retorna la respuesta en JSON
-
-
-
+    try:
+        equipos = Equipo.objects.all()
+        serializer = EquipoSerializer(equipos, many=True)
+        return Response(serializer.data)
+    except Exception as e:
+        return handle_error(request, f"Error al obtener la lista de equipos: {e}", status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 @api_view(['POST'])
-def participante_create(request): 
-    print(request.data)  # Para depuración
-    participanteCreateSerializer = ParticipanteSerializerCreate(data=request.data)
+def participante_create(request):
+    try:
+        participanteCreateSerializer = ParticipanteSerializerCreate(data=request.data)
+        if participanteCreateSerializer.is_valid():
+            try:
+                participanteCreateSerializer.save()
+                return Response("Participante CREADO")
+            except serializers.ValidationError as error:
+                return Response(error.detail, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response(participanteCreateSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    except Exception as e:
+        return handle_error(request, f"Error al crear el participante: {e}", status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-    if participanteCreateSerializer.is_valid():
-        try:
-            participanteCreateSerializer.save()
-            return Response("Participante CREADO")  # ✅ Mensaje de confirmación
-        except serializers.ValidationError as error:
-            return Response(error.detail, status=status.HTTP_400_BAD_REQUEST)
-        except Exception as error:
-            print(repr(error))  # 🔹 Muestra el error en consola para depuración
-            return Response(repr(error), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-    else:
-        return Response(participanteCreateSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-    
-@api_view(['GET']) 
+@api_view(['GET'])
 def participante_obtener(request, participante_id):
-    """
-    Obtiene un participante específico con sus relaciones (usuario y equipos).
-    """
-    participante = Participante.objects.prefetch_related("equipos").get(id=participante_id)
-    serializer = ParticipanteSerializerMejorado(participante)  # Usamos un serializer mejorado
-    return Response(serializer.data)
-
-
-
+    try:
+        participante = Participante.objects.prefetch_related("equipos").get(id=participante_id)
+        serializer = ParticipanteSerializerMejorado(participante)
+        return Response(serializer.data)
+    except Participante.DoesNotExist:
+        return handle_error(request, "Participante no encontrado", status.HTTP_404_NOT_FOUND)
+    except Exception as e:
+        return handle_error(request, f"Error al obtener el participante: {e}", status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 @api_view(['PUT'])
 def participante_editar(request, participante_id):
-    """
-    Editar un participante específico con los datos proporcionados.
-    """
-    participante = Participante.objects.get(id=participante_id)
-    participanteSerializer = ParticipanteSerializerCreate(data=request.data, instance=participante)
-
-    if participanteSerializer.is_valid():
-        try:
-            participanteSerializer.save()
-            return Response("Participante EDITADO")
-        except serializers.ValidationError as error:
-            return Response(error.detail, status=status.HTTP_400_BAD_REQUEST)
-        except Exception as error:
-            return Response(repr(error), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-    else:
-        return Response(participanteSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
+    try:
+        participante = Participante.objects.get(id=participante_id)
+        participanteSerializer = ParticipanteSerializerCreate(data=request.data, instance=participante)
+        if participanteSerializer.is_valid():
+            try:
+                participanteSerializer.save()
+                return Response("Participante EDITADO")
+            except serializers.ValidationError as error:
+                return Response(error.detail, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response(participanteSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    except Participante.DoesNotExist:
+        return handle_error(request, "Participante no encontrado", status.HTTP_404_NOT_FOUND)
+    except Exception as e:
+        return handle_error(request, f"Error al editar el participante: {e}", status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 @api_view(['PATCH'])
 def participante_actualizar_equipos(request, participante_id):
-    """
-    API para actualizar los equipos de un participante.
-    """
-    participante = Participante.objects.get(id=participante_id)
-    serializer = ParticipanteSerializerActualizarEquipos(data=request.data, instance=participante)
+    try:
+        participante = Participante.objects.get(id=participante_id)
+        serializer = ParticipanteSerializerActualizarEquipos(data=request.data, instance=participante)
+        if serializer.is_valid():
+            try:
+                serializer.save()
+                return Response("Equipos del participante ACTUALIZADOS")
+            except Exception as error:
+                return Response(repr(error), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    except Participante.DoesNotExist:
+        return handle_error(request, "Participante no encontrado", status.HTTP_404_NOT_FOUND)
+    except Exception as e:
+        return handle_error(request, f"Error al actualizar los equipos del participante: {e}", status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-    if serializer.is_valid():
-        try:
-            serializer.save()
-            return Response("Equipos del participante ACTUALIZADOS")
-        except Exception as error:
-            print(repr(error))
-            return Response(repr(error), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-    else:
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-    
-    
 @api_view(['DELETE'])
 def participante_eliminar(request, participante_id):
-    """
-    API para eliminar un participante.
-    """
     try:
-        participante = Participante.objects.get(id=participante_id)  # 🔹 Obtiene el participante
-        participante.delete()  # 🔹 Elimina el participante
-        return Response("Participante ELIMINADO")  # ✅ Mensaje de éxito
+        participante = Participante.objects.get(id=participante_id)
+        participante.delete()
+        return Response("Participante ELIMINADO")
     except Participante.DoesNotExist:
-        return Response({"error": "Participante no encontrado"}, status=status.HTTP_404_NOT_FOUND)
-    except Exception as error:
-        return Response(repr(error), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return handle_error(request, "Participante no encontrado", status.HTTP_404_NOT_FOUND)
+    except Exception as e:
+        return handle_error(request, f"Error al eliminar el participante: {e}", status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+@api_view(['GET'])
+def usuariologin_list(request):
+    try:
+        usuarios = UsuarioLogin.objects.all()
+        serializer = UsuarioLoginSerializer(usuarios, many=True)
+        return Response(serializer.data)
+    except Exception as e:
+        return handle_error(request, f"Error al obtener la lista de usuarios: {e}", status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+@api_view(['POST'])
+def jugador_create(request):
+    try:
+        jugadorCreateSerializer = JugadorSerializerCreate(data=request.data)
+        if jugadorCreateSerializer.is_valid():
+            try:
+                jugadorCreateSerializer.save()
+                return Response("Jugador CREADO")
+            except serializers.ValidationError as error:
+                return Response(error.detail, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response(jugadorCreateSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    except Exception as e:
+        return handle_error(request, f"Error al crear el jugador: {e}", status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+@api_view(['GET'])
+def jugador_obtener(request, jugador_id):
+    try:
+        jugador = Jugador.objects.prefetch_related("torneos").get(id=jugador_id)
+        serializer = JugadorSerializer(jugador)
+        return Response(serializer.data)
+    except Jugador.DoesNotExist:
+        return handle_error(request, "Jugador no encontrado", status.HTTP_404_NOT_FOUND)
+    except Exception as e:
+        return handle_error(request, f"Error al obtener el jugador: {e}", status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+@api_view(['PUT'])
+def jugador_editar(request, jugador_id):
+    try:
+        jugador = Jugador.objects.get(id=jugador_id)
+        jugadorSerializer = JugadorSerializerCreate(data=request.data, instance=jugador)
+        if jugadorSerializer.is_valid():
+            try:
+                jugadorSerializer.save()
+                return Response("Jugador EDITADO")
+            except serializers.ValidationError as error:
+                return Response(error.detail, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response(jugadorSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    except Jugador.DoesNotExist:
+        return handle_error(request, "Jugador no encontrado", status.HTTP_404_NOT_FOUND)
+    except Exception as e:
+        return handle_error(request, f"Error al editar el jugador: {e}", status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+@api_view(['PATCH'])
+def jugador_actualizar_puntos(request, jugador_id):
+    try:
+        jugador = Jugador.objects.get(id=jugador_id)
+        serializer = JugadorActualizarPuntosSerializer(data=request.data, instance=jugador)
+        if serializer.is_valid():
+            try:
+                serializer.save()
+                return Response("Puntos del jugador ACTUALIZADOS")
+            except Exception as error:
+                return Response(repr(error), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    except Jugador.DoesNotExist:
+        return handle_error(request, "Jugador no encontrado", status.HTTP_404_NOT_FOUND)
+    except Exception as e:
+        return handle_error(request, f"Error al actualizar los puntos del jugador: {e}", status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+@api_view(['DELETE'])
+def jugador_eliminar_torneo(request, jugador_id, torneo_id):
+    try:
+        TorneoJugador.objects.get(jugador_id=jugador_id, torneo_id=torneo_id).delete()
+        return Response("Jugador eliminado de este torneo")
+    except TorneoJugador.DoesNotExist:
+        return handle_error(request, "Jugador no encontrado en este torneo", status.HTTP_404_NOT_FOUND)
+    except Exception as e:
+        return handle_error(request, f"Error al eliminar el jugador del torneo: {e}", status.HTTP_500_INTERNAL_SERVER_ERROR)
 
