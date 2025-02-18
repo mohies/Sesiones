@@ -175,14 +175,13 @@ class TorneoSerializerCreate(serializers.ModelSerializer):
         fields = ['nombre', 'descripcion', 'fecha_inicio', 
                   'categoria', 'duracion']
 
-    def validate_nombre(self, value):
+    def validate_nombre(self, nombre):
         """Verifica que el nombre del torneo no exista en la base de datos"""
-        if Torneo.objects.filter(nombre=value).exists():
-            raise serializers.ValidationError("Ya existe un torneo con este nombre.")
-        if len(value) < 5:
-            raise serializers.ValidationError("El nombre debe tener al menos 5 caracteres.")
-        return value  # Siempre devolvemos el valor validado
-
+        torneo_existente = Torneo.objects.filter(nombre=nombre).first()
+        if torneo_existente and torneo_existente.id != self.instance.id:
+            raise serializers.ValidationError("Ya existe un juego con ese nombre.")
+        return nombre
+    
     def validate_fecha_inicio(self, value):
         """La fecha de inicio no puede ser en el pasado"""
         from datetime import date

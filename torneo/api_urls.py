@@ -1,9 +1,13 @@
-from django.urls import path
+from django.urls import path,include
 from . import api_views  # Asegúrate de importar las vistas correctas
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from rest_framework.routers import DefaultRouter
+from .viewsets import TorneoViewSet  # Importamos el ViewSet
+router = DefaultRouter()
+router.register(r'to', TorneoViewSet, basename='torneo')
 
 urlpatterns = [
-    path('torneos/', api_views.torneo_list_sencillo, name='torneo-list-sencillo'),
+    ##path('torneos/', api_views.torneo_list_sencillo, name='torneo-list-sencillo'),
 
     # Ruta para la vista de torneos (consulta mejorada) usando "/api/v1/torneos/mejorada/"
     path('torneos/mejorada/', api_views.torneo_list, name='torneo_list'),
@@ -47,7 +51,7 @@ urlpatterns = [
     path('jugadores/actualizar_puntos/<int:jugador_id>/', api_views.jugador_actualizar_puntos, name="jugador_actualizar_puntos"),
     path('jugadores/eliminar/<int:jugador_id>/<int:torneo_id>/', api_views.jugador_eliminar_torneo, name="jugador_eliminar_torneo"),
 
-
+     path('', include(router.urls)),
 
 
 
