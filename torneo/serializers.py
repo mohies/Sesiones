@@ -173,7 +173,7 @@ class TorneoSerializerCreate(serializers.ModelSerializer):
     class Meta:
         model = Torneo
         fields = ['nombre', 'descripcion', 'fecha_inicio', 
-                  'categoria', 'duracion', 'participantes']
+                  'categoria', 'duracion']
 
     def validate_nombre(self, value):
         """Verifica que el nombre del torneo no exista en la base de datos"""
