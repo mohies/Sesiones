@@ -50,6 +50,7 @@ urlpatterns = [
     path('jugadores/editar/<int:jugador_id>/', api_views.jugador_editar, name='jugador_editar'),
     path('jugadores/actualizar_puntos/<int:jugador_id>/', api_views.jugador_actualizar_puntos, name="jugador_actualizar_puntos"),
     path('jugadores/eliminar/<int:jugador_id>/<int:torneo_id>/', api_views.jugador_eliminar_torneo, name="jugador_eliminar_torneo"),
+    
 
      path('', include(router.urls)),
 

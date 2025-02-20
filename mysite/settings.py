@@ -162,3 +162,5 @@ OAUTH2_PROVIDER = {
 
 
 
+MEDIA_URL = '/media/'  # La URL pública para acceder a los archivos subidos
+MEDIA_ROOT = BASE_DIR / 'media'  # La ubicación real donde se almacenarán los archivo

@@ -167,34 +167,76 @@ class JuegoSerializerMejorado(serializers.ModelSerializer):
         model = Juego
         fields = ['id', 'nombre', 'genero', 'descripcion','id_consola', 'consola','torneo', 'torneos']
         
-        
+import base64
+from django.core.files.base import ContentFile
+from django.core.files.uploadedfile import InMemoryUploadedFile       
 class TorneoSerializerCreate(serializers.ModelSerializer):
-    
+    imagen = serializers.CharField(required=False, allow_null=True)  # Se usa base64 como string
+
     class Meta:
         model = Torneo
         fields = ['nombre', 'descripcion', 'fecha_inicio', 
-                  'categoria', 'duracion']
+                  'categoria', 'duracion', 'imagen']  # Incluir la imagen como campo
 
-    def validate_nombre(self, nombre):
-        """Verifica que el nombre del torneo no exista en la base de datos"""
-        torneo_existente = Torneo.objects.filter(nombre=nombre).first()
-        if torneo_existente and torneo_existente.id != self.instance.id:
-            raise serializers.ValidationError("Ya existe un juego con ese nombre.")
-        return nombre
-    
-    def validate_fecha_inicio(self, value):
-        """La fecha de inicio no puede ser en el pasado"""
-        from datetime import date
-        if value < date.today():
-            raise serializers.ValidationError("La fecha de inicio no puede ser en el pasado.")
-        return value
+    def create(self, validated_data):
+        # Verificar si se ha recibido la imagen en base64
+        imagen_base64 = self.initial_data.get('imagen', None)
+        if imagen_base64:
+            # Decodificar la imagen en base64
+            imagen = base64.b64decode(imagen_base64)
+            contenido_archivo = ContentFile(imagen)
 
-    def validate_duracion(self, value):
-        """La duración no puede ser menor a 1 hora"""
-        from datetime import timedelta
-        if value < timedelta(hours=1):
-            raise serializers.ValidationError("La duración mínima debe ser de 1 hora.")
-        return value
+            # Crear el archivo InMemoryUploadedFile
+            archivo = InMemoryUploadedFile(
+                contenido_archivo,       
+                None,                
+                'imagen_torneo',  # Nombre ficticio para la imagen
+                'image/jpeg',  # Tipo MIME
+                len(imagen),        
+                None
+            )
+            validated_data["imagen"] = archivo  # Asignar el archivo al campo imagen
+
+        # Crear el torneo con la imagen (si la hay)
+        torneo = Torneo.objects.create(
+            nombre=validated_data["nombre"],
+            descripcion=validated_data["descripcion"],
+            fecha_inicio=validated_data["fecha_inicio"],
+            categoria=validated_data["categoria"],
+            duracion=validated_data["duracion"],
+            imagen=validated_data.get("imagen")  # Guardar la imagen si está presente
+        )
+
+        return torneo
+
+    def update(self, instance, validated_data):
+        # Verificar si se ha recibido la imagen en base64
+        imagen_base64 = self.initial_data.get('imagen', None)
+        if imagen_base64:
+            # Decodificar la imagen en base64
+            imagen = base64.b64decode(imagen_base64)
+            contenido_archivo = ContentFile(imagen)
+
+            # Crear el archivo InMemoryUploadedFile
+            archivo = InMemoryUploadedFile(
+                contenido_archivo,       
+                None,                
+                'imagen_torneo',  # Nombre ficticio para la imagen
+                'image/jpeg',  # Tipo MIME
+                len(imagen),        
+                None
+            )
+            instance.imagen = archivo  # Asignar el archivo al campo imagen
+
+        # Actualizar los datos del torneo con la nueva imagen (si está presente)
+        instance.nombre = validated_data.get("nombre", instance.nombre)
+        instance.descripcion = validated_data.get("descripcion", instance.descripcion)
+        instance.fecha_inicio = validated_data.get("fecha_inicio", instance.fecha_inicio)
+        instance.categoria = validated_data.get("categoria", instance.categoria)
+        instance.duracion = validated_data.get("duracion", instance.duracion)
+        instance.save()
+
+        return instance
     
 class TorneoSerializerActualizarNombre(serializers.ModelSerializer):
     class Meta:
@@ -416,6 +458,3 @@ class JugadorActualizarPuntosSerializer(serializers.ModelSerializer):
         if puntos < 0:
             raise serializers.ValidationError("Los puntos no pueden ser negativos.")
         return puntos
-
-
-

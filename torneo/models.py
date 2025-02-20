@@ -72,12 +72,13 @@ class Participante(models.Model):
         return self.usuario.nombre
      
 class Torneo(models.Model):
-    nombre=models.CharField(max_length=200)
-    descripcion=models.TextField()
-    categoria=models.CharField(max_length=100)
-    duracion=models.DurationField()
-    fecha_inicio=models.DateField(default=timezone.now)
+    nombre = models.CharField(max_length=100)
+    descripcion = models.TextField()
+    fecha_inicio = models.DateField()
+    categoria = models.CharField(max_length=50)
+    duracion = models.DurationField()
     participantes = models.ManyToManyField(Participante, through='TorneoParticipante',related_name="participante_torneo")
+    imagen = models.FileField(null=True)
     
     def __str__(self):
         return self.nombre
