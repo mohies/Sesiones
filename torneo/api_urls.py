@@ -50,6 +50,9 @@ urlpatterns = [
     path('jugadores/editar/<int:jugador_id>/', api_views.jugador_editar, name='jugador_editar'),
     path('jugadores/actualizar_puntos/<int:jugador_id>/', api_views.jugador_actualizar_puntos, name="jugador_actualizar_puntos"),
     path('jugadores/eliminar/<int:jugador_id>/<int:torneo_id>/', api_views.jugador_eliminar_torneo, name="jugador_eliminar_torneo"),
+    path('torneos/actualizar-imagen/<int:torneo_id>/', api_views.torneo_actualizar_imagen, name='torneo_actualizar_imagen'),
+    path('torneos/eliminar-imagen/<int:torneo_id>/', api_views.torneo_eliminar_imagen, name='torneo_eliminar_imagen'),
+
     
 
      path('', include(router.urls)),

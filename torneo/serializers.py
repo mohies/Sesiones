@@ -458,3 +458,23 @@ class JugadorActualizarPuntosSerializer(serializers.ModelSerializer):
         if puntos < 0:
             raise serializers.ValidationError("Los puntos no pueden ser negativos.")
         return puntos
+    
+    
+class TorneoSerializerActualizarImagen(serializers.ModelSerializer):
+    imagen = serializers.ImageField(required=True)
+
+    class Meta:
+        model = Torneo
+        fields = ['imagen']
+        
+    def validate_imagen(self, imagen):
+        # Validar tamaño máximo de 2MB
+        if imagen.size > 2 * 1024 * 1024:
+            raise serializers.ValidationError("La imagen no puede superar los 2MB.")
+        
+        # Validar tipo de archivo
+        if not imagen.content_type in ["image/jpeg", "image/png"]:
+            raise serializers.ValidationError("La imagen debe ser JPEG o PNG.")
+        
+        return imagen
+

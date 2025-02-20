@@ -303,6 +303,54 @@ def torneo_actualizar_nombre(request, torneo_id):
         return handle_error(request, "Torneo no encontrado", status.HTTP_404_NOT_FOUND)
     except Exception as e:
         return handle_error(request, f"Error al actualizar el nombre del torneo: {e}", status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
+@api_view(['PATCH'])
+def torneo_actualizar_imagen(request, torneo_id):
+    try:
+        # Verificar si el torneo existe
+        torneo = Torneo.objects.get(id=torneo_id)
+
+        # Verificar si se ha enviado una imagen en la solicitud
+        if 'imagen' in request.FILES:
+            imagen = request.FILES['imagen']
+            torneo.imagen = imagen
+            torneo.save()
+            return Response({"mensaje": "Imagen actualizada correctamente"}, status=status.HTTP_200_OK)
+        else:
+            return Response({"error": "No se ha seleccionado ninguna imagen."}, status=status.HTTP_400_BAD_REQUEST)
+
+    except Torneo.DoesNotExist:
+        return Response({"error": "Torneo no encontrado"}, status=status.HTTP_404_NOT_FOUND)
+    except Exception as e:
+        return Response({"error": f"Error al actualizar la imagen: {e}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+@api_view(['DELETE'])
+def torneo_eliminar_imagen(request, torneo_id):
+    """
+    Elimina la imagen de un torneo específico.
+    """
+    try:
+        # Verificar si el torneo existe
+        torneo = Torneo.objects.get(id=torneo_id)
+
+        # Verificar si tiene una imagen y eliminarla
+        if torneo.imagen:
+            torneo.imagen.delete()  # Esto elimina el archivo físico
+            torneo.imagen = None
+            torneo.save()
+            return Response({"mensaje": "Imagen eliminada correctamente"}, status=status.HTTP_200_OK)
+        else:
+            return Response({"error": "El torneo no tiene una imagen asignada"}, status=status.HTTP_400_BAD_REQUEST)
+    
+    except Torneo.DoesNotExist:
+        return Response({"error": "Torneo no encontrado"}, status=status.HTTP_404_NOT_FOUND)
+    except Exception as e:
+        return Response({"error": f"Error al eliminar la imagen: {e}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+
+
 
 @api_view(['DELETE'])
 def torneo_eliminar(request, torneo_id):
