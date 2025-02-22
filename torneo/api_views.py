@@ -225,15 +225,14 @@ def juego_buscar_avanzado(request):
     except Exception as e:
         return handle_error(request, f"Error al buscar juegos avanzados: {e}", status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-@api_view(['GET'])
-def participante_list(request):
-    try:
-        participantes = Participante.objects.all()
-        serializer = ParticipanteSerializer(participantes, many=True)
-        return Response(serializer.data)
-    except Exception as e:
-        return handle_error(request, f"Error al obtener la lista de participantes: {e}", status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+"""
+    Realizar las operaciones de POST, PUT, PATCH y DELETE de un modelo, con sus validaciones(al menos 3 campos), control de errores y respuestas.
+    (1 punto ,0,25:POST, 0,25: PUT, 0,25:PATCH, 0,25-DELETE)
+    
+    Incluir en la aplicación algún modelo(Puede repetirse con alguno de los anteriores) un campo que sea un archivo, y 
+    gestionar las peticiones GET, POST, PUT, PATCH y DELETE de ese campo(1 punto)
+"""
 @api_view(['GET'])
 def categoria_list(request):
     try:
@@ -363,6 +362,13 @@ def torneo_eliminar(request, torneo_id):
     except Exception as e:
         return handle_error(request, f"Error al eliminar el torneo: {e}", status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+
+
+"""
+    Realizar las operaciones de POST, PUT, PATCH y DELETE de un modelo con relaciones ManyToOne con sus validaciones(al menos 3 campos), 
+    control de errores y respuestas.(1 punto ,0,25:POST, 0,25: PUT, 0,25:PATCH, 0,25-DELETE)
+"""
+
 @api_view(['GET'])
 def consola_list(request):
     try:
@@ -444,6 +450,11 @@ def juego_eliminar(request, juego_id):
         return handle_error(request, "Juego no encontrado", status.HTTP_404_NOT_FOUND)
     except Exception as e:
         return handle_error(request, f"Error al eliminar el juego: {e}", status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
+"""
+  Realizar las operaciones de POST, PUT, PATCH y DELETE de un modelo con una relacion ManyToMany distinto al anterior,con sus validaciones
+  (al menos 3 campos), control de errores y respuestas.(1 punto ,0,25:POST, 0,25: PUT, 0,25:PATCH, 0,25-DELETE)
+"""
 
 @api_view(['GET'])
 def usuario_list(request):
@@ -544,6 +555,13 @@ def usuariologin_list(request):
         return Response(serializer.data)
     except Exception as e:
         return handle_error(request, f"Error al obtener la lista de usuarios: {e}", status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+
+"""
+Realizar las operaciones de POST, PUT, PATCH y DELETE de un modelo con relaciones ManyToMany con tabla intermedia distinto al anterior, 
+con sus validaciones(al menos 3 campos), control de errores y respuestas.(1 punto ,0,25:POST, 0,25: PUT, 0,25:PATCH, 0,25-DELETE)
+"""
 
 @api_view(['POST'])
 def jugador_create(request):

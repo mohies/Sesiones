@@ -4,6 +4,10 @@ from rest_framework import status
 from .models import Torneo
 from .serializers import TorneoSerializer, TorneoSerializerCreate, TorneoSerializerActualizarNombre
 
+"""
+Realizar todas las operaciones de un modelo, pero usando ViewSets. Podéis usar un modelo repetido, 
+para ver las diferencias entre un caso y otro.(1 punto) ¡HECHO DESDE POSTMAN!
+"""
 class TorneoViewSet(viewsets.ModelViewSet):
     """
     ViewSet para gestionar los torneos con operaciones CRUD completas.
@@ -18,6 +22,8 @@ class TorneoViewSet(viewsets.ModelViewSet):
             return TorneoSerializerCreate
         elif self.action == 'partial_update':  # PATCH
             return TorneoSerializerActualizarNombre
+        elif self.action == 'update':  # PUT
+            return TorneoSerializerCreate  # Usa el mismo serializer que para el create
         return TorneoSerializer  # GET, PUT, DELETE
 
     def create(self, request, *args, **kwargs):

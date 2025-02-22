@@ -169,7 +169,9 @@ class JuegoSerializerMejorado(serializers.ModelSerializer):
         
 import base64
 from django.core.files.base import ContentFile
-from django.core.files.uploadedfile import InMemoryUploadedFile       
+from django.core.files.uploadedfile import InMemoryUploadedFile  
+
+     
 class TorneoSerializerCreate(serializers.ModelSerializer):
     imagen = serializers.CharField(required=False, allow_null=True)  # Se usa base64 como string
 
@@ -177,6 +179,27 @@ class TorneoSerializerCreate(serializers.ModelSerializer):
         model = Torneo
         fields = ['nombre', 'descripcion', 'fecha_inicio', 
                   'categoria', 'duracion', 'imagen']  # Incluir la imagen como campo
+    
+    def validate_nombre(self, nombre):
+        """Verifica que el nombre del torneo no exista en la base de datos"""
+        torneo_existente = Torneo.objects.filter(nombre=nombre).first()
+        if torneo_existente and torneo_existente.id != self.instance.id:
+            raise serializers.ValidationError("Ya existe un juego con ese nombre.")
+        return nombre
+    
+    def validate_fecha_inicio(self, value):
+        """La fecha de inicio no puede ser en el pasado"""
+        from datetime import date
+        if value < date.today():
+            raise serializers.ValidationError("La fecha de inicio no puede ser en el pasado.")
+        return value
+
+    def validate_duracion(self, value):
+        """La duración no puede ser menor a 1 hora"""
+        from datetime import timedelta
+        if value < timedelta(hours=1):
+            raise serializers.ValidationError("La duración mínima debe ser de 1 hora.")
+        return value
 
     def create(self, validated_data):
         # Verificar si se ha recibido la imagen en base64
@@ -243,6 +266,7 @@ class TorneoSerializerActualizarNombre(serializers.ModelSerializer):
         model = Torneo
         fields = ['nombre']
         
+        
     def validate_nombre(self, nombre):
         """
         Valida que el nombre del torneo no esté repetido.
@@ -252,6 +276,25 @@ class TorneoSerializerActualizarNombre(serializers.ModelSerializer):
             raise serializers.ValidationError('Ya existe un torneo con ese nombre')
         return nombre  #  Si no hay problema, devuelve el nombre original
     
+    
+class TorneoSerializerActualizarImagen(serializers.ModelSerializer):
+    imagen = serializers.ImageField(required=True)
+
+    class Meta:
+        model = Torneo
+        fields = ['imagen']
+        
+    def validate_imagen(self, imagen):
+        # Validar tamaño máximo de 2MB
+        if imagen.size > 2 * 1024 * 1024:
+            raise serializers.ValidationError("La imagen no puede superar los 2MB.")
+        
+        # Validar tipo de archivo
+        if not imagen.content_type in ["image/jpeg", "image/png"]:
+            raise serializers.ValidationError("La imagen debe ser JPEG o PNG.")
+        
+        return imagen
+      
 class JuegoSerializerCreate(serializers.ModelSerializer):
     
     GENEROS_CHOICES = [
@@ -444,8 +487,6 @@ class JugadorSerializerCreate(serializers.ModelSerializer):
         return instance
 
 
-    
-    
 class JugadorActualizarPuntosSerializer(serializers.ModelSerializer):
     class Meta:
         model = Jugador
@@ -460,21 +501,5 @@ class JugadorActualizarPuntosSerializer(serializers.ModelSerializer):
         return puntos
     
     
-class TorneoSerializerActualizarImagen(serializers.ModelSerializer):
-    imagen = serializers.ImageField(required=True)
 
-    class Meta:
-        model = Torneo
-        fields = ['imagen']
-        
-    def validate_imagen(self, imagen):
-        # Validar tamaño máximo de 2MB
-        if imagen.size > 2 * 1024 * 1024:
-            raise serializers.ValidationError("La imagen no puede superar los 2MB.")
-        
-        # Validar tipo de archivo
-        if not imagen.content_type in ["image/jpeg", "image/png"]:
-            raise serializers.ValidationError("La imagen debe ser JPEG o PNG.")
-        
-        return imagen
 
