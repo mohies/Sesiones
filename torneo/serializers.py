@@ -499,6 +499,23 @@ class JugadorActualizarPuntosSerializer(serializers.ModelSerializer):
         if puntos < 0:
             raise serializers.ValidationError("Los puntos no pueden ser negativos.")
         return puntos
+
+
+
+class UsuarioSerializerRegistro(serializers.Serializer):
+ 
+    username = serializers.CharField()
+    password1 = serializers.CharField()
+    password2 = serializers.CharField()
+    email = serializers.EmailField()
+    rol = serializers.IntegerField()
+    
+    def validate_username(self,username):
+        usuario = UsuarioLogin.objects.filter(username=username).first()
+        if(not usuario is None):
+            raise serializers.ValidationError('Ya existe un usuario con ese nombre')
+        return username
+
     
     
 

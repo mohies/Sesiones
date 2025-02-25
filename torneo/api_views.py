@@ -635,3 +635,54 @@ def jugador_eliminar_torneo(request, jugador_id, torneo_id):
     except Exception as e:
         return handle_error(request, f"Error al eliminar el jugador del torneo: {e}", status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+# api/views.py (en el servidor)
+
+# views.py
+from django.contrib.auth.models import Group
+from rest_framework import generics, status
+from rest_framework.response import Response
+from rest_framework.permissions import AllowAny
+from .models import UsuarioLogin, Jugador, Organizador
+from .serializers import UsuarioSerializerRegistro
+
+class RegistrarUsuarioView(generics.CreateAPIView):
+    serializer_class = UsuarioSerializerRegistro
+    permission_classes = [AllowAny]
+
+    def create(self, request, *args, **kwargs):
+        serializers = self.serializer_class(data=request.data)
+        
+        if serializers.is_valid():
+            try:
+                rol = serializers.validated_data.get('rol')
+                user = UsuarioLogin.objects.create_user(
+                    username=serializers.validated_data.get("username"), 
+                    email=serializers.validated_data.get("email"), 
+                    password=serializers.validated_data.get("password1"),
+                    rol=rol
+                )
+
+                if rol == UsuarioLogin.JUGADOR:
+                    grupo = Group.objects.get(name='Jugadores') 
+                    grupo.user_set.add(user)
+                    Jugador.objects.create(usuario=user)
+
+                elif rol == UsuarioLogin.ORGANIZADOR:
+                    grupo = Group.objects.get(name='Organizadores') 
+                    grupo.user_set.add(user)
+                    Organizador.objects.create(usuario=user)
+
+                usuario_serializado = UsuarioSerializerRegistro({
+                    "username": user.username,
+                    "email": user.email,
+                    "rol": user.rol
+                })
+                return Response(usuario_serializado.data, status=status.HTTP_201_CREATED)
+
+            except Exception as error:
+                print(repr(error))
+                return Response({"error": str(error)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+        else:
+            return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+
