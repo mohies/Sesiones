@@ -53,7 +53,7 @@ urlpatterns = [
     path('torneos/eliminar-imagen/<int:torneo_id>/', api_views.torneo_eliminar_imagen, name='torneo_eliminar_imagen'),
 
     path('registrar/usuario/', api_views.RegistrarUsuarioView.as_view(), name='registrar_usuario'),
-
+    path('usuario/token/<str:token>/', api_views.obtener_usuario_token),
 
      path('', include(router.urls)),
 
