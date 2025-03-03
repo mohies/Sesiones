@@ -54,6 +54,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'oauth2_provider',
     'rest_framework_simplejwt',
+    "corsheaders",
+
 
   
     
@@ -68,6 +70,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     "debug_toolbar.middleware.DebugToolbarMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
 ]
 
 ROOT_URLCONF = 'mysite.urls'
@@ -160,6 +163,10 @@ OAUTH2_PROVIDER = {
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
+        'rest_framework.authentication.TokenAuthentication', 
+        'rest_framework.authentication.BasicAuthentication',  
+
+
     ),
 
     'DEFAULT_PERMISSION_CLASSES': (
@@ -172,3 +179,6 @@ REST_FRAMEWORK = {
 
 MEDIA_URL = '/media/'  # La URL pública para acceder a los archivos subidos
 MEDIA_ROOT = BASE_DIR / 'media'  # La ubicación real donde se almacenarán los archivo
+
+
+CORS_ALLOW_ALL_ORIGINS = True

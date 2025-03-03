@@ -54,6 +54,13 @@ urlpatterns = [
 
     path('registrar/usuario/', api_views.RegistrarUsuarioView.as_view(), name='registrar_usuario'),
     path('usuario/token/<str:token>/', api_views.obtener_usuario_token),
+    
+    
+    path('torneos/mis-torneos/', api_views.torneos_usuario, name='torneos_usuario'),
+    path('torneos/mis-torneos-jugadores/', api_views.torneos_usuario_con_jugadores, name="torneos-usuario-jugadores"),
+
+    
+
 
      path('', include(router.urls)),
 

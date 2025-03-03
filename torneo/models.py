@@ -79,6 +79,8 @@ class Torneo(models.Model):
     duracion = models.DurationField()
     participantes = models.ManyToManyField(Participante, through='TorneoParticipante',related_name="participante_torneo")
     imagen = models.FileField(null=True)
+    organizador = models.ForeignKey(UsuarioLogin, on_delete=models.CASCADE, null=True, blank=True)  
+    
     
     def __str__(self):
         return self.nombre
@@ -115,6 +117,8 @@ class Juego(models.Model):
     id_consola=models.ForeignKey(Consola,on_delete=models.CASCADE)
     descripcion=models.TextField()
     torneos = models.ManyToManyField(Torneo, through='TorneoJuego')
+    creador = models.ForeignKey(UsuarioLogin, on_delete=models.CASCADE, null=True, blank=True)  # ✅ Agregado
+
     def __str__(self):
         return self.nombre
         
