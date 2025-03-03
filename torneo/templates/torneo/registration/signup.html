@@ -1,59 +1,11 @@
 {% extends 'torneo/estructura/base.html' %}
 
-{% block content %}
-<h2>Registro de Usuario</h2>
-
-<form action="{% url 'registro' %}" method="post">
-    {% load django_bootstrap5 %}
-    {% csrf_token %}
-    
-    <!-- Formulario básico de Usuario -->
-    {% bootstrap_form formulario %}
-    
-    <!-- Dependiendo del rol, mostramos el formulario adecuado -->
-    <div id="jugador-fields" style="display:none;">
-        <h3>Detalles del Jugador</h3>
-        {% if jugador_form %}
-            {% bootstrap_form jugador_form %}
-        {% endif %}
-    </div>
-
-    <div id="organizador-fields" style="display:none;">
-        <h3>Detalles del Organizador</h3>
-        {% if organizador_form %}
-            {% bootstrap_form organizador_form %}
-        {% endif %}
-    </div>
-
-    <button type="submit" class="btn btn-primary">Registrar</button>
-</form>
-
-<script>
-    // Función para mostrar los campos según el rol seleccionado
-    document.addEventListener("DOMContentLoaded", function() {
-        var rol = document.getElementById('id_rol').value;
-        toggleFields(rol);  // Mostrar el formulario adecuado al cargar la página
-    });
-
-    // Escuchar el cambio del campo de selección del rol
-    document.getElementById('id_rol').addEventListener('change', function() {
-        var rol = this.value;
-        toggleFields(rol);  // Mostrar u ocultar campos según el rol seleccionado
-    });
-
-    // Función para mostrar u ocultar los campos según el rol
-    function toggleFields(rol) {
-        // Ocultar todos los formularios
-        document.getElementById('jugador-fields').style.display = 'none';
-        document.getElementById('organizador-fields').style.display = 'none';
-
-        // Mostrar el formulario correspondiente según el rol
-        if (rol == '2') {  // Jugador
-            document.getElementById('jugador-fields').style.display = 'block';
-        } else if (rol == '3') {  // Organizador
-            document.getElementById('organizador-fields').style.display = 'block';
-        }
-    }
-</script>
-
+{% block contenido %}
+    <h2>Registro de Usuario</h2>
+    <form action="{% url 'registrar_usuario' %}" method="post"> 
+        {% load django_bootstrap5 %}
+        {% csrf_token %} 
+        {% bootstrap_form formulario %}         
+        {% bootstrap_button "Enviar" button_type="submit" button_class="btn-primary" %}
+    </form>
 {% endblock %}

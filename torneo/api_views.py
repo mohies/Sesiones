@@ -10,8 +10,9 @@ from rest_framework.authentication import SessionAuthentication
 from rest_framework.permissions import IsAuthenticated
 import logging
 from django.shortcuts import redirect
-
+from django.contrib.auth.decorators import permission_required
 logger = logging.getLogger(__name__)
+
 
 def handle_error(request, error_message, status_code):
     logger.error(error_message)
@@ -242,19 +243,31 @@ def categoria_list(request):
         return handle_error(request, f"Error al obtener la lista de categorías: {e}", status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 @api_view(['POST'])
+@permission_required('torneo.add_torneo', raise_exception=True)
 def torneo_create(request):
+    """
+    🔹 Crea un torneo asignando automáticamente el usuario autenticado como organizador.
+    """
     try:
-        torneoCreateSerializer = TorneoSerializerCreate(data=request.data)
-        if torneoCreateSerializer.is_valid():
-            try:
-                torneoCreateSerializer.save()
-                return Response("Torneo CREADO")
-            except serializers.ValidationError as error:
-                return Response(error.detail, status=status.HTTP_400_BAD_REQUEST)
+        print(f"Usuario autenticado: {request.user}")  # 📌 Ver quién está autenticado
+
+        datos = request.data.copy()
+        datos["organizador"] = request.user.id  # 🔹 Asignar automáticamente el organizador
+
+        serializer = TorneoSerializerCreate(data=datos, context={"request": request})
+        if serializer.is_valid():
+            torneo = serializer.save()
+            print(f"Torneo creado: {torneo.nombre} | Organizador: {torneo.organizador}")  # 📌 Debug
+            return Response({"mensaje": "Torneo creado exitosamente", "id": torneo.id}, status=status.HTTP_201_CREATED)
         else:
-            return Response(torneoCreateSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            print(f"Errores en el serializer: {serializer.errors}")  # 📌 Debug
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
     except Exception as e:
-        return handle_error(request, f"Error al crear el torneo: {e}", status.HTTP_500_INTERNAL_SERVER_ERROR)
+        print(f"Error al crear torneo: {e}")  # 📌 Debug
+        return Response({"error": f"Error al crear el torneo: {e}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
 
 @api_view(['GET'])
 def torneo_obtener(request, torneo_id):
@@ -267,7 +280,9 @@ def torneo_obtener(request, torneo_id):
     except Exception as e:
         return handle_error(request, f"Error al obtener el torneo: {e}", status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+
 @api_view(['PUT'])
+@permission_required('torneo.change_torneo', raise_exception=True)
 def torneo_editar(request, torneo_id):
     try:
         torneo = Torneo.objects.get(id=torneo_id)
@@ -286,6 +301,7 @@ def torneo_editar(request, torneo_id):
         return handle_error(request, f"Error al editar el torneo: {e}", status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 @api_view(['PATCH'])
+@permission_required('torneo.change_torneo', raise_exception=True)
 def torneo_actualizar_nombre(request, torneo_id):
     try:
         torneo = Torneo.objects.get(id=torneo_id)
@@ -304,6 +320,7 @@ def torneo_actualizar_nombre(request, torneo_id):
         return handle_error(request, f"Error al actualizar el nombre del torneo: {e}", status.HTTP_500_INTERNAL_SERVER_ERROR)
     
 @api_view(['PATCH'])
+@permission_required('torneo.change_torneo', raise_exception=True)
 def torneo_actualizar_imagen(request, torneo_id):
     try:
         # Verificar si el torneo existe
@@ -325,6 +342,7 @@ def torneo_actualizar_imagen(request, torneo_id):
 
 
 @api_view(['DELETE'])
+@permission_required('torneo.delete_torneo', raise_exception=True)
 def torneo_eliminar_imagen(request, torneo_id):
     """
     Elimina la imagen de un torneo específico.
@@ -352,6 +370,7 @@ def torneo_eliminar_imagen(request, torneo_id):
 
 
 @api_view(['DELETE'])
+@permission_required('torneo.delete_torneo', raise_exception=True)
 def torneo_eliminar(request, torneo_id):
     try:
         torneo = Torneo.objects.get(id=torneo_id)
@@ -379,19 +398,40 @@ def consola_list(request):
         return handle_error(request, f"Error al obtener la lista de consolas: {e}", status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 @api_view(['POST'])
+@permission_required('torneo.add_juego', raise_exception=True)  
 def juego_create(request):
+    """
+    🔹 Crea un juego asignando automáticamente el usuario autenticado como creador.
+    """
     try:
-        juegoCreateSerializer = JuegoSerializerCreate(data=request.data)
-        if juegoCreateSerializer.is_valid():
-            try:
-                juegoCreateSerializer.save()
-                return Response("Juego CREADO")
-            except serializers.ValidationError as error:
-                return Response(error.detail, status=status.HTTP_400_BAD_REQUEST)
+        if not request.user or not request.user.is_authenticated:  # Verificamos autenticación
+            return Response({"error": "Usuario no autenticado"}, status=status.HTTP_401_UNAUTHORIZED)
+
+        print(f"Usuario autenticado: {request.user}") 
+
+        # Copiamos los datos y asignamos el usuario autenticado como creador
+        datos = request.data.copy()
+        serializer = JuegoSerializerCreate(data=datos)
+
+        if serializer.is_valid():
+            juego = serializer.save()  
+            
+            if hasattr(juego, "creador"):  #  Verificar que el campo "creador" existe en el modelo
+                juego.creador = request.user  
+                juego.save()
+                print(f"Juego creado: {juego.nombre} | Creador: {juego.creador.username}") 
+            else:
+                print(" Error: El modelo Juego no tiene un campo 'creador'.")
+
+            return Response({"mensaje": "Juego creado exitosamente", "id": juego.id}, status=status.HTTP_201_CREATED)
         else:
-            return Response(juegoCreateSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
     except Exception as e:
-        return handle_error(request, f"Error al crear el juego: {e}", status.HTTP_500_INTERNAL_SERVER_ERROR)
+        print(f"Error al crear juego: {e}") 
+        return Response({"error": f"Error al crear el juego: {e}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
 
 @api_view(['GET'])
 def juego_obtener(request, juego_id):
@@ -405,6 +445,7 @@ def juego_obtener(request, juego_id):
         return handle_error(request, f"Error al obtener el juego: {e}", status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 @api_view(['PUT'])
+@permission_required('torneo.change_juego', raise_exception=True)
 def juego_editar(request, juego_id):
     try:
         juego = Juego.objects.get(id=juego_id)
@@ -423,6 +464,7 @@ def juego_editar(request, juego_id):
         return handle_error(request, f"Error al editar el juego: {e}", status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 @api_view(['PATCH'])
+@permission_required('torneo.change_juego', raise_exception=True)
 def juego_actualizar_nombre(request, juego_id):
     try:
         juego = Juego.objects.get(id=juego_id)
@@ -441,6 +483,7 @@ def juego_actualizar_nombre(request, juego_id):
         return handle_error(request, f"Error al actualizar el nombre del juego: {e}", status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 @api_view(['DELETE'])
+@permission_required('torneo.delete_juego', raise_exception=True)
 def juego_eliminar(request, juego_id):
     try:
         juego = Juego.objects.get(id=juego_id)
@@ -475,6 +518,7 @@ def equipo_list(request):
         return handle_error(request, f"Error al obtener la lista de equipos: {e}", status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 @api_view(['POST'])
+@permission_required('torneo.add_participante', raise_exception=True)
 def participante_create(request):
     try:
         participanteCreateSerializer = ParticipanteSerializerCreate(data=request.data)
@@ -501,6 +545,7 @@ def participante_obtener(request, participante_id):
         return handle_error(request, f"Error al obtener el participante: {e}", status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 @api_view(['PUT'])
+@permission_required('torneo.change_participante', raise_exception=True)
 def participante_editar(request, participante_id):
     try:
         participante = Participante.objects.get(id=participante_id)
@@ -519,6 +564,7 @@ def participante_editar(request, participante_id):
         return handle_error(request, f"Error al editar el participante: {e}", status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 @api_view(['PATCH'])
+@permission_required('torneo.change_participante', raise_exception=True)
 def participante_actualizar_equipos(request, participante_id):
     try:
         participante = Participante.objects.get(id=participante_id)
@@ -537,6 +583,7 @@ def participante_actualizar_equipos(request, participante_id):
         return handle_error(request, f"Error al actualizar los equipos del participante: {e}", status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 @api_view(['DELETE'])
+@permission_required('torneo.delete_participante', raise_exception=True)
 def participante_eliminar(request, participante_id):
     try:
         participante = Participante.objects.get(id=participante_id)
@@ -564,6 +611,7 @@ con sus validaciones(al menos 3 campos), control de errores y respuestas.(1 punt
 """
 
 @api_view(['POST'])
+@permission_required('torneo.add_jugador')
 def jugador_create(request):
     try:
         jugadorCreateSerializer = JugadorSerializerCreate(data=request.data)
@@ -590,6 +638,7 @@ def jugador_obtener(request, jugador_id):
         return handle_error(request, f"Error al obtener el jugador: {e}", status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 @api_view(['PUT'])
+@permission_required('torneo.change_jugador', raise_exception=True)
 def jugador_editar(request, jugador_id):
     try:
         jugador = Jugador.objects.get(id=jugador_id)
@@ -608,6 +657,7 @@ def jugador_editar(request, jugador_id):
         return handle_error(request, f"Error al editar el jugador: {e}", status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 @api_view(['PATCH'])
+@permission_required('torneo.change_jugador', raise_exception=True)
 def jugador_actualizar_puntos(request, jugador_id):
     try:
         jugador = Jugador.objects.get(id=jugador_id)
@@ -626,6 +676,7 @@ def jugador_actualizar_puntos(request, jugador_id):
         return handle_error(request, f"Error al actualizar los puntos del jugador: {e}", status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 @api_view(['DELETE'])
+@permission_required('torneo.delete_jugador', raise_exception=True)
 def jugador_eliminar_torneo(request, jugador_id, torneo_id):
     try:
         TorneoJugador.objects.get(jugador_id=jugador_id, torneo_id=torneo_id).delete()
@@ -634,4 +685,109 @@ def jugador_eliminar_torneo(request, jugador_id, torneo_id):
         return handle_error(request, "Jugador no encontrado en este torneo", status.HTTP_404_NOT_FOUND)
     except Exception as e:
         return handle_error(request, f"Error al eliminar el jugador del torneo: {e}", status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+# api/views.py (en el servidor)
+
+# views.py
+from django.contrib.auth.models import Group
+from rest_framework import generics, status
+from rest_framework.response import Response
+from rest_framework.permissions import AllowAny
+from .models import UsuarioLogin, Jugador, Organizador
+from .serializers import UsuarioSerializerRegistro
+
+
+class RegistrarUsuarioView(generics.CreateAPIView):
+    serializer_class = UsuarioSerializerRegistro
+    permission_classes = [AllowAny]
+    
+    def create(self, request, *args, **kwargs):
+        # Creamos el serializer con los datos recibidos
+        serializers = UsuarioSerializerRegistro(data=request.data)
+        
+        # Verificamos si los datos del formulario son válidos
+        if serializers.is_valid():
+            try:
+                # Obtenemos el rol desde los datos enviados
+                rol = request.data.get('rol')
+                
+                # Creamos el usuario con los datos del formulario
+                user = UsuarioLogin.objects.create_user(
+                    username=serializers.validated_data.get("username"),
+                    email=serializers.validated_data.get("email"),
+                    password=serializers.validated_data.get("password1"),  # Usamos password1
+                    rol=rol  #Establecemos el rol aquí
+                )
+
+                # Asignamos el usuario al grupo correspondiente según su rol
+                if rol == str(UsuarioLogin.JUGADOR):  # Comparamos como string porque cuando le hacemos un reques data .get viene como tipo string no entero
+                    grupo = Group.objects.get(name='Jugadores')
+                    grupo.user_set.add(user)
+                    Jugador.objects.create(usuario=user)  # Crear una instancia de Jugador
+                elif rol == str(UsuarioLogin.ORGANIZADOR):  # Comparamos como string
+                    grupo = Group.objects.get(name='Organizadores')
+                    grupo.user_set.add(user)
+                    Organizador.objects.create(usuario=user)  # Crear una instancia de Organizador
+
+                # Serializamos el usuario creado para la respuesta
+                usuarioSerializado = UsuarioLoginSerializer(user)
+                
+                # Devolvemos la respuesta con el usuario serializado
+                return Response(usuarioSerializado.data, status=status.HTTP_201_CREATED)
+
+            except Exception as error:
+                # Si ocurre un error, lo capturamos y devolvemos un error 500
+                print(repr(error))
+                return Response({"error": str(error)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        else:
+            # Si los datos del serializer no son válidos, devolvemos los errores
+            return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+        
+@api_view(['GET'])
+def torneos_usuario(request):
+    """
+    Devuelve la lista de torneos en los que el usuario autenticado está inscrito.
+    """
+    # 🔹 Buscar torneos en los que el usuario esté como jugador
+    torneos = Torneo.objects.filter(torneojugador__jugador__usuario=request.user).distinct()
+    
+    # 🔹 Serializar y devolver los datos
+    serializer = TorneoSerializer(torneos, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+@api_view(['GET'])
+def torneos_usuario_con_jugadores(request):
+    """
+    🔹 Devuelve la lista de torneos en los que el usuario autenticado está inscrito,
+       junto con la lista de jugadores que participan en cada torneo.
+    """
+    # 🔹 Buscar torneos en los que el usuario está inscrito como jugador
+    torneos = Torneo.objects.filter(torneojugador__jugador__usuario=request.user).distinct()
+
+    # 🔹 Serializar los torneos con la lista de jugadores
+    serializer = TorneoSerializer(torneos, many=True)
+
+    # 🔹 Agregar la lista de jugadores en cada torneo
+    for torneo in serializer.data:
+        jugadores = Jugador.objects.filter(torneojugador__torneo_id=torneo["id"]).select_related("usuario")
+        torneo["jugadores"] = [
+            {"id": jugador.id, "username": jugador.usuario.username, "puntos": jugador.puntos}
+            for jugador in jugadores
+        ]
+
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+
+from oauth2_provider.models import AccessToken
+@api_view(['GET'])
+def obtener_usuario_token(request, token):
+    ModeloToken = AccessToken.objects.get(token=token)
+    usuario = UsuarioLogin.objects.get(id=ModeloToken.user_id)
+    serializer = UsuarioLoginSerializer(usuario)
+    return Response(serializer.data)
+
+
 
