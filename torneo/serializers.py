@@ -167,19 +167,29 @@ class JuegoSerializerMejorado(serializers.ModelSerializer):
         model = Juego
         fields = ['id', 'nombre', 'genero', 'descripcion','id_consola', 'consola','torneo', 'torneos']
         
-        
+import base64
+from django.core.files.base import ContentFile
+from django.core.files.uploadedfile import InMemoryUploadedFile  
+
+     
+import base64
+from django.core.files.base import ContentFile
+from rest_framework import serializers
+from torneo.models import Torneo, UsuarioLogin
+
+
 class TorneoSerializerCreate(serializers.ModelSerializer):
-    
+    imagen = serializers.CharField(required=False, allow_null=True)  # Se usa base64 como string
+
     class Meta:
         model = Torneo
         fields = ['nombre', 'descripcion', 'fecha_inicio', 
-                  'categoria', 'duracion']
+                  'categoria', 'duracion', 'imagen']  # Incluir la imagen como campo
 
     def validate_nombre(self, nombre):
         """Verifica que el nombre del torneo no exista en la base de datos"""
-        torneo_existente = Torneo.objects.filter(nombre=nombre).first()
-        if torneo_existente and torneo_existente.id != self.instance.id:
-            raise serializers.ValidationError("Ya existe un juego con ese nombre.")
+        if Torneo.objects.filter(nombre=nombre).exists():
+            raise serializers.ValidationError("Ya existe un torneo con ese nombre.")
         return nombre
     
     def validate_fecha_inicio(self, value):
@@ -195,11 +205,32 @@ class TorneoSerializerCreate(serializers.ModelSerializer):
         if value < timedelta(hours=1):
             raise serializers.ValidationError("La duración mínima debe ser de 1 hora.")
         return value
+
+    def create(self, validated_data):
+        """
+        🔹 Sobreescribimos `create()` para asignar automáticamente el usuario autenticado como organizador.
+        """
+        request = self.context.get("request")  # Obtener el usuario desde el contexto
+        if not request or not hasattr(request, "user"):
+            raise serializers.ValidationError("No se puede determinar el usuario autenticado.")
+
+        validated_data["organizador"] = request.user  # 🔹 Asignar el organizador automáticamente
+
+        # 📌 Verificar si se ha recibido una imagen en base64 y convertirla en archivo
+        imagen_base64 = self.initial_data.get('imagen', None)
+        if imagen_base64:
+            imagen = base64.b64decode(imagen_base64)
+            contenido_archivo = ContentFile(imagen, name="imagen_torneo.jpg")
+            validated_data["imagen"] = contenido_archivo  # Asignar el archivo imagen
+
+        return Torneo.objects.create(**validated_data)
+
     
 class TorneoSerializerActualizarNombre(serializers.ModelSerializer):
     class Meta:
         model = Torneo
         fields = ['nombre']
+        
         
     def validate_nombre(self, nombre):
         """
@@ -210,6 +241,25 @@ class TorneoSerializerActualizarNombre(serializers.ModelSerializer):
             raise serializers.ValidationError('Ya existe un torneo con ese nombre')
         return nombre  #  Si no hay problema, devuelve el nombre original
     
+    
+class TorneoSerializerActualizarImagen(serializers.ModelSerializer):
+    imagen = serializers.ImageField(required=True)
+
+    class Meta:
+        model = Torneo
+        fields = ['imagen']
+        
+    def validate_imagen(self, imagen):
+        # Validar tamaño máximo de 2MB
+        if imagen.size > 2 * 1024 * 1024:
+            raise serializers.ValidationError("La imagen no puede superar los 2MB.")
+        
+        # Validar tipo de archivo
+        if not imagen.content_type in ["image/jpeg", "image/png"]:
+            raise serializers.ValidationError("La imagen debe ser JPEG o PNG.")
+        
+        return imagen
+      
 class JuegoSerializerCreate(serializers.ModelSerializer):
     
     GENEROS_CHOICES = [
@@ -402,8 +452,6 @@ class JugadorSerializerCreate(serializers.ModelSerializer):
         return instance
 
 
-    
-    
 class JugadorActualizarPuntosSerializer(serializers.ModelSerializer):
     class Meta:
         model = Jugador
@@ -417,5 +465,23 @@ class JugadorActualizarPuntosSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("Los puntos no pueden ser negativos.")
         return puntos
 
+
+
+class UsuarioSerializerRegistro(serializers.Serializer):
+ 
+    username = serializers.CharField()
+    password1 = serializers.CharField()
+    password2 = serializers.CharField()
+    email = serializers.EmailField()
+    rol = serializers.IntegerField()
+    
+    def validate_username(self,username):
+        usuario = UsuarioLogin.objects.filter(username=username).first()
+        if(not usuario is None):
+            raise serializers.ValidationError('Ya existe un usuario con ese nombre')
+        return username
+
+    
+    
 
 
