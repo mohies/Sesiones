@@ -22,3 +22,16 @@ Cuando un usuario inicia sesión, obtiene un `access_token` que debe incluir en 
 
 ```http
 Authorization: Bearer <token>
+
+
+
+## 🚀 Despliegue con Docker
+
+### 🐳 **Iniciar la API con Docker**
+Para construir y ejecutar la API, usa:
+
+```sh
+docker compose up --build
+
+### 🐳 **Detener la API con Docker**
+docker compose down
