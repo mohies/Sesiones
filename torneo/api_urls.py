@@ -7,7 +7,7 @@ router = DefaultRouter()
 router.register(r'to', TorneoViewSet, basename='torneo')
 
 urlpatterns = [
-    ##path('torneos/', api_views.torneo_list_sencillo, name='torneo-list-sencillo'),
+    path('torneos/', api_views.torneo_list_sencillo, name='torneo-list-sencillo'),
 
     # Ruta para la vista de torneos (consulta mejorada) usando "/api/v1/torneos/mejorada/"
     path('torneos/mejorada/', api_views.torneo_list, name='torneo_list'),
@@ -24,7 +24,6 @@ urlpatterns = [
     path('participantes/buscar/avanzado/', api_views.participante_buscar_avanzado, name='participante_buscar_avanzado'),
     path('juegos/buscar/avanzado/', api_views.juego_buscar_avanzado, name='juego_buscar_avanzado'),
     path('categorias/', api_views.categoria_list, name='categoria_list'),
-    path('participantes/', api_views.participante_list, name='participante_list'),
     path('torneos/crear/', api_views.torneo_create, name='torneo_create'),
     path('torneos/editar/<int:torneo_id>/', api_views.torneo_editar, name='torneo_editar'),
     path('torneos/<int:torneo_id>/', api_views.torneo_obtener, name='torneo_obtener'),
@@ -50,6 +49,18 @@ urlpatterns = [
     path('jugadores/editar/<int:jugador_id>/', api_views.jugador_editar, name='jugador_editar'),
     path('jugadores/actualizar_puntos/<int:jugador_id>/', api_views.jugador_actualizar_puntos, name="jugador_actualizar_puntos"),
     path('jugadores/eliminar/<int:jugador_id>/<int:torneo_id>/', api_views.jugador_eliminar_torneo, name="jugador_eliminar_torneo"),
+    path('torneos/actualizar-imagen/<int:torneo_id>/', api_views.torneo_actualizar_imagen, name='torneo_actualizar_imagen'),
+    path('torneos/eliminar-imagen/<int:torneo_id>/', api_views.torneo_eliminar_imagen, name='torneo_eliminar_imagen'),
+
+    path('registrar/usuario/', api_views.RegistrarUsuarioView.as_view(), name='registrar_usuario'),
+    path('usuario/token/<str:token>/', api_views.obtener_usuario_token),
+    
+    
+    path('torneos/mis-torneos/', api_views.torneos_usuario, name='torneos_usuario'),
+    path('torneos/mis-torneos-jugadores/', api_views.torneos_usuario_con_jugadores, name="torneos-usuario-jugadores"),
+
+    
+
 
      path('', include(router.urls)),
 

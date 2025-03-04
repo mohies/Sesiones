@@ -614,17 +614,33 @@ con sus validaciones(al menos 3 campos), control de errores y respuestas.(1 punt
 @permission_required('torneo.add_jugador')
 def jugador_create(request):
     try:
-        jugadorCreateSerializer = JugadorSerializerCreate(data=request.data)
-        if jugadorCreateSerializer.is_valid():
-            try:
-                jugadorCreateSerializer.save()
-                return Response("Jugador CREADO")
-            except serializers.ValidationError as error:
-                return Response(error.detail, status=status.HTTP_400_BAD_REQUEST)
-        else:
-            return Response(jugadorCreateSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        # Obtener el jugador autenticado
+        jugador = Jugador.objects.filter(usuario=request.user).first()
+        if not jugador:
+            return Response({"error": "Usuario no autenticado o no tiene perfil de jugador"}, status=status.HTTP_404_NOT_FOUND)
+
+        # Obtener torneos y validar
+        torneos_ids = request.data.get("torneos", [])
+        if not torneos_ids:
+            return Response({"error": "Debe proporcionar al menos un torneo"}, status=status.HTTP_400_BAD_REQUEST)
+
+        torneos_validos = Torneo.objects.filter(id__in=torneos_ids)
+        if torneos_validos.count() != len(torneos_ids):
+            return Response({"error": "Uno o más torneos no existen"}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Asociar jugador a torneos, evitando duplicados
+        torneos_asociados = []
+        for torneo in torneos_validos:
+            if TorneoJugador.objects.filter(torneo=torneo, jugador=jugador).exists():
+                return Response({"error": f"Ya estás inscrito en el torneo {torneo.nombre}"}, status=status.HTTP_400_BAD_REQUEST)
+            TorneoJugador.objects.create(torneo=torneo, jugador=jugador)
+            torneos_asociados.append(torneo.nombre)
+
+        return Response({"mensaje": "Jugador asociado a los torneos correctamente", "torneos": torneos_asociados}, status=status.HTTP_200_OK)
+
     except Exception as e:
-        return handle_error(request, f"Error al crear el jugador: {e}", status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response({"error": f"Error al asociar el jugador al torneo: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 
 @api_view(['GET'])
 def jugador_obtener(request, jugador_id):
@@ -788,6 +804,5 @@ def obtener_usuario_token(request, token):
     usuario = UsuarioLogin.objects.get(id=ModeloToken.user_id)
     serializer = UsuarioLoginSerializer(usuario)
     return Response(serializer.data)
-
 
 
