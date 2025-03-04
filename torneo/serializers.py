@@ -369,6 +369,9 @@ class ParticipanteSerializerActualizarEquipos(serializers.ModelSerializer):
 
 
 
+from rest_framework import serializers
+from .models import Jugador, Torneo, TorneoJugador
+
 class JugadorSerializerCreate(serializers.ModelSerializer):
     
     class Meta:
@@ -399,9 +402,10 @@ class JugadorSerializerCreate(serializers.ModelSerializer):
         if len(torneos) < 1:
             raise serializers.ValidationError("Debe seleccionar al menos un torneo.")
         
-        for torneo_id in torneos:
-            if not Torneo.objects.filter(id=torneo_id).exists():
-                raise serializers.ValidationError(f"El torneo con ID {torneo_id} no existe.")
+        # Verificar que todos los torneos existen
+        torneos_invalidos = [torneo_id for torneo_id in torneos if not Torneo.objects.filter(id=torneo_id).exists()]
+        if torneos_invalidos:
+            raise serializers.ValidationError(f"Los siguientes torneos no existen: {', '.join(map(str, torneos_invalidos))}")
         
         return torneos
 
@@ -418,10 +422,10 @@ class JugadorSerializerCreate(serializers.ModelSerializer):
             equipo=validated_data["equipo"]
         )
 
-        # Asociar torneos con el jugador
-        for torneo_id in torneos:
-            torneo = Torneo.objects.get(id=torneo_id)
-            TorneoJugador.objects.create(torneo=torneo, jugador=jugador)
+        # Asociar torneos con el jugador utilizando bulk_create para eficiencia
+        torneos_objetos = [Torneo.objects.get(id=torneo_id) for torneo_id in torneos]
+        torneo_jugadores = [TorneoJugador(torneo=torneo, jugador=jugador) for torneo in torneos_objetos]
+        TorneoJugador.objects.bulk_create(torneo_jugadores)
 
         return jugador
 
@@ -443,13 +447,12 @@ class JugadorSerializerCreate(serializers.ModelSerializer):
         instance.save()
 
         # Actualizar la relación ManyToMany con `through`
-        instance.torneos.clear()  # Elimina las relaciones actuales
-
-        for torneo_id in torneos:
-            torneo = Torneo.objects.get(id=torneo_id)
-            TorneoJugador.objects.create(torneo=torneo, jugador=instance)  # Crea la relación
+        # Evita relaciones duplicadas, eliminando primero las existentes y luego agregando las nuevas
+        torneos_objetos = [Torneo.objects.get(id=torneo_id) for torneo_id in torneos]
+        instance.torneos.set(torneos_objetos, clear=True)  # Utiliza set para mantener relaciones actualizadas
 
         return instance
+
 
 
 class JugadorActualizarPuntosSerializer(serializers.ModelSerializer):
