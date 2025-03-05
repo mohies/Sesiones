@@ -401,7 +401,7 @@ def consola_list(request):
 @permission_required('torneo.add_juego', raise_exception=True)  
 def juego_create(request):
     """
-    🔹 Crea un juego asignando automáticamente el usuario autenticado como creador.
+     Crea un juego asignando automáticamente el usuario autenticado como creador.
     """
     try:
         if not request.user or not request.user.is_authenticated:  # Verificamos autenticación

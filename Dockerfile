@@ -1,18 +1,23 @@
-# Usar una imagen oficial de Python
-FROM python:3.9
+# Usa Python 3.11
+FROM python:3.11
 
-# Establecer el directorio de trabajo dentro del contenedor
+# Configurar el directorio de trabajo en el contenedor
 WORKDIR /app
 
-# Copiar archivos de requerimientos e instalarlos
+# Copiar el archivo de dependencias primero
 COPY requirements.txt .
+
+# Instalar dependencias
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copiar el código fuente de la API
+# 🚨 Instalar `rest_framework_simplejwt` manualmente en caso de que falle
+RUN pip install --no-cache-dir djangorestframework-simplejwt
+
+# Copiar el resto del código del proyecto
 COPY . .
 
-# Exponer el puerto en el que corre Django
+# Exponer el puerto de Django
 EXPOSE 8000
 
-# Comando para ejecutar el servidor
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "Sesiones.wsgi:application"]
+# Comando por defecto para ejecutar Django
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
