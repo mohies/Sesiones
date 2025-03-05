@@ -249,18 +249,18 @@ def torneo_create(request):
     🔹 Crea un torneo asignando automáticamente el usuario autenticado como organizador.
     """
     try:
-        print(f"Usuario autenticado: {request.user}")  # 📌 Ver quién está autenticado
+        print(f"Usuario autenticado: {request.user}")  # Ver quién está autenticado
 
         datos = request.data.copy()
-        datos["organizador"] = request.user.id  # 🔹 Asignar automáticamente el organizador
+        datos["organizador"] = request.user.id  #  Asignar automáticamente el organizador
 
         serializer = TorneoSerializerCreate(data=datos, context={"request": request})
         if serializer.is_valid():
             torneo = serializer.save()
-            print(f"Torneo creado: {torneo.nombre} | Organizador: {torneo.organizador}")  # 📌 Debug
+            print(f"Torneo creado: {torneo.nombre} | Organizador: {torneo.organizador}")  #  Debug
             return Response({"mensaje": "Torneo creado exitosamente", "id": torneo.id}, status=status.HTTP_201_CREATED)
         else:
-            print(f"Errores en el serializer: {serializer.errors}")  # 📌 Debug
+            print(f"Errores en el serializer: {serializer.errors}")  # Debug
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     except Exception as e:
@@ -614,17 +614,33 @@ con sus validaciones(al menos 3 campos), control de errores y respuestas.(1 punt
 @permission_required('torneo.add_jugador')
 def jugador_create(request):
     try:
-        jugadorCreateSerializer = JugadorSerializerCreate(data=request.data)
-        if jugadorCreateSerializer.is_valid():
-            try:
-                jugadorCreateSerializer.save()
-                return Response("Jugador CREADO")
-            except serializers.ValidationError as error:
-                return Response(error.detail, status=status.HTTP_400_BAD_REQUEST)
-        else:
-            return Response(jugadorCreateSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        # Obtener el jugador autenticado
+        jugador = Jugador.objects.filter(usuario=request.user).first()
+        if not jugador:
+            return Response({"error": "Usuario no autenticado o no tiene perfil de jugador"}, status=status.HTTP_404_NOT_FOUND)
+
+        # Obtener torneos y validar
+        torneos_ids = request.data.get("torneos", [])
+        if not torneos_ids:
+            return Response({"error": "Debe proporcionar al menos un torneo"}, status=status.HTTP_400_BAD_REQUEST)
+
+        torneos_validos = Torneo.objects.filter(id__in=torneos_ids)
+        if torneos_validos.count() != len(torneos_ids):
+            return Response({"error": "Uno o más torneos no existen"}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Asociar jugador a torneos, evitando duplicados
+        torneos_asociados = []
+        for torneo in torneos_validos:
+            if TorneoJugador.objects.filter(torneo=torneo, jugador=jugador).exists():
+                return Response({"error": f"Ya estás inscrito en el torneo {torneo.nombre}"}, status=status.HTTP_400_BAD_REQUEST)
+            TorneoJugador.objects.create(torneo=torneo, jugador=jugador)
+            torneos_asociados.append(torneo.nombre)
+
+        return Response({"mensaje": "Jugador asociado a los torneos correctamente", "torneos": torneos_asociados}, status=status.HTTP_200_OK)
+
     except Exception as e:
-        return handle_error(request, f"Error al crear el jugador: {e}", status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response({"error": f"Error al asociar el jugador al torneo: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 
 @api_view(['GET'])
 def jugador_obtener(request, jugador_id):
@@ -749,10 +765,10 @@ def torneos_usuario(request):
     """
     Devuelve la lista de torneos en los que el usuario autenticado está inscrito.
     """
-    # 🔹 Buscar torneos en los que el usuario esté como jugador
+    # Buscar torneos en los que el usuario esté como jugador
     torneos = Torneo.objects.filter(torneojugador__jugador__usuario=request.user).distinct()
     
-    # 🔹 Serializar y devolver los datos
+    # Serializar y devolver los datos
     serializer = TorneoSerializer(torneos, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -760,16 +776,16 @@ def torneos_usuario(request):
 @api_view(['GET'])
 def torneos_usuario_con_jugadores(request):
     """
-    🔹 Devuelve la lista de torneos en los que el usuario autenticado está inscrito,
+     Devuelve la lista de torneos en los que el usuario autenticado está inscrito,
        junto con la lista de jugadores que participan en cada torneo.
     """
-    # 🔹 Buscar torneos en los que el usuario está inscrito como jugador
+    # Buscar torneos en los que el usuario está inscrito como jugador
     torneos = Torneo.objects.filter(torneojugador__jugador__usuario=request.user).distinct()
 
-    # 🔹 Serializar los torneos con la lista de jugadores
+    # Serializar los torneos con la lista de jugadores
     serializer = TorneoSerializer(torneos, many=True)
 
-    # 🔹 Agregar la lista de jugadores en cada torneo
+    # Agregar la lista de jugadores en cada torneo
     for torneo in serializer.data:
         jugadores = Jugador.objects.filter(torneojugador__torneo_id=torneo["id"]).select_related("usuario")
         torneo["jugadores"] = [
@@ -788,6 +804,5 @@ def obtener_usuario_token(request, token):
     usuario = UsuarioLogin.objects.get(id=ModeloToken.user_id)
     serializer = UsuarioLoginSerializer(usuario)
     return Response(serializer.data)
-
 
 
