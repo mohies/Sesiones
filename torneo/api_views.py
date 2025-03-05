@@ -249,18 +249,18 @@ def torneo_create(request):
     🔹 Crea un torneo asignando automáticamente el usuario autenticado como organizador.
     """
     try:
-        print(f"Usuario autenticado: {request.user}")  # 📌 Ver quién está autenticado
+        print(f"Usuario autenticado: {request.user}")  # Ver quién está autenticado
 
         datos = request.data.copy()
-        datos["organizador"] = request.user.id  # 🔹 Asignar automáticamente el organizador
+        datos["organizador"] = request.user.id  #  Asignar automáticamente el organizador
 
         serializer = TorneoSerializerCreate(data=datos, context={"request": request})
         if serializer.is_valid():
             torneo = serializer.save()
-            print(f"Torneo creado: {torneo.nombre} | Organizador: {torneo.organizador}")  # 📌 Debug
+            print(f"Torneo creado: {torneo.nombre} | Organizador: {torneo.organizador}")  #  Debug
             return Response({"mensaje": "Torneo creado exitosamente", "id": torneo.id}, status=status.HTTP_201_CREATED)
         else:
-            print(f"Errores en el serializer: {serializer.errors}")  # 📌 Debug
+            print(f"Errores en el serializer: {serializer.errors}")  # Debug
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     except Exception as e:
@@ -765,10 +765,10 @@ def torneos_usuario(request):
     """
     Devuelve la lista de torneos en los que el usuario autenticado está inscrito.
     """
-    # 🔹 Buscar torneos en los que el usuario esté como jugador
+    # Buscar torneos en los que el usuario esté como jugador
     torneos = Torneo.objects.filter(torneojugador__jugador__usuario=request.user).distinct()
     
-    # 🔹 Serializar y devolver los datos
+    # Serializar y devolver los datos
     serializer = TorneoSerializer(torneos, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -776,16 +776,16 @@ def torneos_usuario(request):
 @api_view(['GET'])
 def torneos_usuario_con_jugadores(request):
     """
-    🔹 Devuelve la lista de torneos en los que el usuario autenticado está inscrito,
+     Devuelve la lista de torneos en los que el usuario autenticado está inscrito,
        junto con la lista de jugadores que participan en cada torneo.
     """
-    # 🔹 Buscar torneos en los que el usuario está inscrito como jugador
+    # Buscar torneos en los que el usuario está inscrito como jugador
     torneos = Torneo.objects.filter(torneojugador__jugador__usuario=request.user).distinct()
 
-    # 🔹 Serializar los torneos con la lista de jugadores
+    # Serializar los torneos con la lista de jugadores
     serializer = TorneoSerializer(torneos, many=True)
 
-    # 🔹 Agregar la lista de jugadores en cada torneo
+    # Agregar la lista de jugadores en cada torneo
     for torneo in serializer.data:
         jugadores = Jugador.objects.filter(torneojugador__torneo_id=torneo["id"]).select_related("usuario")
         torneo["jugadores"] = [
