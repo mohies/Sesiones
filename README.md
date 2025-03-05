@@ -13,15 +13,10 @@ La API usa **OAuth2** con tokens de acceso para autenticar usuarios. Además, em
 
 | Rol        | Permisos |
 |------------|---------|
-| **Jugador** | ✅ Puede ver torneos, juegos y participantes. ❌ No puede crear, editar ni eliminar nada. |
+| **Jugador** | ✅ Puede ver torneos, juegos y participantes e inscribirse a un torneo. ❌ No puede crear, editar ni eliminar nada. |
 | **Organizador** | ✅ Puede crear, editar y eliminar torneos y juegos. |
 | **Administrador** | ✅ Tiene acceso total a todas las operaciones. |
 
-### 📌 **Uso del Token de Autenticación**
-Cuando un usuario inicia sesión, obtiene un `access_token` que debe incluir en cada petición autenticada:
-
-```http
-Authorization: Bearer <token>
 
 
 
